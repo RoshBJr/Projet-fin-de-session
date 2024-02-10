@@ -2,10 +2,31 @@ import Head from "next/head";
 import Image from "next/image";
 import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
+import {importData} from '../code/jsonToSanity';
+import { useEffect, useState } from "react";
+import {client} from '../code/jsonToSanity';
 
 const inter = Inter({ subsets: ["latin"] });
 
+
 export default function Home() {
+  const [data, setData] = useState<Object|null>(null);
+  async function fetch() {
+    const data = await client.fetch(`*[_type == "product"] {
+      image {
+        asset -> {
+          url
+        }
+      }
+    }`)
+    console.log(data);
+    setData(data[50]);
+  }
+
+  useEffect(() => {
+    // importData();
+    fetch();
+  }, []);
 
   return (
     <>
@@ -16,6 +37,10 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={`${styles.main} ${inter.className}`}>
+        {
+          data && 
+          <img src={data.image.asset.url} alt="yo" />
+        }
         <div className={styles.description}>
           <p>
             Get started by editing&nbsp;

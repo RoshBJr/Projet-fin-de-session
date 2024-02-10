@@ -27,6 +27,17 @@ export default defineType({
       ),
       defineField(
         {
+            name: 'gender',
+            title: 'Genre',
+            type: 'object',
+            fields: [
+                {name: 'en', type: 'string', title: 'EN'},
+                {name: 'fr', type: 'string', title: 'FR'}
+            ]
+        }
+      ),
+      defineField(
+        {
             name: 'price',
             title: 'Prix',
             type: 'number',
@@ -43,6 +54,14 @@ export default defineType({
             ]
         }
       ),
+      {
+        title: 'Images Personalisées',
+        name: 'image',
+        type: 'image',
+        options: {
+          hotspot: true
+        }
+      },
       defineField(
         {
             name: 'image_url',
@@ -62,17 +81,33 @@ export default defineType({
         {
             name: 'colors',
             title: 'Couleurs',
-            type: 'array',
-            of: [{type: 'object',
-                fields: [
-                    {name: 'color', title: 'Couleur', type: 'object',
-                        fields: [
-                            {name: 'en', type: 'string', title: 'EN'},
-                            {name: 'fr', type: 'string', title: 'FR'}
-                        ]
-                    }
-                ]
-            }]
+            type: 'object',
+            fields: [
+              {name: 'en', type: 'array', of: [{type: 'string'}], title: 'EN'},
+              {name: 'fr', type: 'array', of: [{type: 'string'}], title: 'FR'},
+            ]
+        }
+      ),
+      defineField(
+        {
+            name: 'materials',
+            title: 'Matériels',
+            type: 'object',
+            fields: [
+              {name: 'en', type: 'array', of: [{type: 'string'}], title: 'EN'},
+              {name: 'fr', type: 'array', of: [{type: 'string'}], title: 'FR'},
+            ]
+        }
+      ),
+      defineField(
+        {
+            name: 'patterns',
+            title: 'modèles',
+            type: 'object',
+            fields: [
+              {name: 'en', type: 'array', of: [{type: 'string'}], title: 'EN'},
+              {name: 'fr', type: 'array', of: [{type: 'string'}], title: 'FR'},
+            ]
         }
       ),
 
