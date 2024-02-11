@@ -19,15 +19,14 @@ export default function Home() {
       colors,
       description,
       gender,
-      image_url,
+      defaultImg,
       image[]{ "imgUrl": asset->url }
     }`)
     // console.log(data[49]);
-    setData(data[49]);
+    setData(data[27]);
   }
 
   useEffect(() => {
-    // importData();
     fetch();
   }, []);
 
@@ -47,7 +46,7 @@ export default function Home() {
         }
         {
           data && !data.image &&
-          <img src={data.default_image} alt="yo" />
+          <img src={data.defaultImg} alt="yo" />
         }
         <div className={styles.description}>
           <p>

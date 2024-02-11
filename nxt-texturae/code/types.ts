@@ -5,7 +5,7 @@ export type product = {
     description: { en:string, fr:string };
     gender: { en:string, fr:string };
     image:[{imgUrl:string}];
-    default_image:string;
+    defaultImg:string;
     materials:{en:[string], fr:[string]};
     name:{en:string, fr:string}
     price:number;

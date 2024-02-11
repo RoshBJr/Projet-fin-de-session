@@ -87,7 +87,7 @@ export default defineType({
       },
       defineField(
         {
-            name: 'default_image',
+            name: 'defaultImg',
             title: 'Image par default',
             type: 'string',
         }
@@ -140,5 +140,17 @@ export default defineType({
         title: 'name.fr',
         subtitle: 'price'
       }
-    }
+    },
+    orderings: [
+      {
+        title: 'Nom de produit',
+        name: 'nomDeProduit',
+        by: [
+          {
+            field: 'name.fr', direction: 'asc'
+          }
+        ]
+      }
+
+    ]
 });
