@@ -11,7 +11,7 @@ const items = require('./data.json')
 
 export async function importData() {
   for (const item of items.items) {
-    const { id, name,name_fr, category, category_fr,gender, gender_fr, price, description, description_fr, image_url, sizes, colors, colors_fr, materials, materials_fr, patterns, patterns_fr } = item;
+    const { id, name,name_fr, category, category_fr,gender, gender_fr, price, description, description_fr, defaultImg, sizes, colors, colors_fr, materials, materials_fr, patterns, patterns_fr } = item;
 
     const doc = {
       _type: 'product',
@@ -21,7 +21,7 @@ export async function importData() {
       gender: { en: gender, fr: gender_fr },
       price,
       description: { en: description, fr: description_fr },
-      image_url,
+      defaultImg,
       sizes,
       colors: { en: colors, fr: colors_fr },
       materials: { en: materials, fr: materials_fr },

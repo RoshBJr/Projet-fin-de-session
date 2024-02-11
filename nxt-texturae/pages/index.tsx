@@ -5,22 +5,25 @@ import styles from "@/styles/Home.module.css";
 import {importData} from '../code/jsonToSanity';
 import { useEffect, useState } from "react";
 import {client} from '../code/jsonToSanity';
+import { product } from "@/code/types";
 
 const inter = Inter({ subsets: ["latin"] });
 
 
 export default function Home() {
-  const [data, setData] = useState<Object|null>(null);
+  const [data, setData] = useState<product|null>(null);
   async function fetch() {
     const data = await client.fetch(`*[_type == "product"] {
-      image {
-        asset -> {
-          url
-        }
-      }
+      _id,
+      category,
+      colors,
+      description,
+      gender,
+      image_url,
+      image[]{ "imgUrl": asset->url }
     }`)
-    console.log(data);
-    setData(data[50]);
+    // console.log(data[49]);
+    setData(data[49]);
   }
 
   useEffect(() => {
@@ -38,8 +41,13 @@ export default function Home() {
       </Head>
       <main className={`${styles.main} ${inter.className}`}>
         {
-          data && 
-          <img src={data.image.asset.url} alt="yo" />
+          data && data.image && data.image.map(img => {
+            return <img src={img.imgUrl} alt="yo" />
+          })
+        }
+        {
+          data && !data.image &&
+          <img src={data.default_image} alt="yo" />
         }
         <div className={styles.description}>
           <p>

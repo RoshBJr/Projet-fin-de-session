@@ -16,6 +16,26 @@ export default defineType({
       }),
       defineField(
         {
+          title: 'Slug EN',
+          name: 'slug_en',
+          type: 'slug',
+          options: {
+            source: 'name.en'
+          }
+        }
+      ),
+      defineField(
+        {
+          title: 'Slug FR',
+          name: 'slug_fr',
+          type: 'slug',
+          options: {
+            source: 'name.fr'
+          }
+        }
+      ),
+      defineField(
+        {
             name: 'category',
             title: 'Categorie',
             type: 'object',
@@ -57,15 +77,18 @@ export default defineType({
       {
         title: 'Images Personalisées',
         name: 'image',
-        type: 'image',
-        options: {
-          hotspot: true
-        }
+        type: 'array',
+        of: [{
+          type: 'image',
+          options: {
+            hotspot: true
+          }
+        }]
       },
       defineField(
         {
-            name: 'image_url',
-            title: 'Image',
+            name: 'default_image',
+            title: 'Image par default',
             type: 'string',
         }
       ),
@@ -111,5 +134,11 @@ export default defineType({
         }
       ),
 
-    ]
+    ],
+    preview: {
+      select: {
+        title: 'name.fr',
+        subtitle: 'price'
+      }
+    }
 });
