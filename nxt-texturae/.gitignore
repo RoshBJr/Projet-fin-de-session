@@ -12,9 +12,11 @@
 # next.js
 /.next/
 /out/
-
 # production
 /build
+
+# const variables
+/code/constVariables.js
 
 # misc
 .DS_Store

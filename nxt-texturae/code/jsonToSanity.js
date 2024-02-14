@@ -1,9 +1,10 @@
 import {createClient} from '@sanity/client'
+import {PROJECT_ID, DATASET, TOKEN} from './constVariables'
 
 export const client = createClient({
-  projectId: '1aldes3z',
-  dataset: 'production',
-  token: 'skwQvRbcm05ZgOi2HqhkujUlmlRS0tclEPYXTOrrRb0qWSy4QTH6XN6d4EK7vnRnZ6qFtwySjY4pEPRj8PUTRej7tlDvgfg4oKayQkTzrNdgFRC8KvPsAxGhBnik12h2fVGc8zfyRsJA8Rsky5uwtmG8Kulm8kVH0j8HzuakKNlW2ms5gA7G',
+  projectId: PROJECT_ID,
+  dataset: DATASET,
+  token: TOKEN,
   useCdn: false
 })
 
