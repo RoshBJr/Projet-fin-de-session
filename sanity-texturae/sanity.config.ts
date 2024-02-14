@@ -2,13 +2,14 @@ import {defineConfig} from 'sanity'
 import {structureTool} from 'sanity/structure'
 import {visionTool} from '@sanity/vision'
 import {schemaTypes} from './schemas'
+import {PROJECT_ID, DATASET} from '../nxt-texturae/code/constVariables';
 
 export default defineConfig({
   name: 'default',
   title: 'texturae',
 
-  projectId: '1aldes3z',
-  dataset: 'production',
+  projectId: PROJECT_ID,
+  dataset: DATASET,
 
   plugins: [structureTool(), visionTool()],
 
