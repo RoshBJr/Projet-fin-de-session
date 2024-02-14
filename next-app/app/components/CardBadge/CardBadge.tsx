@@ -1,6 +1,8 @@
 import React from 'react'
+import ReadMore from './ReadMore';
 
 interface Props {
+    id:number;
     name:string;
     email:string;
     username:string;
@@ -8,7 +10,7 @@ interface Props {
     company:{name:string, catchPhrase:string};
 }
 
-const CardBadge = ({name, email, username, website, company}:Props) => {
+const CardBadge = ({id, name, email, username, website, company}:Props) => {
 
   return (
     <div className="card w-96 bg-base-100 shadow-xl">
@@ -20,9 +22,10 @@ const CardBadge = ({name, email, username, website, company}:Props) => {
     </h2>
     <h3>{name}</h3>
     <p>{company.catchPhrase}</p>
+    <ReadMore id={id}/>
     <div className="card-actions justify-end">
       <div className="badge badge-outline">{company.name}</div>
-      <div className="badge badge-outline">Employee</div>
+      <div className="badge badge-outline">Employé(e)</div>
     </div>
   </div>
 </div>

@@ -1,5 +1,5 @@
 import React from 'react'
-import CardBadge from '../components/CardBadge';
+import CardBadge from '../components/CardBadge/CardBadge';
 
 interface User {
   id: number;
@@ -11,8 +11,7 @@ interface User {
 }
 
 const UsersPage = async () => {
-  const response = await fetch('https://jsonplaceholder.typicode.com/users',
-  {cache: 'no-store'})
+  const response = await fetch('https://jsonplaceholder.typicode.com/users')
   const users:User[] = await response.json();
 
   return (
@@ -23,6 +22,7 @@ const UsersPage = async () => {
           users.map(user => (
             <CardBadge
               key={user.id}
+              id={user.id}
               name={user.name}
               username={user.username}
               email={user.email}

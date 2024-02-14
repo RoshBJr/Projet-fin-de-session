@@ -2,7 +2,7 @@ import React from 'react'
 
 const InputThemeController = () => {
   return (
-    <label className="swap swap-rotate w-5 h-5">
+    <label className="swap swap-rotate w-12 h-12">
   
   {/* this hidden checkbox controls the state */}
   <input type="checkbox" className="theme-controller w-5 h-5" value='dark'/>
