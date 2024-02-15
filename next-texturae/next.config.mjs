@@ -1,6 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
+    images: {
+              domains: ['n.nordstrommedia.com', 'imagescdn.simons.ca'],
+    },
 };
 
 export default nextConfig;

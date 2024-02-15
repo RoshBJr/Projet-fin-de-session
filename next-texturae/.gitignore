@@ -12,12 +12,10 @@
 # next.js
 /.next/
 /out/
+
 # production
 /build
-
-# const variables
-/code/constVariables.js
-
+code/constVariables.ts
 # misc
 .DS_Store
 *.pem
