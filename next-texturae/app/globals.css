@@ -15,3 +15,27 @@
     text-wrap: balance;
   }
 }
+
+html {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+html::-webkit-scrollbar {
+    display: none;
+}
+
+.explorer:hover {
+  height: 80px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+.explorer:hover ._drawer {
+  transform: translateX(0%);
+  transform: translateY(80px);
+}
+
+.explorer:hover:hover ._bottom_bar {
+  transform: translateX(0%);
+}
