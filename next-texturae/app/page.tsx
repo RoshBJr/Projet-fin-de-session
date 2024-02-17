@@ -33,7 +33,7 @@ export default async function Home() {
               <Link 
                 href={
                   {
-                    pathname: `/${product.slug_en.current}`,
+                    pathname: `/produit/${product.slug_en.current}`,
                     query: {
                       id: product._id
                     }
