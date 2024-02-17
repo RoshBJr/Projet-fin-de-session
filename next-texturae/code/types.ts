@@ -1,5 +1,5 @@
 export type product = {
-    id: string;
+    _id: string;
     category: { en:string, fr:string };
     colors: { en:[string], fr:[string] };
     description: { en:string, fr:string };

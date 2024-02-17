@@ -3,7 +3,7 @@ import Link from "next/link";
 const Header = () => {
   return (
 <>
-<header className="w-screen text-platinum  h-[80px] fixed navbar bg-paynes-gray">
+<header className="w-screen text-platinum top-0 h-[80px] fixed navbar bg-paynes-gray">
   <div className="navbar-start">
   <div className="cursor-pointer explorer">
     {/* Page content here */}
@@ -11,7 +11,7 @@ const Header = () => {
     <span className="text-xl">Explorer</span>
     <span className="_bottom_bar h-px w-full bg-platinum absolute bottom-0 left-0 -translate-x-full duration-300"></span>
     </div>
-    <div className="_drawer w-[50vw] bg-white absolute top-0 left-0  min-h- translate-y-[80px] min-h-[100vh] duration-200 -translate-x-full">
+    <div className="_drawer w-[50vw] bg-platinum absolute top-0 left-0  min-h- translate-y-[80px] min-h-[100vh] duration-200 -translate-x-full">
       <ul className="menu menu-vertical text-paynes-gray">
         {/* Navbar menu content here */}
         <li><a>Navbar Item 1</a></li>
@@ -21,7 +21,7 @@ const Header = () => {
   </div> 
 </div>
   <div className="navbar-center">
-    <a className="btn btn-ghost text-xl">Texturae</a>
+    <Link href='/' className="btn btn-ghost text-xl">Texturae</Link>
   </div>
   <div className="navbar-end">
     <button className="btn btn-ghost btn-circle">
