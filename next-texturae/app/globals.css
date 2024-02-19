@@ -39,6 +39,18 @@ html::-webkit-scrollbar {
   pointer-events: all;
 }
 
+._search {
+  background-color:rgba(83, 86, 87, 0.629);
+}
+
+#searchInput:checked ~ ._ctn {
+  height: 40px;
+  width: 200px;
+}
+
+#searchInput:checked ~ ._ctn ._search {
+  opacity: 1;
+}
 
 .explorer:hover ._bottom_bar {
   transform: translateX(0%);

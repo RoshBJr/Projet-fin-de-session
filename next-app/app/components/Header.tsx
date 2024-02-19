@@ -1,4 +1,3 @@
-import InputThemeController from './InputThemeController'
 import Link from 'next/link'
 
 export const Header = () => {
@@ -19,7 +18,6 @@ export const Header = () => {
     {<Link className="btn btn-ghost text-xl" href='/'>Tuto Router</Link>}
   </div>
   <div className="navbar-end">
-    <InputThemeController/>
   </div>
 </div>
   )

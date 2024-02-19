@@ -1,5 +1,6 @@
 import type { Config } from "tailwindcss";
 
+
 const config: Config = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -14,7 +15,10 @@ const config: Config = {
         "thistle": "var(--thistle)",
         "paynes-gray": "var(--paynes-gray)",
         "davys-gray": "var(--davys-gray)",
-
+      },
+      fontFamily: {
+        "font-titre": 'var(--font-monkey)',
+        "font-text": 'var(--font-rubik)',
       }
     },
   },

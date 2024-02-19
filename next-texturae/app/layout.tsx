@@ -3,8 +3,21 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
+import { Happy_Monkey, Rubik } from "next/font/google";
 
-const inter = Inter({ subsets: ["latin"] });
+const font_hm = Happy_Monkey({
+  weight: '400',
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-monkey'
+});
+const font_rubik = Rubik({
+  weight: '400',
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-rubik'
+}) ;
+
 const lang:string = 'fr';
 
 export const metadata: Metadata = {
@@ -18,7 +31,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang={lang} data-theme="light">
+    <html lang={lang} data-theme="light" className={`${font_hm.variable} ${font_rubik.variable}`}>
       <body className="relative">
         <Header/>
         {children}
