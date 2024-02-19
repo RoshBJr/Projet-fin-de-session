@@ -27,10 +27,13 @@ async function page({ searchParams }: { searchParams: { id: string } }) {
     <section className="flex  justify-center w-full mt-[120px]">
       <div className="card w-96 bg-base-100 shadow-xl">
           <figure className="h-[300px] relative">
-            <img
+            <Image
               className="absolute top-0 left-0 right-0"
               src={data[0].defaultImg}
               alt={data[0].name.fr}
+              width={800}
+              height={800}
+              priority={true}
             />
           </figure>
         <div className="card-body">

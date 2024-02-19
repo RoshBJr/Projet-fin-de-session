@@ -1,4 +1,3 @@
-import React from 'react'
 import InputThemeController from './InputThemeController'
 import Link from 'next/link'
 

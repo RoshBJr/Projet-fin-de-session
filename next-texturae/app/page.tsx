@@ -40,10 +40,13 @@ export default async function Home() {
                   }
                 }
               >
-                <img
+                <Image
                   className="min-[320px]:w-full md:w-[1/2] min-[500px]:w-[1/2] lg:w-[1/3]  xl:w-[1/4] h-auto"
                   src={product.defaultImg}
                   alt={product.name.en}
+                  width={800}
+                  height={800}
+                  priority={true}
                 />
               </Link>
             )
