@@ -31,11 +31,15 @@ html::-webkit-scrollbar {
   justify-content: center;
   align-items: center;
 }
-.explorer:hover ._drawer {
+
+
+.show {
   transform: translateX(0%);
   transform: translateY(80px);
+  pointer-events: all;
 }
 
-.explorer:hover:hover ._bottom_bar {
+
+.explorer:hover ._bottom_bar {
   transform: translateX(0%);
 }
