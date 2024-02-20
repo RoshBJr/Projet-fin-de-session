@@ -8,6 +8,7 @@
   --thistle: #b7adcfff;
   --paynes-gray: #4f646fff;
   --davys-gray: #535657ff;
+  --davys-gray-shadow: rgba(83, 86, 87, 0.400);
 }
 
 @layer utilities {
@@ -69,4 +70,64 @@ html::-webkit-scrollbar {
 
 .explorer:hover ._bottom_bar {
   transform: translateX(0%);
+}
+
+._hero-carousel {
+  height: calc(100vh - 80px);
+}
+
+._carousel {
+  width: 100vw;
+  height: calc(100vh - 80px);
+  overflow: hidden; }
+
+  ._carousel .carousel-container {
+    position: relative;
+    width: 100vw;
+    height: 100%;
+    transition: transform 1s;
+    height: 100%; }
+
+    ._carousel .carousel-container .carousel-post {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 98; }
+
+._show {
+  z-index: 99 !important; }
+
+.slide-out-left {
+  transform: translateX(-100%);
+  transition: .5s; }
+
+.slide-in-right {
+  animation: slideInFromRight .5s 1; }
+
+.slide-in-left {
+  animation: slideInFromLeft .5s 1; }
+
+.slide-out-right {
+  transform: translateX(100%);
+  transition: .5s; }
+
+@keyframes slideInFromRight {
+  0% {
+    transform: translateX(100%); }
+  100% {
+    transform: translateX(0); } }
+
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateX(-100%); }
+  100% {
+    transform: translateX(0); } }
+
+._hero-shadow {
+  background-color: var(--davys-gray-shadow);
 }
