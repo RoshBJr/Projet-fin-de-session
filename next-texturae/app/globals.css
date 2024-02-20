@@ -39,17 +39,32 @@ html::-webkit-scrollbar {
   pointer-events: all;
 }
 
-._search {
-  background-color:rgba(83, 86, 87, 0.629);
+#searchInput:checked ~ ._search {
+  opacity: 1;
+}
+
+#searchInput:checked ~ ._ctn ._search-icon {
+  opacity: 0;
+  display: none;
+}
+#searchInput:checked ~ ._ctn ._cross-icon {
+  opacity: 1;
+  width: 20px;
+  height: 20px;
+  display: flex;
+
 }
 
 #searchInput:checked ~ ._ctn {
   height: 40px;
-  width: 200px;
 }
 
-#searchInput:checked ~ ._ctn ._search {
-  opacity: 1;
+._search {
+  background-color: rgba(83, 86, 87, 0.611);
+}
+
+#searchInput {
+  display: none;
 }
 
 .explorer:hover ._bottom_bar {
