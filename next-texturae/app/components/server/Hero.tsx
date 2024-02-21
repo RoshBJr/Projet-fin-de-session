@@ -4,7 +4,7 @@ import Carousel from "../client/Carousel";
 function Hero() {
   return (
     <>
-        <Carousel/>
+      <Carousel />
     </>
   );
 }

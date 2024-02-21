@@ -8,7 +8,8 @@
   --thistle: #b7adcfff;
   --paynes-gray: #4f646fff;
   --davys-gray: #535657ff;
-  --davys-gray-shadow: rgba(83, 86, 87, 0.400);
+  --davys-gray-shadow: rgba(83, 86, 87, 0.600);
+  --thistle-shadow: rgba(183, 173, 207, 0.8);
 }
 
 @layer utilities {
@@ -130,4 +131,24 @@ html::-webkit-scrollbar {
 
 ._hero-shadow {
   background-color: var(--davys-gray-shadow);
+}
+
+._img-carousel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+._btn-carousel {
+  background-color: var(--thistle-shadow);
+}
+
+._btn-carousel svg {
+  transition: transform .3s;
+}
+
+._btn-carousel:hover svg {
+  transform: rotate(180deg);
 }
