@@ -18,12 +18,12 @@
   }
 }
 
-html {
+* {
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
 }
 
-html::-webkit-scrollbar {
+*::-webkit-scrollbar {
     display: none;
 }
 
@@ -151,4 +151,7 @@ html::-webkit-scrollbar {
 
 ._btn-carousel:hover svg {
   transform: rotate(180deg);
+}
+._single + footer {
+  display: none;
 }

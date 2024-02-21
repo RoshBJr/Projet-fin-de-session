@@ -10,6 +10,10 @@ export type product = {
     name:{en:string, fr:string}
     price:number;
     sizes:[number|string];
+    patterns:{en:[string], fr:[string]};
+    styles:{en:[string], fr:[string]};
+    fits:{en:[string], fr:[string]};
+    collars:{en:[string], fr:[string]};
     slug_en:{current:string};
     slug_fr:{current:string};
 }
