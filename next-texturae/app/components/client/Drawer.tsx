@@ -26,7 +26,7 @@ function Drawer() {
             <MenuLink slug="femme"/>
         </li>
         <li>
-            <MenuLink slug="produit/slim_fit_jeans"/>
+            <MenuLink slug="Feed"/>
         </li>
       </ul>
     </div>

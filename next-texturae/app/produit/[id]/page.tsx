@@ -4,7 +4,7 @@ import { client } from "@/code/sanityClient";
 import { product } from "@/code/types";
 import Image from "next/image";
 
-async function page({ searchParams }: { searchParams: { id: string } }) {
+async function page({ searchParams }: { searchParams: { id: string, color:string, size:string,material:string, pattern:string } }) {
   const data: [product] = await client.fetch(`*[_id == "${searchParams.id}"] {
     _id,
     name,
@@ -40,10 +40,34 @@ async function page({ searchParams }: { searchParams: { id: string } }) {
         </div>
         <div className="font-font-titre text-5xl text-davys-gray">${data[0].price}</div>
         <p className="font-font-text text-davys-gray text-2xl w-[70%]">{data[0].description.fr}</p>
-        <ListElArr data={data[0].sizes} title="Tailles" />
-        <ListElObj data={data[0].colors.fr} title="Couleurs"/>
-        <ListElObj data={data[0].materials.fr} title="Matériels"/>
-        <ListElObj data={data[0].patterns.fr} title="Modèles"/>
+        <ListElArr
+          data={data[0].sizes}
+          searchKey="size"
+          title="Tailles"
+          selectValue={searchParams.size}
+          postQuery={`&id=${searchParams.id}&color=${searchParams.color}&material=${searchParams.material}&pattern=${searchParams.pattern}`}
+        />
+        <ListElObj
+          data={data[0].colors.fr}
+          searchKey="color"
+          title="Couleurs"
+          selectValue={searchParams.color}
+          postQuery={`&id=${searchParams.id}&pattern=${searchParams.pattern}&material=${searchParams.material}&size=${searchParams.size}`}
+        />
+        <ListElObj
+          data={data[0].materials.fr}
+          searchKey="material"
+          title="Matériels"
+          selectValue={searchParams.material}
+          postQuery={`&id=${searchParams.id}&color=${searchParams.color}&pattern=${searchParams.pattern}&size=${searchParams.size}`}
+        />
+        <ListElObj
+          data={data[0].patterns.fr}
+          searchKey="pattern"
+          title="Modèles"
+          selectValue={searchParams.pattern}
+          postQuery={`&id=${searchParams.id}&color=${searchParams.color}&material=${searchParams.material}&size=${searchParams.size}`}
+        />
         {/* <ListElObj data={data[0].styles.fr} title="Styles"/> */}
         {/* <ListElObj data={data[0].fits.fr} title="Formes"/> */}
         {/* <ListElObj data={data[0].collars.fr} title="Cols"/> */}
