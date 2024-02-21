@@ -18,6 +18,7 @@ function ListElArr({ data,searchKey, title, selectValue,postQuery}: Props) {
       <div className="flex gap-3 ml-2">
         {data.map((val) => (
           <Link
+              key={searchKey}
               href={
                 `?${searchKey}=${val}${postQuery}`
 
