@@ -33,13 +33,13 @@ async function page({ searchParams }: { searchParams: { id: string, color:string
         priority={true}
       />
       <div className="pt-16 pb-8 flex flex-col gap-8 overflow-y-scroll flex-1">
-        <h2 className="font-font-titre text-6xl text-davys-gray">{data[0].name.fr}</h2>
+        <h2 className="font-font-titre text-6xl text-davys-gray max-w-[90%]">{data[0].name.fr}</h2>
         <div className="flex gap-3">
           <div className="border rounded-full py-1 px-4 border-thistle font-font-titre text-2xl text-davys-gray">{data[0].gender.fr}</div>
           <div className="border rounded-full py-1 px-4 border-thistle font-font-titre text-2xl text-davys-gray">{data[0].category.fr}</div>
         </div>
         <div className="font-font-titre text-5xl text-davys-gray">${data[0].price}</div>
-        <p className="font-font-text text-davys-gray text-2xl w-[70%]">{data[0].description.fr}</p>
+        <p className="font-font-text text-davys-gray text-2xl w-[90%]">{data[0].description.fr}</p>
         <ListElArr
           data={data[0].sizes}
           searchKey="size"

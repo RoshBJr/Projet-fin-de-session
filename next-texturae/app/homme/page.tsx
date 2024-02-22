@@ -20,7 +20,7 @@ export default async function Homme() {
   }`);
 
   return (
-    <section className="bg-alice-blue mt-[120px] p-5 grid min-[320px]:grid-cols-1 min-[500px]:grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+    <section className="bg-alice-blue mt-[200px] p-5 grid min-[320px]:grid-cols-1 min-[500px]:grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
       {data.map((product:product) => {
         return <ProductCard product={product} />
       })}
