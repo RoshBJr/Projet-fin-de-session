@@ -25,7 +25,8 @@ function ListElObj({ data, title, selectValue, searchKey, postQuery }: Props) {
 
           }
           replace
-        className={`active:border-davys-gray active:bg-thistle active:text-alice-blue hover:border-davys-gray hover:bg-thistle hover:text-alice-blue  cursor-pointer border-2 py-2 px-4 rounded-[8px]  text-davys-gray font-font-titre text-xl ${val === selectVal ? "duration-200 border-davys-gray bg-thistle text-alice-blue": "border-thistle bg-alice-blue text-davys-gray"} duration-200`} >
+        className={`active:border-davys-gray active:bg-thistle active:text-alice-blue hover:border-davys-gray hover:bg-thistle hover:text-alice-blue  cursor-pointer border-2 py-2 px-4 rounded-[8px] font-font-titre text-xl
+          ${val === selectVal ? "border-davys-gray bg-thistle text-alice-blue": "border-thistle bg-alice-blue text-davys-gray"} duration-200`} >
           {val}
       </Link>
         ))}
