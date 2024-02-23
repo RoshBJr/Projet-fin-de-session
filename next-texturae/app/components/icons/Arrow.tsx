@@ -1,12 +1,10 @@
 import React from "react";
 
 interface Props {
-    height:string;
-    width:string;
-    rotate:boolean;
+    customCss:string;
 }
 
-function Arrow({height, width, rotate}:Props) {
+function Arrow({customCss}:Props) {
   return (
     <>
       <svg
@@ -15,7 +13,7 @@ function Arrow({height, width, rotate}:Props) {
         viewBox="0 0 24 24"
         strokeWidth={1.5}
         stroke="currentColor"
-        className={`h-${height} w-${width} ${rotate ? "rotate-180": ""}`}
+        className={`${customCss}`}
       >
         <path
           strokeLinecap="round"

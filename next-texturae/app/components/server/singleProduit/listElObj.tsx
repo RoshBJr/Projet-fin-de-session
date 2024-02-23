@@ -19,7 +19,7 @@ function ListElObj({ data, title, selectValue, searchKey, postQuery }: Props) {
       <div className="flex gap-3 ml-2">
         {data.map((val) => (
           <Link
-          key={searchKey}
+          key={val}
           href={
             `?${searchKey}=${val}${postQuery}`
 

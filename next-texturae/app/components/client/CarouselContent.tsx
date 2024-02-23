@@ -23,7 +23,7 @@ function CarouselContent({category}:Props) {
       className="_btn-carousel  hover:bg-davys-gray duration-200 text-xl font-font-titre text-platinum inline-flex items-center gap-3 px-2 py-3 rounded-[8px]"
     >
       <span className="text-2xl">Voir la collection</span>
-      <Arrow height="6" width="6" rotate={false} />
+      <Arrow customCss='h-7 w-7' />
     </Link>
   </div>
   )

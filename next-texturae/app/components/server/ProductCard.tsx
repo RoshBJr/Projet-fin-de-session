@@ -49,7 +49,7 @@ function ProductCard({ product }: Props) {
               }}
             >
               <span className="font-font-titre text-lg">Voir plus</span>
-              <Arrow height="6" width="6" rotate={false} />
+              <Arrow customCss="h-6 w-6" />
             </Link>
           </div>
         </div>

@@ -38,13 +38,13 @@ function Carousel() {
             className="text-platinum hover:bg-platinum hover:text-davys-gray p-4 duration-200 rounded-full inline-flex justify-center items-center"
             id="prevBtn"
           >
-            <Arrow height="12" width="12" rotate={true} />
+            <Arrow customCss="h-12 w-12 rotate-180" />
           </button>
           <button
             className="text-platinum hover:bg-platinum hover:text-davys-gray p-4 duration-200 rounded-full inline-flex justify-center items-center"
             id="nextBtn"
           >
-            <Arrow height="12" width="12" rotate={false} />
+            <Arrow customCss="h-12 w-12" />
           </button>
         </div>
       </div>

@@ -13,7 +13,7 @@ export default class carousel {
         this.awaitScroll = false;
     }
 
-    initialize() {
+    async initialize() {
         if(this.carouselCtn) {
             this.zIndex(this.carouselCtn?.children[this.postIndex]);
         }
@@ -23,7 +23,7 @@ export default class carousel {
         post.classList.add("_show");
     }
 
-    eventListener() {
+    async eventListener() {
         this.btnNxt?.addEventListener("click",
             () => {
                 if(this.awaitScroll || !this.carouselCtn) return;
