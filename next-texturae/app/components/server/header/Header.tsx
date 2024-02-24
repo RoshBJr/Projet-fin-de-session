@@ -1,11 +1,10 @@
 import Link from "next/link";
-import MenuLink from "../../client/MenuLink";
 import Drawer from "../../client/Drawer";
 import InputThemeControllerIcon from "../../icons//InputThemeControllerIcon";
 import SearchIcon from "../../icons/SearchIcon";
 import AccountIcon from "../../icons/AccountIcon";
 import CartIcon from "../../icons/CartIcon";
-import LangManager from "../../icons/LangManager";
+import LangManager from "../../client/LangManager";
 
 const Header = () => {
   return (

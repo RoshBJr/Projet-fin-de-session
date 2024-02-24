@@ -3,9 +3,11 @@ import React from "react";
 
 interface Props {
     slug:string;
+    menuTitre:string;
+    menuTitreEn:string;
 }
 
-function MenuLink({slug}:Props) {
+function MenuLink({slug, menuTitre, menuTitreEn}:Props) {
   return (
     <>
         <Link
@@ -15,7 +17,12 @@ function MenuLink({slug}:Props) {
             }}
             href={`/${slug}`}
         >
-            {`${slug.slice(0,1).toLocaleUpperCase()}${slug.slice(1)}`}
+            {
+                document.cookie.includes('lang=en') ?
+                `${menuTitreEn}`
+                :
+                `${menuTitre}`
+            }
         </Link>
     </>
   );
