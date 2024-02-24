@@ -7,15 +7,18 @@ import CarouselContent from "./CarouselContent";
 
 function Carousel() {
   const [en, setEn] = useState<boolean>(false);
+  
   useEffect(() => {
     let theCarousel = new carousel();
     theCarousel.initialize();
     theCarousel.eventListener();
   }, []);
 
-  useEffect(() => {
-    setEn(document.cookie.includes('lang=en'));
-  },[document.cookie]);
+  useEffect(()=> {
+    if(document !== undefined) {
+      setEn(document.cookie.includes("lang=en"));
+    }
+  })
 
   return (
     <>

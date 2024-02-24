@@ -3,8 +3,12 @@ import { product } from "@/code/types";
 import ProductCard from "../components/server/ProductCard";
 import DropDown from "../components/server/DropDown";
 import FilterDropdown from "../components/icons/FilterDropdown";
+import { cookies } from "next/headers";
 
 export default async function Homme({searchParams}:{searchParams:{filtre:string, tri:string}}) {
+
+  const en = cookies().get('lang')?.value;
+
   const data: any = await client.fetch(`*[gender.fr == "Homme"] {
     _id,
     name,
@@ -30,7 +34,7 @@ export default async function Homme({searchParams}:{searchParams:{filtre:string,
           const arrFilter = [searchParams.filtre, searchParams.tri];
           if(searchParams.filtre == undefined) {
             return <ProductCard key={product._id} product={product} />;
-          } else if(arrFilter.includes(product.category.fr)) {
+          } else if(arrFilter.includes(en ? product.category.en: product.category.fr)) {
             return <ProductCard key={product._id} product={product} />
           }
         })}

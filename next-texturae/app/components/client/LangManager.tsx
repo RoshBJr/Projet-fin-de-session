@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { cookies } from "next/headers";
 import { revalidatePath } from "next/cache";
 async function LangManager() {

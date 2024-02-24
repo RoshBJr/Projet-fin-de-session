@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 interface Props {
     slug:string;
@@ -8,6 +8,13 @@ interface Props {
 }
 
 function MenuLink({slug, menuTitre, menuTitreEn}:Props) {
+    const [en, setEn] = useState<boolean>(false);
+    useEffect(()=> {
+        if(document !== undefined) {
+          setEn(document.cookie.includes("lang=en"));
+        }
+      })
+
   return (
     <>
         <Link
@@ -18,7 +25,7 @@ function MenuLink({slug, menuTitre, menuTitreEn}:Props) {
             href={`/${slug}`}
         >
             {
-                document.cookie.includes('lang=en') ?
+                en ?
                 `${menuTitreEn}`
                 :
                 `${menuTitre}`
