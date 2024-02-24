@@ -18,7 +18,7 @@ function ProductCard({ product }: Props) {
         />
         <Image
           className="min-[320px]:w-full md:w-[1/2] min-[500px]:w-[1/2] lg:w-[1/3]  xl:w-[1/4] h-[500px]
-            object-cover object-bottom"
+            object-cover object-center"
           src={product.defaultImg}
           alt={product.name.en}
           width={800}

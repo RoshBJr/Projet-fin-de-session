@@ -1,8 +1,9 @@
 import React from "react";
 import Arrow from "./Arrow";
 import { client } from "@/code/sanityClient";
+import Link from "next/link";
 
-async function FilterDropdown() {
+async function FilterDropdown({tri}:{tri:string}) {
   const data: any = await client.fetch(`*[_type == "category"] {
         category_en,
         category_fr
@@ -25,8 +26,18 @@ async function FilterDropdown() {
         {
             data[0].category_fr.map((item:any) => {
                 return(
-                    <li>
-                        <a >{item}</a>
+                    <li key={item} >
+                        <Link
+                          href={{
+                            query: {
+                              filtre: `${item}`,
+                              tri: tri
+                            }
+                          }}
+                          replace={false}
+                        >
+                          {item}
+                        </Link>
                     </li>
                 )
             })
