@@ -31,18 +31,17 @@ function CarouselContent({
       <p className=" w-1/2 text-platinum font-font-text text-3xl">
         {en
           ? `Discover the ${nomPlurielEn}'s collection: a unique blend of urban elegance and modernity. Versatile pieces designed for the modern ${nomSingEn} who values style without compromising on comfort.`
-          : `Découvrez la collection pour ${nomPluriel}s : un mélange unique
+          : `Découvrez la collection pour ${nomPluriel} : un mélange unique
         d'élégance urbaine et de modernité. Des pièces polyvalentes
-        conçues pour ${
-          nomSing == "homme" ? `l'${nomSing}` : `la ${nomSing}`
-        } moderne qui valorise le style sans
-        compromis sur le confort.`}
+        conçues pour ${nomSing == "homme" ? `l'${nomSing}` : `la ${nomSing}`} moderne qui valorise le style sans compromis sur le confort.`}
       </p>
       <Link
         href={`/${nomSing}`}
         className="_btn-carousel  hover:bg-davys-gray duration-200 text-xl font-font-titre text-platinum inline-flex items-center gap-3 px-2 py-3 rounded-[8px]"
       >
-        <span className="text-2xl">{en ? "See the collection" : "Voir la collection"}</span>
+        <span className="text-2xl">
+          {en ? "See the collection" : "Voir la collection"}
+        </span>
         <Arrow customCss="h-7 w-7" />
       </Link>
     </div>
