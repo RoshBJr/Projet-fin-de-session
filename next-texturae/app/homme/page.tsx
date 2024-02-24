@@ -30,7 +30,7 @@ export default async function Homme({searchParams}:{searchParams:{filtre:string,
       <div className="p-5 grid min-[320px]:grid-cols-1 min-[500px]:grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
         {data.map((product: product) => {
           if(product.category.fr == searchParams.filtre || product.gender.fr == searchParams.filtre || !searchParams.filtre && searchParams.filtre != undefined) {
-            return <ProductCard product={product} />;
+            return <ProductCard key={product._id} product={product} />;
 
           }
         })}
