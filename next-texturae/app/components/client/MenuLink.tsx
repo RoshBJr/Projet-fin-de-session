@@ -22,7 +22,12 @@ function MenuLink({slug, menuTitre, menuTitreEn}:Props) {
                 const drawer = document.querySelector('._drawer');
                 drawer?.classList.remove('show');
             }}
-            href={`/${slug}`}
+            href={{
+                pathname: `/${slug}`,
+                query: {
+                  tri: "name-asc"
+                }
+              }}
         >
             {
                 en ?

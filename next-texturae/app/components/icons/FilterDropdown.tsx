@@ -1,10 +1,9 @@
-import React from "react";
 import Arrow from "./Arrow";
 import { client } from "@/code/sanityClient";
-import Link from "next/link";
 import { cookies } from "next/headers";
+import FilterBtn from "../client/FilterBtn";
 
-async function FilterDropdown({tri}:{tri:string}) {
+async function FilterDropdown({tri, theQuery}:{tri:string, theQuery:string[]}) {
 
   const en = cookies().get("lang")?.value;
 
@@ -26,27 +25,9 @@ async function FilterDropdown({tri}:{tri:string}) {
       </div>
       <ul
         tabIndex={0}
-        className="_filtre dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-[35rem] pb-0 flex flex-row flex-nowrap overflow-x-scroll px-3 -translate-y-[8px]"
+        className="_filtre dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-[35rem] pb-0 flex flex-row flex-nowrap overflow-x-scroll px-3 -translate-y-[8px] gap-1"
       >
-        {
-            langData.map((item:any) => {
-                return(
-                    <li key={item} >
-                        <Link
-                          href={{
-                            query: {
-                              filtre: `${item}`,
-                              tri: tri
-                            }
-                          }}
-                          replace={false}
-                        >
-                          {item}
-                        </Link>
-                    </li>
-                )
-            })
-        }
+        <FilterBtn tri={tri} theQuery={theQuery} langData={langData}/>
       </ul>
     </div>
   );

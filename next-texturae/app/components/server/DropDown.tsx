@@ -1,26 +1,40 @@
+import { cookies } from "next/headers";
 import Link from "next/link";
 
-function DropDown({filtre}:{filtre:string}) {
+async function DropDown({filtre, theQuery}:{filtre:string, theQuery:string[]}) {
+  const en = cookies().get("lang")?.value;
+
+  async function buildQuery() {
+    let arr:any = {};
+    theQuery.map((item: string, i: number) => {
+      if(item == 'undefined'|| item.includes("asc") || item.includes("desc") ) return;
+      arr[`filtre${i}`] = item;
+    });
+    
+    return arr;
+  }
+  const theQueryarr = await buildQuery();
+
   return (
     <div className="dropdown dropdown-bottom dropdown-end mr-5">
       <span tabIndex={0} role="button" className="btn m-1 font-font-titre text-xl font-medium border-2 border-thistle">
-        Trier
+        {en ? "Sort" : "Trier"}
       </span>
       <ul
         tabIndex={0}
         className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 pr-5"
       >
         <li>
-          <Link href={{query:{tri:'price-asc', filtre: `${filtre}`}}} className="font-font-titre text-base">Prix Ascendants</Link>
+          <Link href={{query:{ ...theQueryarr, tri: "price-asc"}}}className={`font-font-titre text-base hover:bg-thistle active:bg-thistle ${theQuery.includes("price-asc") ? "bg-thistle focus:bg-thistle": "focus:bg-alice-blue"}`}>{en ? "Price Ascending": "Prix Ascendants"}</Link>
         </li>
         <li>
-          <Link href={{query:{tri:'price-desc', filtre: `${filtre}`}}} className="font-font-titre text-base">Prix Descendants</Link>
+          <Link href={{query:{...theQueryarr, tri: "price-desc"}}} className={`font-font-titre text-base hover:bg-thistle active:bg-thistle ${theQuery.includes("price-desc") ? "bg-thistle focus:bg-thistle": "focus:bg-alice-blue"}`}>{en ? "Price Descending": "Prix Descendants"}</Link>
         </li>
         <li>
-          <Link href={{query:{tri:'name-a', filtre: `${filtre}`}}} className="font-font-titre text-base">Nom (A-Z)</Link>
+          <Link href={{query:{...theQueryarr, tri: "name-asc"}}} className={`font-font-titre text-base hover:bg-thistle active:bg-thistle ${theQuery.includes("name-asc") ? "bg-thistle focus:bg-thistle": "focus:bg-alice-blue"}`}>{en ? "Name (A-Z)": "Nom (A-Z)"}</Link>
         </li>
         <li>
-          <Link href={{query:{tri:'name-z', filtre: `${filtre}`}}} className="font-font-titre text-base">Nom (Z-A)</Link>
+          <Link href={{query:{...theQueryarr, tri: "name-desc"}}} className={`font-font-titre text-base hover:bg-thistle active:bg-thistle ${theQuery.includes("name-desc") ? "bg-thistle focus:bg-thistle": "focus:bg-alice-blue"}`}>{en ? "Name (Z-A)": "Nom (Z-A)"}</Link>
         </li>
       </ul>
     </div>

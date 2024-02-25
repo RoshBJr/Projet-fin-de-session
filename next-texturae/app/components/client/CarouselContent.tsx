@@ -36,7 +36,12 @@ function CarouselContent({
         conçues pour ${nomSing == "homme" ? `l'${nomSing}` : `la ${nomSing}`} moderne qui valorise le style sans compromis sur le confort.`}
       </p>
       <Link
-        href={`/${nomSing}`}
+        href={{
+          pathname: `/${nomSing}`,
+          query: {
+            tri: "name-asc"
+          }
+        }}
         className="_btn-carousel  hover:bg-davys-gray duration-200 text-xl font-font-titre text-platinum inline-flex items-center gap-3 px-2 py-3 rounded-[8px]"
       >
         <span className="text-2xl">

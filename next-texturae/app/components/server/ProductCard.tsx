@@ -7,9 +7,10 @@ import Heart from "../icons/Heart";
 
 interface Props {
   product: product;
+  theQuery:string[];
 }
 
-function ProductCard({ product}: Props) {
+function ProductCard({ product, theQuery}: Props) {
 
   const en = cookies().get('lang')?.value;
 
