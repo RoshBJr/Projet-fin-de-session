@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
 import Link from "next/link";
 
-async function DropDown({filtre, theQuery}:{filtre:string, theQuery:string[]}) {
+async function DropDown({theQuery, search}:{theQuery:string[], search:string}) {
   const en = cookies().get("lang")?.value;
 
   async function buildQuery() {
@@ -10,7 +10,7 @@ async function DropDown({filtre, theQuery}:{filtre:string, theQuery:string[]}) {
       if(item == 'undefined'|| item.includes("asc") || item.includes("desc") ) return;
       arr[`filtre${i}`] = item;
     });
-    
+    arr['search'] = search;
     return arr;
   }
   const theQueryarr = await buildQuery();

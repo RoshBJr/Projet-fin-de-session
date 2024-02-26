@@ -1,10 +1,10 @@
 "use server";
-import { redirect, useRouter } from "next/navigation";
+import { redirect, usePathname} from "next/navigation";
 
-export async function sendSearchQuery(formdata: FormData) {
+export async function sendSearchQuery(formdata: FormData, currPath:string) {
   const searchBar = formdata.get("searchBar");
   if (searchBar) {
-      console.log(searchBar);
-    redirect(`/Feed?&tri=name-asc&search=${searchBar.toString()}`)
+    if(currPath == '/') currPath = '/Feed';
+    redirect(`${currPath}?&tri=name-asc&search=${searchBar.toString()}`)
   }
 }

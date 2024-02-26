@@ -1,10 +1,12 @@
 'use client'
 
 import { sendSearchQuery } from "@/code/actionSendSearchQuery";
+import { usePathname } from "next/navigation";
 import { useRef } from "react";
 
 function SearchIcon() {
   const ref = useRef<HTMLFormElement>(null);
+  const currPath = usePathname();
   return (
     <div className="h-[40px] max-w-60 w-60 relative">
       <input type="checkbox" id="searchInput" />
@@ -46,7 +48,7 @@ function SearchIcon() {
       <form
         ref={ref}
         action={async (formData) => {
-          await sendSearchQuery(formData);
+          await sendSearchQuery(formData, currPath);
           ref.current?.reset();
         }}
       >

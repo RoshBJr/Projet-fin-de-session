@@ -3,7 +3,7 @@ import { client } from "@/code/sanityClient";
 import { cookies } from "next/headers";
 import FilterBtn from "../client/FilterBtn";
 
-async function FilterDropdown({tri, theQuery}:{tri:string, theQuery:string[]}) {
+async function FilterDropdown({tri, theQuery, search}:{tri:string, theQuery:string[], search:string}) {
 
   const en = cookies().get("lang")?.value;
 
@@ -27,7 +27,7 @@ async function FilterDropdown({tri, theQuery}:{tri:string, theQuery:string[]}) {
         tabIndex={0}
         className="_filtre dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-[35rem] pb-0 flex flex-row flex-nowrap overflow-x-scroll px-3 -translate-y-[8px] gap-1"
       >
-        <FilterBtn tri={tri} theQuery={theQuery} langData={langData}/>
+        <FilterBtn search={search} tri={tri} theQuery={theQuery} langData={langData}/>
       </ul>
     </div>
   );

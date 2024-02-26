@@ -6,9 +6,10 @@ interface Props {
   tri: string | undefined;
   langData: any;
   theQuery:string[];
+  search:string;
 }
 
-function FilterBtn({ tri, langData, theQuery }: Props) {
+function FilterBtn({ tri, langData, theQuery, search }: Props) {
   const [filter, setFilter] = useState<string[]>([]);
   const router = useRouter();
 
@@ -21,6 +22,9 @@ function FilterBtn({ tri, langData, theQuery }: Props) {
         arr += `filtre${i}=${item}`;
       }
     });
+    if(search) {
+      return router.push(`?${arr}&tri=${tri}&search=${search}`);
+    }
     router.push(`?${arr}&tri=${tri}`);
     
   }, [filter]);
