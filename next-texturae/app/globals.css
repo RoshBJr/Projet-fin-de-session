@@ -41,7 +41,7 @@
   pointer-events: all;
 }
 
-#searchInput:checked ~ ._search {
+#searchInput:checked ~ form ._search {
   opacity: 1;
 }
 

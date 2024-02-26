@@ -21,9 +21,9 @@ function CarouselContent({
     <div className="absolute top-0 bottom-0 right-0 left-0 flex flex-col items-start justify-between ml-24 mb-14 mt-28">
       <h2 className="text-8xl font-font-titre text-platinum">
         {en
-          ? `Collection for ${
-              nomSingEn.slice(0, 1).toLocaleUpperCase() + nomSingEn.slice(1)
-            }`
+          ? `${
+              nomPlurielEn.slice(0, 1).toLocaleUpperCase() + nomPlurielEn.slice(1)
+            }'s Collection`
           : `Collection pour ${
               nomSing.slice(0, 1).toLocaleUpperCase() + nomSing.slice(1)
             }`}

@@ -5,7 +5,7 @@ import DropDown from "../components/server/DropDown";
 import FilterDropdown from "../components/icons/FilterDropdown";
 import { cookies } from "next/headers";
 
-async function Feed({searchParams}:{searchParams:{filtre:string, tri:string}}) {
+async function Feed({searchParams}:{searchParams:{filtre:string, tri:string, search:string}}) {
   const en = cookies().get('lang')?.value;
   const sorting = searchParams.tri.split('-');
   const data:any = await client.fetch(`*[_type == "product"] {

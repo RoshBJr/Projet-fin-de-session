@@ -1,4 +1,10 @@
+'use client'
+
+import { sendSearchQuery } from "@/code/actionSendSearchQuery";
+import { useRef } from "react";
+
 function SearchIcon() {
+  const ref = useRef<HTMLFormElement>(null);
   return (
     <div className="h-[40px] max-w-60 w-60 relative">
       <input type="checkbox" id="searchInput" />
@@ -37,13 +43,24 @@ function SearchIcon() {
           />
         </svg>
       </label>
-      <input
-        type="text"
-        className="_search opacity-0 pr-[40px] absolute left-0 top-1/2 h-[40px] -translate-y-1/2 
+      <form
+        ref={ref}
+        action={async (formData) => {
+          await sendSearchQuery(formData);
+          ref.current?.reset();
+        }}
+      >
+        <button type="submit"></button>
+        <input
+          type="text"
+          name="searchBar"
+          className="_search opacity-0 pr-[40px] absolute left-0 top-1/2 h-[40px] -translate-y-1/2 
         outline-none right-0 rounded-[25px] caret-platinum pl-2 border-thistle border text-platinum"
-      />
+        />
+      </form>
     </div>
   );
+
 }
 
 export default SearchIcon;
