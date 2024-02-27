@@ -4,13 +4,14 @@ interface Props {
   data: [string | number];
   searchKey:string;
   title: string;
-  selectValue:string;
+  selectValue:string|number;
   postQuery:string;
 }
 
 function ListElArr({ data,searchKey, title, selectValue,postQuery}: Props) {
 
   const selectVal = selectValue;
+  
 
   return data ? (
     <div className="flex flex-col gap-4">

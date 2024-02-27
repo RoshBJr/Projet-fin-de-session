@@ -3,19 +3,20 @@ import "./globals.css";
 import Header from "./components/server/header/Header";
 import Footer from "./components/server/footer/Footer";
 import { Happy_Monkey, Rubik } from "next/font/google";
+import { Suspense } from "react";
 
 const font_hm = Happy_Monkey({
-  weight: '400',
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-monkey'
+  weight: "400",
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-monkey",
 });
 const font_rubik = Rubik({
-  weight: '400',
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-rubik'
-}) ;
+  weight: "400",
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-rubik",
+});
 
 export const metadata: Metadata = {
   title: "Texturae",
@@ -28,11 +29,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html data-theme="light" className={`${font_hm.variable} ${font_rubik.variable}`}>
+    <html
+      data-theme="light"
+      className={`${font_hm.variable} ${font_rubik.variable}`}
+    >
       <body className="relative">
-        <Header/>
-        {children}
-        <Footer/>
+        <Header />
+        <Suspense fallback={<div>Loading...</div>} >{children}</Suspense>
+        <Footer />
       </body>
     </html>
   );

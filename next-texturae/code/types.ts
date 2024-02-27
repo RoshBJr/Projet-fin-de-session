@@ -17,3 +17,12 @@ export type product = {
     slug_en:{current:string};
     slug_fr:{current:string};
 }
+
+export type cartSpecs  = {
+    id:string;
+    quantity:number;
+    color:string;
+    size:number|string;
+    pattern:string;
+    material:string;
+}

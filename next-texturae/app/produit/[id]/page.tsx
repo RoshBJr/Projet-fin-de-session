@@ -1,9 +1,9 @@
 import ListElArr from "@/app/components/server/singleProduit/ListElArr";
 import ListElObj from "@/app/components/server/singleProduit/listElObj";
 import { client } from "@/code/sanityClient";
-import { product } from "@/code/types";
+import { cartSpecs, product } from "@/code/types";
+import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
-import Image from "next/image";
 
 async function page({
   searchParams,
@@ -16,6 +16,7 @@ async function page({
     pattern: string;
   };
 }) {
+  
   const en = cookies().get("lang")?.value;
 
   const data: [product] = await client.fetch(`*[_id == "${searchParams.id}"] {
@@ -92,13 +93,64 @@ async function page({
         {/* <ListElObj data={data[0].fits.fr} title="Formes"/> */}
         {/* <ListElObj data={data[0].collars.fr} title="Cols"/> */}
       </div>
-      <div className=" cursor-pointer fixed bottom-0 right-0 mr-12 mb-11 border-davys-gray border-2 py-4 px-3 rounded-[8px] bg-thistle font-font-titre text-xl text-alice-blue duration-200 hover:bg-davys-gray active:scale-105">
-        {en ? "Add to cart" : "Ajouter au panier"}
-      </div>
+      <form action={await addToCart}>
+        <button
+          type="submit"
+          className=" cursor-pointer fixed bottom-0 right-0 mr-12 mb-11 border-davys-gray border-2 py-4 px-3 rounded-[8px] bg-thistle font-font-titre text-xl text-alice-blue duration-200 hover:bg-davys-gray active:scale-105"
+        >
+          {en ? "Add to cart" : "Ajouter au panier"}
+        </button>
+      </form>
     </section>
   ) : (
-    "yo"
+    ""
   );
+
+  async function addToCart() {
+    'use server';
+    let arr = [];
+    let cart: string | undefined = cookies().get("cart")?.value;
+    if (cart) {
+      let bool = true;
+      arr = JSON.parse(cart);
+      arr.map((item: cartSpecs) => {
+        if (item.id == searchParams.id) {
+          bool = false;
+          item.quantity += 1;
+          item.color = searchParams.color;
+          item.size = searchParams.size;
+          item.pattern = searchParams.pattern;
+          item.material = searchParams.material;
+        }
+      });
+      if (bool) {
+        arr.push({
+          id: searchParams.id,
+          color: searchParams.color,
+          size: searchParams.size,
+          pattern: searchParams.pattern,
+          material: searchParams.material,
+          quantity: 1,
+        });
+      }
+      cookies().set({name: "cart", value: JSON.stringify(arr), path: '/', httpOnly: true});
+    } else {
+      arr.push({
+        id: searchParams.id,
+        color: searchParams.color,
+        size: searchParams.size,
+        pattern: searchParams.pattern,
+        material: searchParams.material,
+        quantity: 1,
+      });
+      cookies().set({name: "cart", value: JSON.stringify(arr), path: '/', httpOnly:true});
+    }
+    // console.log(arr);
+
+    // const cart = cookies().get('cart')?.value;
+    // console.log(JSON.parse(cart));
+    revalidatePath('/');
+  }
 }
 
 export default page;

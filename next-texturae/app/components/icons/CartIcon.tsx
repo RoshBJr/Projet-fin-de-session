@@ -1,6 +1,8 @@
+import Link from "next/link";
+
 function CartIcon() {
   return (
-    <button className="btn btn-ghost btn-circle">
+    <Link href={'/panier'} className="btn btn-ghost btn-circle">
       <div className="indicator">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -19,7 +21,7 @@ function CartIcon() {
 
         <span className="badge badge-xs border-thistle bg-thistle indicator-item"></span>
       </div>
-    </button>
+    </Link>
   );
 }
 
