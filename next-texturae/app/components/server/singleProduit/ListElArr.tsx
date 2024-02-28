@@ -24,6 +24,7 @@ function ListElArr({ data,searchKey, title, selectValue,postQuery}: Props) {
                 `?${searchKey}=${val}${postQuery}`
 
               }
+              replace
             className={`active:border-davys-gray
               active:bg-thistle active:text-alice-blue hover:border-davys-gray hover:bg-thistle
               hover:text-alice-blue  cursor-pointer border-2 py-2 px-4 rounded-[8px] font-font-titre text-xl
