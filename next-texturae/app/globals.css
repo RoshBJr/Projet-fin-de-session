@@ -43,6 +43,7 @@
 
 #searchInput:checked ~ form ._search {
   opacity: 1;
+  pointer-events: all;
 }
 
 #searchInput:checked ~ ._ctn ._search-icon {
@@ -62,6 +63,7 @@
 }
 
 ._search {
+  pointer-events: none;
   background-color: rgba(83, 86, 87, 0.611);
 }
 

@@ -21,8 +21,8 @@ export type product = {
 export type cartSpecs  = {
     id:string;
     quantity:number;
-    color:string;
+    color:number;
     size:number|string;
-    pattern:string;
-    material:string;
+    pattern:number;
+    material:number;
 }

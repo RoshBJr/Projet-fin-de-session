@@ -8,7 +8,7 @@ import React from "react";
 
 async function Panier() {
   const cookieCart: string | undefined = cookies().get("cart")?.value;
-  const en = cookies().get("lang")?.value ? "en" : "fr";
+  const lang = cookies().get("lang")?.value ? "en" : "fr";
   let idArr: string[] = [];
   let price: number = 0;
 
@@ -27,7 +27,7 @@ async function Panier() {
     materials,
     patterns,
     image[]{ "imgUrl": asset->url }
-  }`);
+  }`,undefined, {cache: 'force-cache'});
 
   if (cookieCart !== undefined) {
     JSON.parse(cookieCart).map((item: cartSpecs) => {
@@ -44,8 +44,8 @@ async function Panier() {
 
   return (
     <section className="pt-[120px] flex flex-col gap-20 font-font-titre bg-alice-blue">
-      <h2 className="mx-20 text-5xl text-davys-gray">{en == "en" ? "Your Cart" : "Votre Panier"}</h2>
-      <div className="relative mx-20 border-2 border-thistle rounded-[8px] max-h-[70vh] overflow-y-scroll">
+      <h2 className="mx-20 text-5xl text-davys-gray">{lang == "en" ? "Your Cart" : "Votre Panier"}</h2>
+      <div className="relative mx-20 border-2 border-thistle rounded-[8px] max-h-[75vh] overflow-y-scroll">
         <div className="flex flex-col gap-7 py-10 px-24">
           {data.map((item: product) => {
             if (idArr.includes(item._id)) {
@@ -71,21 +71,17 @@ async function Panier() {
                   <img
                     className="w-80 h-auto rounded-[8px] border border-thistle"
                     src={item.defaultImg}
-                    alt={item.name[en]}
+                    alt={item.name[lang]}
                   />
                   <div className="flex flex-col gap-2 text-3xl text-davys-gray">
-                    <h2 className="">{item.name[en]}</h2>
+                    <h2 className="">{item.name[lang]}</h2>
                     <div className="flex flex-col gap-3">
                       <div className="flex gap-2 items-center">
-                        <span>{en == "en" ? "Color" : "Couleur"}:</span>
+                        <span>{lang == "en" ? "Color" : "Couleur"}:</span>
                         <span className="border-2 rounded-[8px] border-davys-gray px-3 py-1 text-alice-blue bg-thistle text-xl">
                           {cookieCart &&
-                            item.colors[en][
-                              item.colors.fr.indexOf(
-                                JSON.parse(cookieCart)[idArr.indexOf(item._id)]
-                                  .color
-                              )
-                            ]}
+                            item.colors[lang][JSON.parse(cookieCart)[idArr.indexOf(item._id)].color]
+                          }
                         </span>
                       </div>
                       <span>
@@ -93,11 +89,10 @@ async function Panier() {
                         JSON.parse(cookieCart)[idArr.indexOf(item._id)].size !==
                           "undefined" ? (
                           <div className="flex gap-2 items-center">
-                            <span>{en == "en" ? "Size" : "Taille"}:</span>
+                            <span>{lang == "en" ? "Size" : "Taille"}:</span>
                             <span className="border-2 rounded-[8px] border-davys-gray px-3 py-1 text-alice-blue bg-thistle text-xl">
                               {
-                                JSON.parse(cookieCart)[idArr.indexOf(item._id)]
-                                  .size
+                                item.sizes[JSON.parse(cookieCart)[idArr.indexOf(item._id)].size]
                               }
                             </span>
                           </div>
@@ -105,20 +100,13 @@ async function Panier() {
                           ""
                         )}
                       </span>
-                      {cookieCart &&
-                      JSON.parse(cookieCart)[idArr.indexOf(item._id)]
-                        .pattern !== "undefined" ? (
+                      {cookieCart && item.patterns[lang] ? (
                         <div className="flex gap-2 items-center">
-                          <span>{en == "en" ? "Pattern" : "Modèle"}:</span>
+                          <span>{lang == "en" ? "Pattern" : "Modèle"}:</span>
                           <span className="border-2 rounded-[8px] border-davys-gray px-3 py-1 text-alice-blue bg-thistle text-xl">
                             {
-                              item.patterns[en][
-                                item.patterns.fr.indexOf(
-                                  JSON.parse(cookieCart)[
-                                    idArr.indexOf(item._id)
-                                  ].pattern
-                                )
-                              ]
+                              
+                              item.patterns[lang] ? item.patterns[lang][JSON.parse(cookieCart)[idArr.indexOf(item._id)].pattern] : ''
                             }
                           </span>
                         </div>
@@ -129,16 +117,10 @@ async function Panier() {
                       JSON.parse(cookieCart)[idArr.indexOf(item._id)]
                         .material !== "undefined" ? (
                         <div className="flex gap-2 items-center">
-                          <span>{en == "en" ? "Material" : "Matériel"}:</span>
+                          <span>{lang == "en" ? "Material" : "Matériel"}:</span>
                           <span className="border-2 rounded-[8px] border-davys-gray px-3 py-1 text-alice-blue bg-thistle text-xl">
                             {
-                              item.materials[en][
-                                item.materials.fr.indexOf(
-                                  JSON.parse(cookieCart)[
-                                    idArr.indexOf(item._id)
-                                  ].material
-                                )
-                              ]
+                              item.materials[lang] ? item.materials[lang][JSON.parse(cookieCart)[idArr.indexOf(item._id)].material] : ''
                             }
                           </span>
                         </div>
@@ -191,13 +173,13 @@ async function Panier() {
         </div>
         <div className="border-2 border-b-0 border-thistle rounded-t-[8px] sticky bottom-0 left-0 right-0 w-full h-28 bg-alice-blue flex justify-between items-center px-5">
           <span className="font-font-titre text-davys-gray text-3xl">
-            {en == "en" ? "Subtotal" : "Sous-total"}: ${price.toFixed(2)}
+            {lang == "en" ? "Subtotal" : "Sous-total"}: ${price.toFixed(2)}
           </span>
           <Link
             className="border border-davys-gray rounded-[8px] px-5 py-2 bg-thistle text-alice-blue font-font-titre text-3xl hover:bg-davys-gray duration-200"
             href={"/"}
           >
-            {en == 'en' ? "Pay": "Payer"}
+            {lang == 'en' ? "Pay": "Payer"}
           </Link>
         </div>
       </div>

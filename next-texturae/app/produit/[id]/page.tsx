@@ -10,10 +10,10 @@ async function page({
 }: {
   searchParams: {
     id: string;
-    color: string;
-    size: string;
-    material: string;
-    pattern: string;
+    color: number;
+    size: number;
+    material: number;
+    pattern: number;
   };
 }) {
   
@@ -34,7 +34,7 @@ async function page({
     materials,
     patterns,
     image[]{ "imgUrl": asset->url }
-  }`);
+  }`,undefined, {cache: 'force-cache'});
 
   return data ? (
     <section className="_single bg-alice-blue flex justify-start gap-28 w-full mt-[80px] overflow-hidden max-h-[calc(100vh-80px)]">
@@ -93,7 +93,7 @@ async function page({
         {/* <ListElObj data={data[0].fits.fr} title="Formes"/> */}
         {/* <ListElObj data={data[0].collars.fr} title="Cols"/> */}
       </div>
-      <form action={await addToCart}>
+      <form action={addToCart}>
         <button
           type="submit"
           className=" cursor-pointer fixed bottom-0 right-0 mr-12 mb-11 border-davys-gray border-2 py-4 px-3 rounded-[8px] bg-thistle font-font-titre text-xl text-alice-blue duration-200 hover:bg-davys-gray active:scale-105"
@@ -110,7 +110,7 @@ async function page({
     'use server';
     let arr = [];
     let cart: string | undefined = cookies().get("cart")?.value;
-    if (cart) {
+    if (cart && searchParams.color) {
       let bool = true;
       arr = JSON.parse(cart);
       arr.map((item: cartSpecs) => {
@@ -135,20 +135,18 @@ async function page({
       }
       cookies().set({name: "cart", value: JSON.stringify(arr), path: '/', httpOnly: true});
     } else {
-      arr.push({
-        id: searchParams.id,
-        color: searchParams.color,
-        size: searchParams.size,
-        pattern: searchParams.pattern,
-        material: searchParams.material,
-        quantity: 1,
-      });
-      cookies().set({name: "cart", value: JSON.stringify(arr), path: '/', httpOnly:true});
+      if(searchParams.color) {
+        arr.push({
+          id: searchParams.id,
+          color: searchParams.color,
+          size: searchParams.size,
+          pattern: searchParams.pattern,
+          material: searchParams.material,
+          quantity: 1,
+        });
+        cookies().set({name: "cart", value: JSON.stringify(arr), path: '/', httpOnly:true});
+      }
     }
-    // console.log(arr);
-
-    // const cart = cookies().get('cart')?.value;
-    // console.log(JSON.parse(cart));
     revalidatePath('/');
   }
 }

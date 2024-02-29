@@ -22,7 +22,7 @@ async function Feed({searchParams}:{searchParams:{filtre:string, tri:string, sea
       price,
       defaultImg,
       image[]{ "imgUrl": asset->url }
-    } | order(${sorting[0] !== "name"? "price" : en ? "lower(name.en)": "lower(name.fr)"} ${sorting[1]})`);
+    } | order(${sorting[0] !== "name"? "price" : en ? "lower(name.en)": "lower(name.fr)"} ${sorting[1]})`,undefined, {cache: 'force-cache'});
     const arrFilter = Object.values(searchParams).filter(val => val !== searchParams.search);
     
     
