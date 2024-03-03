@@ -1,5 +1,6 @@
 import ListElArr from "@/app/components/server/singleProduit/ListElArr";
 import ListElObj from "@/app/components/server/singleProduit/listElObj";
+import { decryptForSanity, updateSanityUser } from "@/code/actions";
 import { client } from "@/code/sanityClient";
 import { cartSpecs, product } from "@/code/types";
 import { revalidatePath } from "next/cache";
@@ -134,6 +135,9 @@ async function page({
         });
       }
       cookies().set({name: "cart", value: JSON.stringify(arr), path: '/', httpOnly: true});
+      if (cookies().get("session")) {
+        await updateSanityUser(await decryptForSanity(cookies().get("session")?.value), JSON.stringify(arr));
+      }
     } else {
       if(searchParams.color) {
         arr.push({
@@ -145,6 +149,9 @@ async function page({
           quantity: 1,
         });
         cookies().set({name: "cart", value: JSON.stringify(arr), path: '/', httpOnly:true});
+        if (cookies().get("session")) {
+          await updateSanityUser(await decryptForSanity(cookies().get("session")?.value), JSON.stringify(arr));
+        }
       }
     }
     revalidatePath('/');

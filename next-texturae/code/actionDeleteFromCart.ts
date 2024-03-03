@@ -1,5 +1,6 @@
 import { cookies } from "next/headers";
 import { cartSpecs } from "./types";
+import { decryptForSanity, updateSanityUser } from "./actions";
 
 
 export async function deleteProduct(itemId: string) {
@@ -10,6 +11,10 @@ export async function deleteProduct(itemId: string) {
     );
 
     cookies().set('cart', JSON.stringify(newCart));
-
+    if(cookies().get('session')) {
+      if (cookies().get("session")) {
+        await updateSanityUser(await decryptForSanity(cookies().get("session")?.value), JSON.stringify(newCart));
+      }
+    }
   }
 }
