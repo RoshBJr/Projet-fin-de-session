@@ -85,9 +85,7 @@ async function Panier() {
                         </span>
                       </div>
                       <span>
-                        {cookieCart &&
-                        JSON.parse(cookieCart)[idArr.indexOf(item._id)].size !==
-                          "undefined" ? (
+                        {cookieCart && item.sizes ? (
                           <div className="flex gap-2 items-center">
                             <span>{lang == "en" ? "Size" : "Taille"}:</span>
                             <span className="border-2 rounded-[8px] border-davys-gray px-3 py-1 text-alice-blue bg-thistle text-xl">

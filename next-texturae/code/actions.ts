@@ -15,9 +15,6 @@ export async function encrypt(payload: any) {
 }
 
 export async function decrypt(input: string|undefined): Promise<any> {
-  // const { payload } = await jwtVerify(input, key, {
-  //   algorithms: ["HS256"],
-  // });
   if(input) {
     const payload = decodeJwt(input);
   
@@ -26,9 +23,6 @@ export async function decrypt(input: string|undefined): Promise<any> {
   return;
 }
 export async function decryptForSanity(input: string|undefined): Promise<any> {
-  // const { payload } = await jwtVerify(input, key, {
-  //   algorithms: ["HS256"],
-  // });
   if(input) {
     const payload = decodeJwt(input);
   
@@ -38,6 +32,8 @@ export async function decryptForSanity(input: string|undefined): Promise<any> {
 }
 
 export async function login(formData: FormData) {
+  let sanityPass = null;
+  let cart = null;
   // Verify credentials && get the user
   const cookieStore = cookies();
   const user = {
@@ -47,22 +43,42 @@ export async function login(formData: FormData) {
   const userSanity = await client.fetch(`
       *[_type == "users"] {
         pass,
-        email
+        email,
+        cart
       }
     `);
-  let sanityPass = null;
   if (userSanity) {
     if (user) {
       userSanity.map((singU: any) => {
         if (singU.email == user.email) {
-          return (sanityPass = singU.pass);
+          return(
+            sanityPass = singU.pass,
+            cart = singU.cart
+          );
         }
       });
     }
   }
+
   if (sanityPass) {
     sanityPass = await decrypt(sanityPass);
     if (sanityPass == user.pass) {
+      if(cart && cart !== '') {
+        const currCart = cookieStore.get('cart')?.value;
+        if(currCart) {
+          cart = JSON.parse(cart)
+
+          cart.map((item:any) => {
+            // if(JSON.parse(currCart))
+            console.log(JSON.parse(currCart));
+            console.log(item);
+            console.log(JSON.parse(currCart)[0]);
+            
+          })
+          cart = JSON.stringify(cart);
+        }
+        cookieStore.set('cart', cart);
+      }
       // Create the session
       const expires = new Date(Date.now() + (60*60*24)*1000);
       const session = await encrypt({ user, expires });
@@ -75,9 +91,6 @@ export async function login(formData: FormData) {
       return createSanityUser(user, "");
     }
   }
-  // console.log(sanityPass)
-
-  // console.log(await decrypt(val[0].pass) == user.pass);
 }
 
 export async function logout() {
