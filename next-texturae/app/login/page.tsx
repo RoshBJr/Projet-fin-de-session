@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import { getSession, login, logout } from "@/code/actions";
+import Link from "next/link";
 
 export default async function Page() {
   const session = await getSession();
@@ -33,16 +34,7 @@ export default async function Page() {
             <br />
             <button type="submit">Login</button>
           </form>
-          <form
-            action={async () => {
-              "use server";
-              await logout();
-              redirect("/login");
-            }}
-          >
-            <button type="submit">Logout</button>
-          </form>
-          <pre></pre>
+          <Link href='/signin'>Sign In</Link>
         </div>
       }
     </section>

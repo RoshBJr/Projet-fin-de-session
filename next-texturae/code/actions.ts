@@ -2,6 +2,8 @@ import { SignJWT, decodeJwt, jwtDecrypt, jwtVerify } from "jose";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 import { client } from "./sanityClient";
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 const secretKey = "secret";
 const key = new TextEncoder().encode(secretKey);
@@ -14,26 +16,29 @@ export async function encrypt(payload: any) {
     .sign(key);
 }
 
-export async function decrypt(input: string|undefined): Promise<any> {
-  if(input) {
-    const payload = decodeJwt(input);
-  
+export async function decrypt(input: string | undefined): Promise<any> {
+  if (input) {
+    const payload:any = decodeJwt(input);
+
     return payload.user.pass;
   }
   return;
 }
-export async function decryptForSanity(input: string|undefined): Promise<any> {
-  if(input) {
+export async function decryptForSanity(
+  input: string | undefined
+): Promise<any> {
+  if (input) {
     const payload = decodeJwt(input);
-  
+
     return payload.user;
   }
   return;
 }
 
 export async function login(formData: FormData) {
+  revalidatePath('/panier');
   let sanityPass = null;
-  let cart = null;
+  let cart:any = null;
   // Verify credentials && get the user
   const cookieStore = cookies();
   const user = {
@@ -51,10 +56,7 @@ export async function login(formData: FormData) {
     if (user) {
       userSanity.map((singU: any) => {
         if (singU.email == user.email) {
-          return(
-            sanityPass = singU.pass,
-            cart = singU.cart
-          );
+          return (sanityPass = singU.pass), (cart = singU.cart);
         }
       });
     }
@@ -63,39 +65,45 @@ export async function login(formData: FormData) {
   if (sanityPass) {
     sanityPass = await decrypt(sanityPass);
     if (sanityPass == user.pass) {
-      if(cart && cart !== '') {
-        const currCart = cookieStore.get('cart')?.value;
-        if(currCart) {
-          cart = JSON.parse(cart)
-
-          cart.map((item:any) => {
-            // if(JSON.parse(currCart))
-            console.log(JSON.parse(currCart));
-            console.log(item);
-            console.log(JSON.parse(currCart)[0]);
+      if (cart && cart !== "[]") {
+        let currCart = cookieStore.get("cart")?.value;
+        if(currCart && (currCart == "[]" || currCart == "")) cookieStore.set('cart',cart)
+        if (currCart) {
+          cart = JSON.parse(cart);
+          let ids:any = [];
+          cart.map((item:any, i:number) => ids[i] = item.id)
+          JSON.parse(currCart).map((currItem:any, i:number) => {
+            if(ids.includes(currItem.id)) {
+              cart[ids.indexOf(currItem.id)].quantity += currItem.quantity; 
+            } else {
+              cart.push(currItem);
+            }
             
           })
           cart = JSON.stringify(cart);
         }
-        cookieStore.set('cart', cart);
+        cookieStore.set("cart", cart);
       }
       // Create the session
-      const expires = new Date(Date.now() + (60*60*24)*1000);
+      const expires = new Date(Date.now() + 60 * 60 * 24 * 1000);
       const session = await encrypt({ user, expires });
       // Save the session in a cookie
       cookies().set("session", session, { expires, httpOnly: true });
       if (cookieStore.get("cart")) {
         const cart = cookieStore.get("cart")?.value;
-        return createSanityUser(user, cart);
+        createSanityUser(user, cart);
+      } else {
+        createSanityUser(user, "");
       }
-      return createSanityUser(user, "");
     }
   }
 }
 
 export async function logout() {
+  revalidatePath('/login');
   // Destroy the session
   cookies().set("session", "", { expires: new Date(0) });
+  cookies().set("cart", "[]");
 }
 
 export async function getSession() {
@@ -121,13 +129,30 @@ export async function updateSession(request: NextRequest) {
   return res;
 }
 
+export async function signIn(formData: FormData) {
+  revalidatePath('/signin');
+  // Verify credentials && get the user
+  const cookieStore = cookies();
+  const user = {
+    email: formData.get("email")?.toString(),
+    pass: formData.get("password")?.toString(),
+  };
+  // Create the session
+  const expires = new Date(Date.now() + 60 * 60 * 24 * 1000);
+  const session = await encrypt({ user, expires });
+  // Save the session in a cookie
+  cookieStore.set("session", session, { expires, httpOnly: true });
+  createSanityUser(user, "[]");
+}
+
 async function createSanityUser(
   user: { email: string | undefined; pass: string | undefined },
   cart: string | undefined
 ) {
+  revalidatePath('/');
   const doc: any = {
     _type: "users",
-    _id: '1',
+    _id: `${user.email?.split("@")[0]}`,
     email: user.email,
     cart: cart,
     pass: await encrypt({ user }),
@@ -139,15 +164,20 @@ async function createSanityUser(
   } catch (error: any) {
     console.error(`Error importing item :`, error.message);
   }
+  
 }
 
-export async function updateSanityUser(user: { email: string | undefined; pass: string | undefined },cart: string | undefined, ) {
+export async function updateSanityUser(
+  user: { email: string | undefined; pass: string | undefined },
+  cart: string | undefined
+) {
+  revalidatePath('/');
   const doc: any = {
     _type: "users",
-    _id: '1',
+    _id: `${user.email?.split("@")[0]}`,
     email: user.email,
     cart: cart,
-    pass: await encrypt({user})
+    pass: await encrypt({ user }),
   };
 
   try {

@@ -1,6 +1,7 @@
 import { cookies } from "next/headers";
 import { cartSpecs } from "./types";
 import { decrypt, decryptForSanity, updateSanityUser } from "./actions";
+import { revalidatePath } from "next/cache";
 
 export async function quantMinus(id: string) {
   const cart = cookies().get("cart")?.value;
@@ -18,6 +19,7 @@ export async function quantMinus(id: string) {
       }
     }
   }
+  revalidatePath('/');
 }
 export async function quantPlus(id: string) {
   const cart = cookies().get("cart")?.value;
@@ -33,4 +35,5 @@ export async function quantPlus(id: string) {
       await updateSanityUser(await decryptForSanity(cookies().get("session")?.value), JSON.stringify(newCart));
     }
   }
+  revalidatePath('/');
 }
