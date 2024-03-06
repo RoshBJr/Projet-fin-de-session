@@ -33,7 +33,7 @@ export default function RootLayout({
       data-theme="light"
       className={`${font_hm.variable} ${font_rubik.variable}`}
     >
-      <body className="relative">
+      <body className="relative flex flex-col min-h-screen">
         <Header />
         <Suspense fallback={<div>Loading...</div>} >{children}</Suspense>
         <Footer />

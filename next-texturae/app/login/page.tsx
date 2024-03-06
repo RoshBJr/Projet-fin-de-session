@@ -5,7 +5,7 @@ import Link from "next/link";
 export default async function Page() {
   const session = await getSession();
   return (
-    <section className="mt-[120px]">
+    <section className="mt-[120px] flex-grow">
       {
         session ?
         <div>
