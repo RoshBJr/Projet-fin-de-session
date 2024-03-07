@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 function SearchIcon() {
   const currPath = usePathname();
   return (
-    <div className="h-[40px] max-w-60 w-60 relative">
+    <div className="h-[40px] min-[320px]:w-[48px] max-w-60 w-60 relative">
       <input type="checkbox" id="searchInput" />
       <label
         className="_ctn z-10 absolute right-0 inline-flex justify-center items-center  w-[40px] h-[40px] btn-ghost rounded-full"
