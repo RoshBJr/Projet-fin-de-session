@@ -6,10 +6,23 @@ import { usePathname } from "next/navigation";
 function SearchIcon() {
   const currPath = usePathname();
   return (
-    <div className="h-[40px] min-[320px]:w-[48px] max-w-60 w-60 relative">
-      <input type="checkbox" id="searchInput" />
+    <div className="_search-ctn h-[48px] min-[320px]:w-[40px] max-w-60 lg:w-60 relative">
+      <input className="" type="checkbox" id="searchInput" />
+      {/* label grands écrans */}
       <label
-        className="_ctn z-10 absolute right-0 inline-flex justify-center items-center  w-[40px] h-[40px] btn-ghost rounded-full"
+        onClick={() => {
+          if(window.innerWidth > 768) return;
+          document.querySelector('._ctn-header-title')?.classList.toggle("_hidden");
+          const searchCtn = document.querySelector("._mobile-nav-end ._search-ctn");
+          const searchBar = document.querySelector("._mobile-nav-end ._search");
+          const crossIco = document.querySelector("._mobile-nav-end ._cross-icon");
+          const searchIco = document.querySelector("._mobile-nav-end ._search-icon");
+          searchBar?.classList.toggle('input-search-show')
+          crossIco?.classList.toggle('cross-show');
+          searchIco?.classList.toggle('search-hide');
+          searchCtn?.classList.toggle('full-width');
+        }}
+        className="_ctn inline-flex z-10 absolute right-0 justify-center items-center  w-[48px] h-[48px] btn-ghost rounded-full"
         htmlFor="searchInput"
       >
         {/* search icon */}

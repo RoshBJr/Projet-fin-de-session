@@ -1,15 +1,27 @@
+"use client";
 import Link from "next/link";
 
-function AccountIcon() {
+interface Props {
+  style: string;
+}
+
+function AccountIcon({ style }: Props) {
   return (
-    <Link href="/login" className="btn btn-ghost btn-circle">
+    <Link
+      onClick={() => {
+        const drawer = document.querySelector("._drawer");
+        drawer?.classList.remove("show");
+      }}
+      href="/login"
+      className="btn btn-ghost btn-circle"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"
         strokeWidth={1.5}
         stroke="currentColor"
-        className="w-5 h-5"
+        className={`${style}`}
       >
         <path
           strokeLinecap="round"

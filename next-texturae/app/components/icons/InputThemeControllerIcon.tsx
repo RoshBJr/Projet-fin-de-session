@@ -1,17 +1,27 @@
-const InputThemeController = () => {
+"use client";
+interface Props {
+  style: string;
+}
+const InputThemeController = ({ style }: Props) => {
   return (
-    <button className="btn btn-ghost btn-circle">
+    <button
+      onClick={() => {
+        const drawer = document.querySelector("._drawer");
+        drawer?.classList.remove("show");
+      }}
+      className="btn btn-ghost btn-circle"
+    >
       <label className="swap swap-rotate w-12 h-12">
         {/* this hidden checkbox controls the state */}
         <input
           type="checkbox"
-          className="theme-controller w-5 h-5"
+          className="theme-controller w-auto h-auto"
           value="dark"
         />
 
         {/* sun icon */}
         <svg
-          className="swap-on fill-current w-5 h-5"
+          className={`swap-on ${style}`}
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
         >
@@ -20,7 +30,7 @@ const InputThemeController = () => {
 
         {/* moon icon */}
         <svg
-          className="swap-off fill-current w-5 h-5"
+          className={`swap-off ${style}`}
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
         >
