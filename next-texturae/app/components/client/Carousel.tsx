@@ -22,37 +22,38 @@ function Carousel() {
 
   return (
     <>
-      <div className="_carousel relative">
-        <div className="carousel-container">
-          <div className="carousel-post">
+      <div className="_carousel relative min-[320px]:h-[70vh]  lg:h-[calc(100vh-80px)]">
+        <div className="carousel-container min-[320px]:h-[70vh] lg:h-[calc(100vh-80px)]">
+          <div className="carousel-post h-full">
             <div className="_hero-shadow pointer-events-none absolute top-0 bottom-0 right-0 left-0"></div>
             <img
               src="https://wallpapercave.com/wp/wp2317652.jpg"
-              className="w-full h-full"
+              className="w-full h-full object-cover object-center"
             />
             <CarouselContent en={en} nomSing="homme" nomSingEn="man" nomPluriel="hommes" nomPlurielEn="men" />
           </div>
-          <div className="carousel-post">
+          <div className="carousel-post h-full">
             <div className="_hero-shadow pointer-events-none absolute top-0 bottom-0 right-0 left-0"></div>
             <img
               src="https://wallpapercave.com/wp/wp2317655.jpg"
-              className="w-full h-full"
+              className="w-full h-full object-cover object-center"
             />
             <CarouselContent en={en} nomSing="femme" nomSingEn="woman" nomPluriel="femmes" nomPlurielEn="women"/>
           </div>
         </div>
-        <div className="carousel-controls z-[100] absolute mr-24 mb-14 bottom-0 right-0 flex gap-8">
+        <div className="carousel-controls z-[100] absolute xl:mr-24 md:mb-10 md:mr-10 xl:mb-14 
+        min-[320px]:mr-2 min-[320px]:mb-2 bottom-0 right-0 flex lg:gap-8 min-[320px]:gap-1">
           <button
-            className="text-platinum hover:bg-platinum hover:text-davys-gray p-4 duration-200 rounded-full inline-flex justify-center items-center"
+            className="text-platinum xl:hover:bg-platinum xl:hover:text-davys-gray p-4 duration-200 rounded-full inline-flex justify-center items-center"
             id="prevBtn"
           >
-            <Arrow customCss="h-12 w-12 rotate-180" />
+            <Arrow customCss="md:h-12 md:w-12 rotate-180 min-[320px]:h-7 min-[320px]:w-7" />
           </button>
           <button
-            className="text-platinum hover:bg-platinum hover:text-davys-gray p-4 duration-200 rounded-full inline-flex justify-center items-center"
+            className="text-platinum xl:hover:bg-platinum xl:hover:text-davys-gray p-4 duration-200 rounded-full inline-flex justify-center items-center"
             id="nextBtn"
           >
-            <Arrow customCss="h-12 w-12" />
+            <Arrow customCss="md:h-12 md:w-12 min-[320px]:h-7 min-[320px]:w-7" />
           </button>
         </div>
       </div>

@@ -12,7 +12,7 @@ function CartIcon() {
           viewBox="0 0 24 24"
           strokeWidth="1.5"
           stroke="currentColor"
-          className="w-5 h-5"
+          className="md:w-5 md:h-5 min-[320px]:w-[20px] min-[320px]:h-[20px]"
         >
           <path
             strokeLinecap="round"

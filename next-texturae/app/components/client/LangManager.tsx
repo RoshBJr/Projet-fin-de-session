@@ -16,7 +16,7 @@ async function LangManager() {
 
   return (
     <form action={setLang} className="">
-      <button type="submit" className="btn btn-ghost btn-circle align-text-top">
+      <button type="submit" className="min-[320px]:w-[30px] min-[320px]:h-[30px] btn btn-ghost btn-circle align-text-top">
         {lang ? "FR": "EN"}
       </button>
     </form>

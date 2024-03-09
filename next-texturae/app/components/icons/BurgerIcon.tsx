@@ -18,7 +18,7 @@ function BurgerIcon() {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className="_burger w-6 h-6 md:hidden pointer-events-auto z-50"
+      className="_burger w-6 h-6 lg:hidden pointer-events-auto z-50"
     >
       <path
         strokeLinecap="round"

@@ -13,7 +13,7 @@ const Header = () => {
         <div className="sm:navbar-start">
           <Drawer />
         </div>
-        <div className="_ctn-header-title max-lg:_wide sm:navbar-center min-[320px]:flex-grow min-[320px]:inline-flex justify-end">
+        <div className="_ctn-header-title max-lg:_wide sm:navbar-center min-[320px]:flex-grow justify-end">
           <Link href="/" className="btn btn-ghost text-4xl font-medium">
             Texturae
           </Link>

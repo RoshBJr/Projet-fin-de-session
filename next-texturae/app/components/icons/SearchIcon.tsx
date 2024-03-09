@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 function SearchIcon() {
   const currPath = usePathname();
   return (
-    <div className="_search-ctn h-[48px] min-[320px]:w-[40px] max-w-60 lg:w-60 relative">
+    <div className="_search-ctn md:h-[48px] min-[320px]:h-[30px] min-[320px]:min-w-[30px] lg:max-w-60 lg:w-60 relative">
       <input className="" type="checkbox" id="searchInput" />
       {/* label grands écrans */}
       <label
@@ -22,7 +22,9 @@ function SearchIcon() {
           searchIco?.classList.toggle('search-hide');
           searchCtn?.classList.toggle('full-width');
         }}
-        className="_ctn inline-flex z-10 absolute right-0 justify-center items-center  w-[48px] h-[48px] btn-ghost rounded-full"
+        className="_ctn inline-flex z-10 absolute right-0 justify-center 
+        items-center min-[320px]:w-[30px] min-[320px]:h-[30px] md:w-[48px] 
+        md:h-[48px] btn-ghost rounded-full"
         htmlFor="searchInput"
       >
         {/* search icon */}
