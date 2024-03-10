@@ -91,6 +91,7 @@
 
 #searchInput:checked ~ ._ctn {
   height: 40px !important;
+
 }
 
 ._search {

@@ -11,7 +11,7 @@ function SearchIcon() {
       {/* label grands écrans */}
       <label
         onClick={() => {
-          if(window.innerWidth > 768) return;
+          if(window.innerWidth > 1024) return;
           document.querySelector('._ctn-header-title')?.classList.toggle("_hidden");
           const searchCtn = document.querySelector("._mobile-nav-end ._search-ctn");
           const searchBar = document.querySelector("._mobile-nav-end ._search");
@@ -23,7 +23,7 @@ function SearchIcon() {
           searchCtn?.classList.toggle('full-width');
         }}
         className="_ctn inline-flex z-10 absolute bottom-1/2 translate-y-1/2  right-0 justify-center 
-        items-center min-[320px]:-translate-x-1 min-[320px]:w-[30px] min-[320px]:h-[30px] md:w-[40px] 
+        items-center min-[320px]:-translate-x-1 min-[320px]:w-[30px] min-[320px]:h-[30px] 
         md:h-[40px] btn-ghost rounded-full"
         htmlFor="searchInput"
       >

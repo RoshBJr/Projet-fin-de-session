@@ -18,14 +18,14 @@ const Header = () => {
             Texturae
           </Link>
         </div>
-        <div className="min-[320px]:hidden md:flex navbar-end">
+        <div className="min-[320px]:hidden lg:flex navbar-end">
           <SearchIcon/>
           <AccountIcon style="h-5 w-5"/>
           <CartIcon/>
           <InputThemeControllerIcon style="h-5 w-5 fill-alice-blue"/>
           <LangManager/>
         </div>
-        <div className="_mobile-nav-end min-[320px]:flex md:hidden sm:navbar-end">
+        <div className="min-[320px]:mr-2 _mobile-nav-end min-[320px]:flex md:flex lg:hidden sm:navbar-end">
           <SearchIcon/>
           <CartIcon/>
           <LangManager/>
