@@ -26,7 +26,7 @@ async function Feed({searchParams}:{searchParams:{filtre:string, tri:string, sea
     
     
   return (
-    <section className="pt-[120px] bg-alice-blue flex flex-col">
+    <section className="overflow-x-hidden pt-[120px] bg-alice-blue flex flex-col">
       <div className="flex justify-between">
         <FilterDropdown
           tri={searchParams.tri}
