@@ -15,7 +15,7 @@
 
 # production
 /build
-code/constVariables.ts
+# code/constVariables.ts
 # misc
 .DS_Store
 *.pem
