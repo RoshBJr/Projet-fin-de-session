@@ -5,9 +5,9 @@ import { client } from "@/code/sanityClient";
 import { cartSpecs, product } from "@/code/types";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
-import { cache } from "react";
 
 const getData = async (id:string) => {
+  revalidatePath('/');
   const data: [product] = await client.fetch(`*[_id == "${id}"] {
     _id,
     name,
