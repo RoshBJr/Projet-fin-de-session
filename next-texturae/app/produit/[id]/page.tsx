@@ -5,22 +5,10 @@ import { client } from "@/code/sanityClient";
 import { cartSpecs, product } from "@/code/types";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
+import { cache } from "react";
 
-async function single({
-  searchParams,
-}: {
-  searchParams: {
-    id: string;
-    color: number;
-    size: number;
-    material: number;
-    pattern: number;
-  };
-}) {
-  
-  const en = cookies().get("lang")?.value;
-
-  const data: [product] = await client.fetch(`*[_id == "${searchParams.id}"] {
+const getData = cache(async (id:string) => {
+  const data: [product] = await client.fetch(`*[_id == "${id}"] {
     _id,
     name,
     category,
@@ -36,6 +24,24 @@ async function single({
     patterns,
     image[]{ "imgUrl": asset->url }
   }`,undefined, {cache: 'force-cache'});
+  return data;
+})
+
+async function single({
+  searchParams,
+}: {
+  searchParams: {
+    id: string;
+    color: number;
+    size: number;
+    material: number;
+    pattern: number;
+  };
+}) {
+  
+  const en = cookies().get("lang")?.value;
+
+  const data = await getData(searchParams.id);
 
   return data ? (
     <section className="_single bg-alice-blue flex justify-start gap-28 w-full mt-[80px] overflow-hidden max-h-[calc(100vh-80px)]">
