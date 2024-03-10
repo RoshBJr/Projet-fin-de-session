@@ -27,7 +27,7 @@ const getData = async (id:string) => {
   return data;
 }
 
-async function single({
+export default async function single({
   searchParams,
 }: {
   searchParams: {
