@@ -1,4 +1,4 @@
-'force-dynamic'
+'force-static'
 
 import ListElArr from "@/app/components/server/singleProduit/ListElArr";
 import ListElObj from "@/app/components/server/singleProduit/listElObj";
