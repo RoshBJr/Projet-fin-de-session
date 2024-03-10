@@ -23,7 +23,7 @@ const getData = cache(async (id:string) => {
     materials,
     patterns,
     image[]{ "imgUrl": asset->url }
-  }`,undefined, {cache: 'force-cache'});
+  }`);
   return data;
 })
 
