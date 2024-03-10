@@ -1,5 +1,4 @@
 'use server';
-'force-dynamic';
 import { client } from "@/code/sanityClient";
 import { product } from "@/code/types";
 import ProductCard from "../components/server/ProductCard";
