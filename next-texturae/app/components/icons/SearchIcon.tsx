@@ -22,9 +22,9 @@ function SearchIcon() {
           searchIco?.classList.toggle('search-hide');
           searchCtn?.classList.toggle('full-width');
         }}
-        className="_ctn inline-flex z-10 absolute right-0 justify-center 
-        items-center min-[320px]:w-[30px] min-[320px]:h-[30px] md:w-[48px] 
-        md:h-[48px] btn-ghost rounded-full"
+        className="_ctn inline-flex z-10 absolute bottom-1/2 translate-y-1/2  right-0 justify-center 
+        items-center min-[320px]:-translate-x-1 min-[320px]:w-[30px] min-[320px]:h-[30px] md:w-[40px] 
+        md:h-[40px] btn-ghost rounded-full"
         htmlFor="searchInput"
       >
         {/* search icon */}

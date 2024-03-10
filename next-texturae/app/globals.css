@@ -36,9 +36,9 @@
 
 
 .show {
-  transform: translateX(0%);
-  transform: translateY(80px);
-  pointer-events: all;
+  transform: translateX(0%) !important;
+  transform: translateY(80px) !important;
+  pointer-events: all !important;
 }
 
 #searchInput:checked ~ form ._search {
@@ -103,7 +103,7 @@
 }
 
 .explorer:hover ._bottom_bar {
-  transform: translateX(0%);
+  transform: translateX(0%) !important;
 }
 
 ._hero-carousel {
