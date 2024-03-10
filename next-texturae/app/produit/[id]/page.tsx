@@ -6,7 +6,7 @@ import { cartSpecs, product } from "@/code/types";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 
-export async function page({
+async function single({
   searchParams,
 }: {
   searchParams: {
@@ -158,4 +158,4 @@ export async function page({
   }
 }
 
-export default page;
+export default single;
