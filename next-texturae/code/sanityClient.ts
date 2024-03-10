@@ -1,4 +1,4 @@
-import {createClient} from '@sanity/client'
+import { createClient } from 'next-sanity'
 import {PROJECT_ID, DATASET, TOKEN} from './constVariables'
 
 export const client = createClient({
