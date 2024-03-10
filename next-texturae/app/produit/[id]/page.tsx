@@ -7,7 +7,7 @@ import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 import { cache } from "react";
 
-const getData = cache(async (id:string) => {
+const getData = async (id:string) => {
   const data: [product] = await client.fetch(`*[_id == "${id}"] {
     _id,
     name,
@@ -25,7 +25,7 @@ const getData = cache(async (id:string) => {
     image[]{ "imgUrl": asset->url }
   }`);
   return data;
-})
+}
 
 async function single({
   searchParams,
