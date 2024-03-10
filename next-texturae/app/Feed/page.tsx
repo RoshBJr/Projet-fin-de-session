@@ -48,5 +48,3 @@ async function Feed({searchParams}:{searchParams:{filtre:string, tri:string, sea
     </section>
   );
 }
-
-export default Feed;

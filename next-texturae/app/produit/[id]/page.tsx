@@ -163,5 +163,3 @@ async function single({
     revalidatePath('/');
   }
 }
-
-export default single;
