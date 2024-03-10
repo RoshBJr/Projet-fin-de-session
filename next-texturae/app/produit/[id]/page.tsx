@@ -7,7 +7,6 @@ import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 
 const getData = async (id:string) => {
-  revalidatePath('/');
   const data: [product] = await client.fetch(`*[_id == "${id}"] {
     _id,
     name,
