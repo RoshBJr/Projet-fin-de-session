@@ -1,3 +1,5 @@
+'force-dynamic'
+
 import ListElArr from "@/app/components/server/singleProduit/ListElArr";
 import ListElObj from "@/app/components/server/singleProduit/listElObj";
 import { decryptForSanity, updateSanityUser } from "@/code/actions";
