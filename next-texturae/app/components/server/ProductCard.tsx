@@ -47,7 +47,7 @@ function ProductCard({ product, theQuery}: Props) {
             <Link
               className="_btn-carousel hover:bg-davys-gray duration-200 active:scale-105 flex gap-1 items-center justify-center rounded-[8px] py-2 px-2 border border-davys-gray bg-thistle text-alice-blue"
               href={{
-                pathname: `/produit/${product._id}`,
+                pathname: `/produit/${product.slug_fr.current}`,
                 query: {
                   id: product._id,
                   color: 0,
