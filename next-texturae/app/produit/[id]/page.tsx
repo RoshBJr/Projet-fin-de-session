@@ -123,6 +123,7 @@ export default async function single({
       arr.map((item: cartSpecs) => {
         if (item.id == searchParams.id) {
           bool = false;
+          item.id = searchParams.id
           item.quantity += 1;
           item.color = searchParams.color;
           item.size = searchParams.size;
