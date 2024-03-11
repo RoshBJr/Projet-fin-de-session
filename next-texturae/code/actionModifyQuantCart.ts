@@ -9,7 +9,7 @@ export async function quantMinus(id: string) {
     let newCart = JSON.parse(cart);
     newCart.map((item: cartSpecs) => {
       if (item.id == id) {
-        item.quantity -= item.quantity == 0 ? 0 : 1;
+        item.quantity -= item.quantity == 1 ? 0 : 1;
       }
     });
     cookies().set("cart", JSON.stringify(newCart));

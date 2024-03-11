@@ -4,7 +4,7 @@ import React from 'react'
 
 export default function SignIn() {
   return (
-    <div className='mt-[120px]'>
+    <div className='mt-[120px] flex-grow'>
           <form
             action={async (formData) => {
               "use server";
