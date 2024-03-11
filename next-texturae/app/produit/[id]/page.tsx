@@ -22,7 +22,7 @@ const getData = async (id:string) => {
     patterns,
     image[]{ "imgUrl": asset->url }
   }`);
-  return data;
+  return cookies().set("single", JSON.stringify(data));
 }
 
 export default async function single({
@@ -112,10 +112,6 @@ export default async function single({
 
   return <div className="mt-[120px]" >
     <h1>Allo</h1>
-    <span>{data[0].defaultImg}</span>
-    <span>{data[0].name.fr}</span>
-    <span>{data[0].gender.fr}</span>
-    <span>{data[0].description.fr}</span>
     </div>
 
   async function addToCart() {
