@@ -5,9 +5,22 @@ import { client } from "@/code/sanityClient";
 import { cartSpecs, product } from "@/code/types";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
+import { GetStaticProps } from "next";
 
-const getData = async (id:string) => {
-  const data: [product] = await client.fetch(`*[_id == "${id}"] {
+const getData = async (id: string) => {};
+
+export async function GetStaticProps({
+  searchParams,
+}: {
+  searchParams: {
+    id: string;
+    color: number;
+    size: number;
+    material: number;
+    pattern: number;
+  };
+}) {
+  const data: [product] = await client.fetch(`*[_id == "${searchParams.id}"] {
     _id,
     name,
     category,
@@ -23,11 +36,15 @@ const getData = async (id:string) => {
     patterns,
     image[]{ "imgUrl": asset->url }
   }`);
-  return data;
+  return {
+    props: {
+      data,
+    },
+  };
 }
 
 export default async function single({
-  searchParams,
+  searchParams
 }: {
   searchParams: {
     id: string;
@@ -36,11 +53,10 @@ export default async function single({
     material: number;
     pattern: number;
   };
-}) {
-  
+},data:any) {
   const en = cookies().get("lang")?.value;
 
-  const data = await getData(searchParams.id);
+  // const data = await getData(searchParams.id);
 
   return data ? (
     <section className="_single bg-alice-blue flex justify-start gap-28 w-full mt-[80px] overflow-hidden max-h-[calc(100vh-80px)]">
@@ -113,7 +129,7 @@ export default async function single({
   );
 
   async function addToCart() {
-    'use server';
+    "use server";
     let arr = [];
     let cart: string | undefined = cookies().get("cart")?.value;
     if (cart && searchParams.color) {
@@ -139,12 +155,20 @@ export default async function single({
           quantity: 1,
         });
       }
-      cookies().set({name: "cart", value: JSON.stringify(arr), path: '/', httpOnly: true});
+      cookies().set({
+        name: "cart",
+        value: JSON.stringify(arr),
+        path: "/",
+        httpOnly: true,
+      });
       if (cookies().get("session")) {
-        await updateSanityUser(await decryptForSanity(cookies().get("session")?.value), JSON.stringify(arr));
+        await updateSanityUser(
+          await decryptForSanity(cookies().get("session")?.value),
+          JSON.stringify(arr)
+        );
       }
     } else {
-      if(searchParams.color) {
+      if (searchParams.color) {
         arr.push({
           id: searchParams.id,
           color: searchParams.color,
@@ -153,12 +177,20 @@ export default async function single({
           material: searchParams.material,
           quantity: 1,
         });
-        cookies().set({name: "cart", value: JSON.stringify(arr), path: '/', httpOnly:true});
+        cookies().set({
+          name: "cart",
+          value: JSON.stringify(arr),
+          path: "/",
+          httpOnly: true,
+        });
         if (cookies().get("session")) {
-          await updateSanityUser(await decryptForSanity(cookies().get("session")?.value), JSON.stringify(arr));
+          await updateSanityUser(
+            await decryptForSanity(cookies().get("session")?.value),
+            JSON.stringify(arr)
+          );
         }
       }
     }
-    revalidatePath('/');
+    revalidatePath("/");
   }
 }
