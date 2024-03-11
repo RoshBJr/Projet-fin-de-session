@@ -38,9 +38,10 @@ export default async function single({
 }) {
   const en = cookies().get("lang")?.value;
 
-  // const data = await getData(searchParams.id);
+  const data = await getData(searchParams.id);
 
   // 
+
   return <div className="mt-[120px]" ><h1>Allo</h1></div>
 
   async function addToCart() {
