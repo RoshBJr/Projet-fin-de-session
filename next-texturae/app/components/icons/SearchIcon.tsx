@@ -1,26 +1,35 @@
-'use client'
+"use client";
 
 import { sendSearchQuery } from "@/code/actionSendSearchQuery";
-import { usePathname } from "next/navigation";
+import { redirect, usePathname, useRouter } from "next/navigation";
 
 function SearchIcon() {
-  const currPath = usePathname();
+  let currPath = usePathname();
+  const router = useRouter();
   return (
     <div className="_search-ctn md:h-[48px] min-[320px]:h-[30px] min-[320px]:min-w-[30px] lg:max-w-60 lg:w-60 relative">
       <input className="" type="checkbox" id="searchInput" />
       {/* label grands écrans */}
       <label
         onClick={() => {
-          if(window.innerWidth > 1024) return;
-          document.querySelector('._ctn-header-title')?.classList.toggle("_hidden");
-          const searchCtn = document.querySelector("._mobile-nav-end ._search-ctn");
+          if (window.innerWidth > 1024) return;
+          document
+            .querySelector("._ctn-header-title")
+            ?.classList.toggle("_hidden");
+          const searchCtn = document.querySelector(
+            "._mobile-nav-end ._search-ctn"
+          );
           const searchBar = document.querySelector("._mobile-nav-end ._search");
-          const crossIco = document.querySelector("._mobile-nav-end ._cross-icon");
-          const searchIco = document.querySelector("._mobile-nav-end ._search-icon");
-          searchBar?.classList.toggle('input-search-show')
-          crossIco?.classList.toggle('cross-show');
-          searchIco?.classList.toggle('search-hide');
-          searchCtn?.classList.toggle('full-width');
+          const crossIco = document.querySelector(
+            "._mobile-nav-end ._cross-icon"
+          );
+          const searchIco = document.querySelector(
+            "._mobile-nav-end ._search-icon"
+          );
+          searchBar?.classList.toggle("input-search-show");
+          crossIco?.classList.toggle("cross-show");
+          searchIco?.classList.toggle("search-hide");
+          searchCtn?.classList.toggle("full-width");
         }}
         className="_ctn inline-flex z-10 absolute bottom-1/2 translate-y-1/2  right-0 justify-center 
         items-center min-[320px]:-translate-x-1 min-[320px]:w-[30px] min-[320px]:h-[30px] 
@@ -67,6 +76,14 @@ function SearchIcon() {
         <input
           type="text"
           name="searchBar"
+          onChange={(e: any) => {
+            if (e.target.value !== "") {
+              if (currPath == "/") currPath = "/Feed";
+              return router.replace(`${currPath}?&tri=name-asc&search=${e.target.value}`)
+            } else {
+              router.replace((`${currPath}?&tri=name-asc`));
+            }
+          }}
           className="_search opacity-0 pr-[40px] absolute left-0 top-1/2 h-[40px] -translate-y-1/2 
         outline-none right-0 rounded-[25px] caret-platinum pl-2 border-thistle border text-platinum"
         />
@@ -74,6 +91,9 @@ function SearchIcon() {
     </div>
   );
 
+  function realTimeSearchQuery(queryVal: string, currPath: string) {
+    
+  }
 }
 
 export default SearchIcon;
