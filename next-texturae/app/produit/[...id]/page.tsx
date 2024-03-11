@@ -5,7 +5,6 @@ import { client } from "@/code/sanityClient";
 import { cartSpecs, product } from "@/code/types";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
-
 const getData = async (id:string) => {
   const data: [product] = await client.fetch(`*[_id == "${id}"] {
     _id,
@@ -37,7 +36,6 @@ export default async function single({
     pattern: number;
   };
 }) {
-  
   const en = cookies().get("lang")?.value;
 
   const data = await getData(searchParams.id);
