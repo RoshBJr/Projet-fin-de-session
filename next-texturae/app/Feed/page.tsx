@@ -20,6 +20,9 @@ export default async function Feed({searchParams}:{searchParams:{filtre:string, 
       slug_fr,
       price,
       defaultImg,
+      materials,
+      patterns,
+      sizes,
       image[]{ "imgUrl": asset->url }
     } | order(${sorting[0] !== "name"? "price" : en ? "lower(name.en)": "lower(name.fr)"} ${sorting[1]})`,undefined, {cache: 'force-cache'});
     const arrFilter = Object.values(searchParams).filter(val => val !== searchParams.search);

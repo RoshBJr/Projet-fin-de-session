@@ -4,15 +4,15 @@ import Image from "next/image";
 import Link from "next/link";
 import Arrow from "../icons/Arrow";
 import Heart from "../icons/Heart";
+import { redirect } from "next/navigation";
 
 interface Props {
   product: product;
-  theQuery:string[];
+  theQuery: string[];
 }
 
-function ProductCard({ product, theQuery}: Props) {
-
-  const lang = cookies().get('lang')?.value ? 'en' : 'fr';
+function ProductCard({ product, theQuery }: Props) {
+  const lang = cookies().get("lang")?.value ? "en" : "fr";
 
   return (
     <>
@@ -44,27 +44,31 @@ function ProductCard({ product, theQuery}: Props) {
             <span className="font-font-titre text-2xl text-davys-gray">
               ${product.price}
             </span>
-            <Link
-              className="_btn-carousel hover:bg-davys-gray duration-200 active:scale-105 flex gap-1 items-center justify-center rounded-[8px] py-2 px-2 border border-davys-gray bg-thistle text-alice-blue"
-              href={{
-                pathname: `/produit/${product.slug_fr.current}`,
-                query: {
-                  id: product._id,
-                  color: 0,
-                  size: 0,
-                  material:0,
-                  pattern:0
-                },
-              }}
-            >
-              <span className="font-font-titre text-lg">{lang == 'en' ? "See more": "Voir plus"}</span>
-              <Arrow customCss="h-6 w-6" />
-            </Link>
+            <form action={async () => {
+              'use server';
+              await cookies().set('produit', JSON.stringify(product));
+              redirect(`/produit/${product.slug_fr.current}?id=${product._id}&color=0&size=0&material=0&pattern=0`);
+            }}>
+              <button
+                type="submit"
+                className="_btn-carousel hover:bg-davys-gray duration-200 active:scale-105 flex gap-1 items-center justify-center rounded-[8px] py-2 px-2 border border-davys-gray bg-thistle text-alice-blue"
+              >
+                <span className="font-font-titre text-lg">
+                  {lang == "en" ? "See more" : "Voir plus"}
+                </span>
+                <Arrow customCss="h-6 w-6" />
+              </button>
+            </form>
           </div>
         </div>
       </div>
     </>
   );
+
+  async function cookieSingle(product:any) {
+    'use server';
+    cookies().set('produit', JSON.stringify(product));
+  }
 }
 
 export default ProductCard;
