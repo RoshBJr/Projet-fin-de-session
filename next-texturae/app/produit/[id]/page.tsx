@@ -121,9 +121,9 @@ export default async function single({
       let bool = true;
       arr = JSON.parse(cart);
       arr.map((item: cartSpecs) => {
-        if (item.id == searchParams.id) {
+        if (item.id == data._id) {
           bool = false;
-          item.id = searchParams.id
+          item.id = data._id;
           item.quantity += 1;
           item.color = searchParams.color;
           item.size = searchParams.size;
@@ -133,7 +133,7 @@ export default async function single({
       });
       if (bool) {
         arr.push({
-          id: searchParams.id,
+          id: data._id,
           color: searchParams.color,
           size: searchParams.size,
           pattern: searchParams.pattern,
@@ -148,7 +148,7 @@ export default async function single({
     } else {
       if(searchParams.color) {
         arr.push({
-          id: searchParams.id,
+          id: data._id,
           color: searchParams.color,
           size: searchParams.size,
           pattern: searchParams.pattern,
