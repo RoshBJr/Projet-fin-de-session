@@ -90,10 +90,6 @@ function SearchIcon() {
       </form>
     </div>
   );
-
-  function realTimeSearchQuery(queryVal: string, currPath: string) {
-    
-  }
 }
 
 export default SearchIcon;

@@ -95,7 +95,7 @@
 }
 
 ._search {
-  pointer-events: none !important;
+  pointer-events: none;
   background-color: rgba(83, 86, 87, 0.611) !important;
 }
 

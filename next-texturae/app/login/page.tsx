@@ -6,11 +6,14 @@ import { cookies } from "next/headers";
 export default async function Page() {
   const session = await getSession();
   const lang = cookies().get("lang")?.value;
+  const name = cookies().get('user')?.value;
+
   return (
-    <section className="pt-[120px] flex-grow bg-alice-blue flex justify-center items-center">
+    <section className="pt-[80px] flex-grow bg-alice-blue flex justify-center items-center">
       {session ? (
-        <div>
-          <h2>Vous êtes connecté</h2>
+        <div className="font-font-titre text-davys-gray flex flex-col justify-center items-center gap-6 min-h-96">
+          <h2 className="min-[320px]:text-2xl md:text-4xl lg:text-5xl" >{lang ? `Hello ${name}`: `Bonjour ${name}`}</h2>
+          <h3 className="min-[320px]:text-xl md:text-3xl lg:text-4xl" >{lang ? "You are connected": "Vous êtes connecté"}</h3>
           <form
             action={async () => {
               "use server";
@@ -18,7 +21,7 @@ export default async function Page() {
               redirect("/login");
             }}
           >
-            <button type="submit">Logout</button>
+            <button className="border border-davys-gray px-2 py-2 rounded-[8px] bg-thistle font-font-titre text-alice-blue lg:text-2xl xl:hover:bg-davys-gray duration-200 active:scale-x-105 active:bg-davys-gray min-[320px]:text-lg md:text-xl" type="submit">{lang ? "Logout": "Se Déconnecter"}</button>
           </form>
         </div>
       ) : (

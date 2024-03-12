@@ -15,6 +15,14 @@ export default defineType({
       ),
       defineField(
         {
+            name: 'username',
+            title: 'Username',
+            type: 'string',
+            readOnly: true
+        }
+      ),
+      defineField(
+        {
             name: 'cart',
             title: 'User cart',
             type: 'string',

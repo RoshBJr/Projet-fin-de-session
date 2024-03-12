@@ -39,24 +39,27 @@ export async function login(formData: FormData) {
   revalidatePath("/panier");
   let sanityPass = null;
   let cart: any = null;
+  let userName = null;
   // Verify credentials && get the user
   const cookieStore = cookies();
   const user = {
     email: formData.get("email")?.toString(),
     pass: formData.get("password")?.toString(),
+    username: formData.get("username")?.toString()
   };
   const userSanity = await client.fetch(`
       *[_type == "users"] {
         pass,
         email,
-        cart
+        cart,
+        username
       }
     `);
   if (userSanity) {
     if (user) {
       userSanity.map((singU: any) => {
         if (singU.email == user.email) {
-          return (sanityPass = singU.pass), (cart = singU.cart);
+          return (sanityPass = singU.pass), (cart = singU.cart), (userName = singU.username);
         }
       });
     }
@@ -69,6 +72,7 @@ export async function login(formData: FormData) {
         let currCart = cookieStore.get("cart")?.value;
         if (currCart && currCart == "[]") {
           cookieStore.set("cart", cart);
+          if(userName) cookieStore.set("user", userName)
           const expires = new Date(Date.now() + 60 * 60 * 24 * 1000);
           const session = await encrypt({ user, expires });
           // Save the session in a cookie
@@ -88,6 +92,7 @@ export async function login(formData: FormData) {
           cart = JSON.stringify(cart);
         }
         cookieStore.set("cart", cart);
+        if(userName) cookieStore.set("user", userName)
       }
       // Create the session
       const expires = new Date(Date.now() + 60 * 60 * 24 * 1000);
@@ -97,8 +102,10 @@ export async function login(formData: FormData) {
       if (cookieStore.get("cart")) {
         const cart = cookieStore.get("cart")?.value;
         createSanityUser(user, cart);
+        if(userName) cookieStore.set("user", userName);
       } else {
         createSanityUser(user, "");
+        if(userName) cookieStore.set("user", userName)
       }
     }
   }
@@ -109,6 +116,7 @@ export async function logout() {
   // Destroy the session
   cookies().set("session", "", { expires: new Date(0) });
   cookies().set("cart", "[]");
+  cookies().set("user", "", { expires: new Date(0) });
 }
 
 export async function getSession() {
@@ -141,6 +149,7 @@ export async function signIn(formData: FormData) {
   const user = {
     email: formData.get("email")?.toString(),
     pass: formData.get("password")?.toString(),
+    username: formData.get("username")?.toString()
   };
   // Create the session
   const expires = new Date(Date.now() + 60 * 60 * 24 * 1000);
@@ -148,10 +157,11 @@ export async function signIn(formData: FormData) {
   // Save the session in a cookie
   cookieStore.set("session", session, { expires, httpOnly: true });
   createSanityUser(user, "[]");
+  if(user.username) cookieStore.set("user", user.username)
 }
 
 async function createSanityUser(
-  user: { email: string | undefined; pass: string | undefined },
+  user: { email: string | undefined; pass: string | undefined, username:string|undefined },
   cart: string | undefined
 ) {
   revalidatePath("/");
@@ -161,6 +171,7 @@ async function createSanityUser(
     email: user.email,
     cart: cart,
     pass: await encrypt({ user }),
+    username: user.username
   };
 
   try {
@@ -172,7 +183,7 @@ async function createSanityUser(
 }
 
 export async function updateSanityUser(
-  user: { email: string | undefined; pass: string | undefined },
+  user: { email: string | undefined; pass: string | undefined, username:string|undefined },
   cart: string | undefined
 ) {
   revalidatePath("/");
@@ -182,6 +193,7 @@ export async function updateSanityUser(
     email: user.email,
     cart: cart,
     pass: await encrypt({ user }),
+    username: user.username
   };
 
   try {
