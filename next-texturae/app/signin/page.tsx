@@ -32,6 +32,7 @@ export default function SignIn() {
         <button className="min-[320px]:mt-2 border border-davys-gray px-2 py-2 rounded-[8px] bg-thistle font-font-titre text-alice-blue lg:text-2xl xl:hover:bg-davys-gray duration-200 active:scale-x-105 active:bg-davys-gray min-[320px]:text-lg md:text-xl w-full" type="submit">
           {lang ? "Create User" : "Créer Utilisateur"}
         </button>
+        
       </form>
     </div>
   );
