@@ -49,10 +49,9 @@ export default async function Feed({
 
   return (
     <section className="overflow-x-hidden pt-[120px] bg-alice-blue flex flex-col flex-grow">
-      {
-          data.length !== 0 ?
+      {data.length !== 0 ? (
         <>
-          <div className="flex justify-between">
+          <div className="flex justify-between items-center">
             <FilterDropdown
               tri={searchParams.tri}
               search={searchParams.search}
@@ -81,14 +80,16 @@ export default async function Feed({
               }
             })}
           </div>
-          </>
-          :
-          <>
-          <div>
-            <h2>{en ? "Silence is Bliss": "Le silence est un Bonheur"}</h2>
+        </>
+      ) : (
+        <>
+          <div className="flex justify-center items-center flex-grow font-font-titre text-davys-gray">
+            <h2 className="text-3xl">
+              {en ? "Silence is Bliss" : "Le silence est un Bonheur"}
+            </h2>
           </div>
-          </>
-      }
+        </>
+      )}
     </section>
   );
 }

@@ -1,7 +1,6 @@
 import { product } from "@/code/types";
 import { cookies } from "next/headers";
 import Image from "next/image";
-import Link from "next/link";
 import Arrow from "../icons/Arrow";
 import Heart from "../icons/Heart";
 import { redirect } from "next/navigation";
@@ -48,6 +47,7 @@ function ProductCard({ product, theQuery }: Props) {
               'use server';
               await cookies().set('produit', JSON.stringify(product));
               redirect(`/produit/${product.slug_fr.current}?id=${product._id}&color=0&size=0&material=0&pattern=0`);
+
             }}>
               <button
                 type="submit"

@@ -19,7 +19,7 @@ function CarouselContent({
 }: Props) {
   return (
     <div className="absolute top-0 bottom-0 right-0 left-0 flex flex-col
-     items-start min-[320px]:justify-end md:justify-between lg:ml-20 xl:ml-24 md:mb-14 md:mt-28 min-[320px]:ml-5
+     items-start min-[320px]:justify-start md:gap-10 lg:gap-0 lg:justify-between lg:ml-20 xl:ml-24 md:mb-14 md:mt-28 min-[320px]:ml-5
      min-[320px]:mt-5 min-[320px]:gap-10 min-[320px]:mb-5">
       <h2 className="min-[320px]:text-3xl md:text-6xl lg:text-8xl font-font-titre text-platinum">
         {en
@@ -45,7 +45,7 @@ function CarouselContent({
             tri: "name-asc"
           }
         }}
-        className="_btn-carousel  hover:bg-davys-gray duration-200 text-xl 
+        className="min-[320px]:absolute lg:relative min-[320px]:bottom-0 min-[320px]:left-0 _btn-carousel  hover:bg-davys-gray duration-200 text-xl 
         font-font-titre text-platinum inline-flex 
         lg:items-center min-[320px]:gap-1 lg:gap-3 lg:px-2 lg:py-3 rounded-[8px] min-[320px]:px-2 min-[320px]:py-2"
       >

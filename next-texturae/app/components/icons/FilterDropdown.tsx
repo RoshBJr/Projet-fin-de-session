@@ -14,7 +14,7 @@ async function FilterDropdown({tri, theQuery, search}:{tri:string, theQuery:stri
   const langData = en ? data[0].category_en: data[0].category_fr;
   
   return (
-    <div className="dropdown dropdown-right ml-5">
+    <div className="dropdown lg:dropdown-right min-[320px]:dropdown-bottom ml-5">
       <div
         tabIndex={0}
         role="button"
@@ -25,7 +25,7 @@ async function FilterDropdown({tri, theQuery, search}:{tri:string, theQuery:stri
       </div>
       <ul
         tabIndex={0}
-        className="_filtre dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-[35rem] pb-0 flex flex-row flex-nowrap overflow-x-scroll px-3 -translate-y-[8px] gap-1"
+        className="_filtre dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box min-[320px]:w-[70vw] min-[320px]:mt-3 lg:w-[35rem] pb-0 flex flex-row flex-nowrap overflow-x-scroll px-3 -translate-y-[8px] gap-1"
       >
         <FilterBtn search={search} tri={tri} theQuery={theQuery} langData={langData}/>
       </ul>
