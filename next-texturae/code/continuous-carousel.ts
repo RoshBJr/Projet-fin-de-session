@@ -4,6 +4,7 @@ export default class carousel {
   btnNxt: HTMLElement | null;
   btnPrev: HTMLElement | null;
   awaitScroll: boolean;
+  autoscroll: any;
 
   constructor() {
     this.carouselCtn = document.querySelector(".carousel-container");
@@ -24,7 +25,7 @@ export default class carousel {
   }
 
   async autoScroll() {
-    setInterval(() => {
+    this.autoscroll = setInterval(() => {
       if (this.awaitScroll || !this.carouselCtn) return;
       this.nextSlide(
         this.carouselCtn?.children,
@@ -35,19 +36,23 @@ export default class carousel {
 
   async eventListener() {
     this.btnNxt?.addEventListener("click", () => {
+      if (this.autoscroll) clearInterval(this.autoscroll);
       if (this.awaitScroll || !this.carouselCtn) return;
       this.nextSlide(
         this.carouselCtn?.children,
         this.carouselCtn.childElementCount - 1
       );
+      this.autoScroll();
     });
 
     this.btnPrev?.addEventListener("click", () => {
+      if (this.autoscroll) clearInterval(this.autoscroll);
       if (this.awaitScroll || !this.carouselCtn) return;
       this.prevSlide(
         this.carouselCtn.children,
         this.carouselCtn.childElementCount - 1
       );
+      this.autoScroll();
     });
   }
 
