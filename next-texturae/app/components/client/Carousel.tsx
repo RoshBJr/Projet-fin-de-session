@@ -12,6 +12,7 @@ function Carousel() {
     let theCarousel = new carousel();
     theCarousel.initialize();
     theCarousel.eventListener();
+    theCarousel.autoScroll();
   }, []);
 
   useEffect(()=> {
@@ -27,7 +28,7 @@ function Carousel() {
           <div className="carousel-post h-full">
             <div className="_hero-shadow pointer-events-none absolute top-0 bottom-0 right-0 left-0"></div>
             <img
-              src="https://wallpapercave.com/wp/wp2317652.jpg"
+              src="https://images.pexels.com/photos/6050435/pexels-photo-6050435.jpeg"
               className="w-full h-full object-cover object-center"
             />
             <CarouselContent en={en} nomSing="homme" nomSingEn="man" nomPluriel="hommes" nomPlurielEn="men" />
@@ -35,7 +36,7 @@ function Carousel() {
           <div className="carousel-post h-full">
             <div className="_hero-shadow pointer-events-none absolute top-0 bottom-0 right-0 left-0"></div>
             <img
-              src="https://wallpapercave.com/wp/wp2317655.jpg"
+              src="https://images.pexels.com/photos/8306365/pexels-photo-8306365.jpeg"
               className="w-full h-full object-cover object-center"
             />
             <CarouselContent en={en} nomSing="femme" nomSingEn="woman" nomPluriel="femmes" nomPlurielEn="women"/>

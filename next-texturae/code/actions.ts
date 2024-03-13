@@ -183,8 +183,8 @@ async function createSanityUser(
 }
 
 export async function updateSanityUser(
-  user: { email: string | undefined; pass: string | undefined, username:string|undefined },
-  cart: string | undefined
+  user: { email: string | undefined; pass: string | undefined},
+  cart: string | undefined,username:string|undefined
 ) {
   revalidatePath("/");
   const doc: any = {
@@ -193,7 +193,7 @@ export async function updateSanityUser(
     email: user.email,
     cart: cart,
     pass: await encrypt({ user }),
-    username: user.username
+    username: username
   };
 
   try {

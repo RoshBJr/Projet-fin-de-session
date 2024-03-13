@@ -139,17 +139,17 @@
 
 .slide-out-left {
   transform: translateX(-100%);
-  transition: .5s; }
+  transition: 1s; }
 
 .slide-in-right {
-  animation: slideInFromRight .5s 1; }
+  animation: slideInFromRight 1s ; }
 
 .slide-in-left {
-  animation: slideInFromLeft .5s 1; }
+  animation: slideInFromLeft 1s ; }
 
 .slide-out-right {
   transform: translateX(100%);
-  transition: .5s; }
+  transition: 1s; }
 
 @keyframes slideInFromRight {
   0% {

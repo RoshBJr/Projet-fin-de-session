@@ -5,6 +5,7 @@ import { revalidatePath } from "next/cache";
 
 export async function quantMinus(id: string) {
   const cart = cookies().get("cart")?.value;
+  const userName = cookies().get('user')?.value;
   if (cart) {
     let newCart = JSON.parse(cart);
     newCart.map((item: cartSpecs) => {
@@ -15,13 +16,14 @@ export async function quantMinus(id: string) {
     cookies().set("cart", JSON.stringify(newCart));
     if (cookies().get("session")) {
       if (cookies().get("session")) {
-        await updateSanityUser(await decryptForSanity(cookies().get("session")?.value), JSON.stringify(newCart));
+        await updateSanityUser(await decryptForSanity(cookies().get("session")?.value), JSON.stringify(newCart), userName);
       }
     }
   }
   revalidatePath('/');
 }
 export async function quantPlus(id: string) {
+  const userName = cookies().get('user')?.value;
   const cart = cookies().get("cart")?.value;
   if (cart) {
     let newCart = JSON.parse(cart);
@@ -32,7 +34,7 @@ export async function quantPlus(id: string) {
     });
     cookies().set("cart", JSON.stringify(newCart));
     if (cookies().get("session")) {
-      await updateSanityUser(await decryptForSanity(cookies().get("session")?.value), JSON.stringify(newCart));
+      await updateSanityUser(await decryptForSanity(cookies().get("session")?.value), JSON.stringify(newCart), userName);
     }
   }
   revalidatePath('/');

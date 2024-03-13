@@ -117,6 +117,7 @@ export default async function single({
     'use server';
     let arr = [];
     let cart: string | undefined = cookies().get("cart")?.value;
+    const userName = cookies().get('user')?.value;
     if (cart && searchParams.color) {
       let bool = true;
       arr = JSON.parse(cart);
@@ -143,7 +144,7 @@ export default async function single({
       }
       cookies().set({name: "cart", value: JSON.stringify(arr), path: '/', httpOnly: true});
       if (cookies().get("session")) {
-        await updateSanityUser(await decryptForSanity(cookies().get("session")?.value), JSON.stringify(arr));
+        await updateSanityUser(await decryptForSanity(cookies().get("session")?.value), JSON.stringify(arr), userName);
       }
     } else {
       if(searchParams.color) {
@@ -157,7 +158,7 @@ export default async function single({
         });
         cookies().set({name: "cart", value: JSON.stringify(arr), path: '/', httpOnly:true});
         if (cookies().get("session")) {
-          await updateSanityUser(await decryptForSanity(cookies().get("session")?.value), JSON.stringify(arr));
+          await updateSanityUser(await decryptForSanity(cookies().get("session")?.value), JSON.stringify(arr), userName);
         }
       }
     }
