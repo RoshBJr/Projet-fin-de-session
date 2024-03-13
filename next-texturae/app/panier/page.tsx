@@ -47,8 +47,8 @@ async function Panier() {
   }
 
   return (
-    <section className="pt-[120px] flex flex-col min-[320px]:gap-7 xl:gap-20 font-font-titre bg-alice-blue flex-grow pb-28">
-      <h2 className="min-[320px]:mx-3 xl:mx-20 min-[320px]:text-3xl xl:text-5xl text-davys-gray">
+    <section className="pt-[120px] flex flex-col min-[320px]:gap-7 xl:gap-20 font-font-titre bg-primary flex-grow pb-28">
+      <h2 className="min-[320px]:mx-3 xl:mx-20 min-[320px]:text-3xl xl:text-5xl text-neutral">
         {lang == "en" ? "Your Cart" : "Votre Panier"}
       </h2>
       <div className="min-[320px]:mx-3 md:mx-10 relative 2xl:mx-20 2xl:border-2 border-thistle rounded-[8px] 2xl:max-h-[75vh] xl:overflow-y-scroll">
@@ -69,7 +69,7 @@ async function Panier() {
                   >
                     <button
                       type="submit"
-                      className="py-2 px-5 border-2 border-thistle rounded-[8px] hover:bg-davys-gray hover:text-alice-blue hover:border-davys-gray duration-200"
+                      className="py-2 px-5 border-2 border-thistle rounded-[8px] hover:bg-neutral text-secondary hover:text-base-100 hover:border-davys-gray duration-200"
                     >
                       X
                     </button>
@@ -79,7 +79,7 @@ async function Panier() {
                     src={item.defaultImg}
                     alt={item.name[lang]}
                   />
-                  <div className="min-[320px]:px-4 min-[320px]:mb-5 2xl:ml-0 flex min-[320px]:flex-col gap-2 min-[320px]:w-full xl:text-3xl text-davys-gray">
+                  <div className="min-[320px]:px-4 min-[320px]:mb-5 2xl:ml-0 flex min-[320px]:flex-col gap-2 min-[320px]:w-full xl:text-3xl text-neutral">
                     <h2 className="min-[320px]:text-2xl md:text-3xl xl:text-4xl">{item.name[lang]}</h2>
                     <div className="flex flex-col gap-3">
                       <div className="flex gap-2 items-center">
@@ -158,7 +158,7 @@ async function Panier() {
                       >
                         <button
                           type="submit"
-                          className="border rounded-[8px] border-davys-gray bg-thistle text-alice-blue px-4 py-[2px] xl:hover:bg-davys-gray duration-200 min-[320px]:text-xl md:text-2xl xl:text-3xl"
+                          className="border rounded-[8px] border-davys-gray bg-thistle text-neutral hover:text-base-100 px-4 py-[2px] xl:hover:bg-neutral duration-200 min-[320px]:text-xl md:text-2xl xl:text-3xl"
                         >
                           -
                         </button>
@@ -178,7 +178,7 @@ async function Panier() {
                       >
                         <button
                           type="submit"
-                          className="border rounded-[8px] border-davys-gray bg-thistle text-alice-blue px-4 py-[2px] xl:hover:bg-davys-gray duration-200 min-[320px]:text-xl md:text-2xl xl:text-3xl"
+                          className="border rounded-[8px] border-davys-gray bg-thistle text-neutral hover:text-base-100 px-4 py-[2px] xl:hover:bg-neutral duration-200 min-[320px]:text-xl md:text-2xl xl:text-3xl"
                         >
                           +
                         </button>
@@ -193,12 +193,12 @@ async function Panier() {
             }
           })}
         </div>
-        <div className="xl:border-2 border-b-0 border-thistle rounded-t-[8px] xl:sticky bottom-0 left-0 right-0 w-full h-28 bg-alice-blue flex justify-between min-[320px]:flex-col xl:flex-row xl:items-center xl:px-5">
-          <span className="font-font-titre text-davys-gray text-3xl">
+        <div className="xl:border-2 border-b-0 border-thistle rounded-t-[8px] xl:sticky bottom-0 left-0 right-0 w-full h-28 bg-primary flex justify-between min-[320px]:flex-col xl:flex-row xl:items-center xl:px-5">
+          <span className="font-font-titre text-neutral text-3xl">
             {lang == "en" ? "Subtotal" : "Sous-total"}: ${price.toFixed(2)}
           </span>
           <Link
-            className="text-center border border-davys-gray rounded-[8px] px-5 py-2 bg-thistle text-alice-blue font-font-titre text-3xl hover:bg-davys-gray duration-200"
+            className="text-center border border-davys-gray rounded-[8px] px-5 py-2 bg-thistle text-neutral hover:text-base-100 font-font-titre text-3xl hover:bg-neutral duration-200"
             href={"/"}
           >
             {lang == "en" ? "Pay" : "Payer"}

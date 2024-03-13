@@ -44,28 +44,28 @@ export default async function single({
 
 
   return data ? (
-    <section className="min-[320px]:flex-col xl:flex-row _single bg-alice-blue flex justify-start xl:gap-28 w-full mt-[80px] xl:overflow-hidden min-[320px]:h-auto xl:max-h-[calc(100vh-80px)]">
+    <section className="min-[320px]:flex-col xl:flex-row _single bg-primary flex justify-start xl:gap-28 w-full mt-[80px] xl:overflow-hidden min-[320px]:h-auto xl:max-h-[calc(100vh-80px)]">
       <img
         className="object-top object-cover min-[320px]:w-full min-[320px]:h-[70vh] xl:w-auto xl:h-[calc(100vh-80px)]"
         src={data.defaultImg}
         alt={en ? data.name.en : data.name.fr}
       />
       <div className="pt-16 pb-8 flex flex-col gap-8 overflow-y-scroll flex-1 min-[320px]:px-3 md:px-8">
-        <h2 className="font-font-titre min-[320px]:text-3xl md:text-5xl xl:text-6xl text-davys-gray xl:max-w-[90%]">
+        <h2 className="font-font-titre min-[320px]:text-3xl md:text-5xl xl:text-6xl text-neutral xl:max-w-[90%]">
           {en ? data.name.en : data.name.fr}
         </h2>
         <div className="flex gap-3">
-          <div className="border rounded-full py-1 px-4 border-thistle font-font-titre min-[320px]:text-xl md:text-2xl text-davys-gray">
+          <div className="border rounded-full py-1 px-4 border-thistle font-font-titre min-[320px]:text-xl md:text-2xl text-neutral">
             {en ? data.gender.en : data.gender.fr}
           </div>
-          <div className="border rounded-full py-1 px-4 border-thistle font-font-titre min-[320px]:text-xl md:text-2xl text-davys-gray">
+          <div className="border rounded-full py-1 px-4 border-thistle font-font-titre min-[320px]:text-xl md:text-2xl text-neutral">
             {en ? data.category.en : data.category.fr}
           </div>
         </div>
-        <div className="font-font-titre min-[320px]:text-3xl md:text-4xl lg:text-5xl text-davys-gray">
+        <div className="font-font-titre min-[320px]:text-3xl md:text-4xl lg:text-5xl text-neutral">
           ${data.price}
         </div>
-        <p className="font-font-text text-davys-gray min-[320px]:text-xl md:text-2xl xl:w-[90%]">
+        <p className="font-font-text text-neutral min-[320px]:text-xl md:text-2xl xl:w-[90%]">
           {en ? data.description.en : data.description.fr}
         </p>
         <ListElArr
@@ -103,7 +103,7 @@ export default async function single({
       <form className="min-[320px]:px-8 xl:px-0 min-[320px]:mb-16 xl-my-0" action={addToCart}>
         <button
           type="submit"
-          className=" cursor-pointer xl:fixed xl:bottom-0 xl:right-0 xl:mr-12 xl:mb-11 border-davys-gray border-2 py-4 px-3 rounded-[8px] bg-thistle font-font-titre text-xl text-alice-blue duration-200 hover:bg-davys-gray active:scale-105 min-[320px]:w-full xl:w-auto"
+          className=" cursor-pointer xl:fixed xl:bottom-0 xl:right-0 xl:mr-12 xl:mb-11 border-davys-gray border-2 py-4 px-3 rounded-[8px] bg-thistle font-font-titre text-xl text-base-100 duration-200 hover:bg-neutral active:scale-105 min-[320px]:w-full xl:w-auto"
         >
           {en ? "Add to cart" : "Ajouter au panier"}
         </button>

@@ -9,9 +9,9 @@ export default async function Page() {
   const name = cookies().get('user')?.value;
 
   return (
-    <section className="lg:pt-[80px] min-[320px]:pt-[120px] flex-grow bg-alice-blue flex justify-center items-center min-h-96">
+    <section className="lg:pt-[80px] min-[320px]:pt-[120px] flex-grow bg-primary flex justify-center items-center min-h-96">
       {session ? (
-        <div className="font-font-titre text-davys-gray flex flex-col justify-center items-center gap-6 min-h-96">
+        <div className="font-font-titre text-neutral flex flex-col justify-center items-center gap-6 min-h-96">
           <h2 className="min-[320px]:text-2xl md:text-4xl lg:text-5xl" >{lang ? `Hello ${name}`: `Bonjour ${name}`}</h2>
           <h3 className="min-[320px]:text-xl md:text-3xl lg:text-4xl" >{lang ? "You are connected": "Vous êtes connecté(e)"}</h3>
           <form

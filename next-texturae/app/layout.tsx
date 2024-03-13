@@ -30,7 +30,7 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      data-theme="light"
+      data-theme="mylighttheme"
       className={`${font_hm.variable} ${font_rubik.variable}`}
     >
       <body className="relative flex flex-col min-h-screen">

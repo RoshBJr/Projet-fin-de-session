@@ -38,8 +38,8 @@ function Drawer() {
         <span className="text-xl min-[320px]:hidden lg:flex">{en ? "Explore" : "Explorer"}</span>
         <span className="_bottom_bar min-[320px]:hidden lg:flex h-px w-full bg-platinum absolute bottom-0 left-0 -translate-x-full duration-200"></span>
       </div>
-      <div className="_nav pointer-events-none _drawer md:w-[50vw] min-[320px]:w-full bg-platinum absolute top-0 left-0 translate-y-[80px] -translate-x-full duration-200 min-[320px]:flex min-[320px]:flex-col justify-between">
-        <ul className="menu menu-vertical text-paynes-gray min-[320px]:text-xl">
+      <div className="_nav pointer-events-none _drawer md:w-[50vw] min-[320px]:w-full bg-secondary absolute top-0 left-0 translate-y-[80px] -translate-x-full duration-200 min-[320px]:flex min-[320px]:flex-col justify-between">
+        <ul className="menu menu-vertical text-accent min-[320px]:text-xl">
           <li>
             <MenuLink slug="homme" menuTitre="Homme" menuTitreEn="Man" />
           </li>
@@ -55,8 +55,8 @@ function Drawer() {
           </li>
         </ul>
         <div className="lg:hidden self-end mb-2 mr-2">
-          <AccountIcon style="stroke-davys-gray h-6 w-6"/>
-          <InputThemeController style="fill-davys-gray h-6 w-6" />
+          <AccountIcon style="stroke-accent h-6 w-6"/>
+          <InputThemeController style="fill-accent h-6 w-6" />
         </div>
       </div>
     </div>

@@ -16,7 +16,7 @@ const InputThemeController = ({ style }: Props) => {
         <input
           type="checkbox"
           className="theme-controller w-auto h-auto"
-          value="dark"
+          value="mydarktheme"
         />
 
         {/* sun icon */}

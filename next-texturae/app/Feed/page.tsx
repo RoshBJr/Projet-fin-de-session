@@ -48,7 +48,7 @@ export default async function Feed({
   );
 
   return (
-    <section className="overflow-x-hidden pt-[120px] bg-alice-blue flex flex-col flex-grow">
+    <section className="overflow-x-hidden pt-[120px] bg-primary flex flex-col flex-grow">
       {data.length !== 0 ? (
         <>
           <div className="flex justify-between items-center">
@@ -83,7 +83,7 @@ export default async function Feed({
         </>
       ) : (
         <>
-          <div className="flex justify-center items-center flex-grow font-font-titre text-davys-gray">
+          <div className="flex justify-center items-center flex-grow font-font-titre text-neutral">
             <h2 className="text-3xl">
               {en ? "Silence is Bliss" : "Le silence est un Bonheur"}
             </h2>
