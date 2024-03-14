@@ -11,11 +11,11 @@ export async function deleteProduct(itemId: string) {
     const newCart = JSON.parse(cart).filter(
       (item: cartSpecs) => item.id != itemId
     );
-    cookies().set('cart', JSON.stringify(newCart));
 
       if (cookies().get("session")) {
         await updateSanityUser(await decryptForSanity(cookies().get("session")?.value), JSON.stringify(newCart), userName);
       }
+      cookies().set('cart', JSON.stringify(newCart));
   }
   revalidatePath('/panier');
 }

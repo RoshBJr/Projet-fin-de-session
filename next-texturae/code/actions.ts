@@ -37,7 +37,7 @@ export async function decryptForSanity(
 }
 
 export async function login(formData: FormData) {
-  revalidatePath("/panier");
+  revalidatePath("/login");
   let sanityPass = null;
   let cart: any = null;
   let userName = null;
@@ -75,10 +75,12 @@ export async function login(formData: FormData) {
       // Create the session
       const expires = new Date(Date.now() + 60 * 60 * 24 * 1000);
       const session = await encrypt({ user, expires });
+      console.log(cart);
+      
+      loginSanityUser(user, cart, userName);
       cookieStore.set("session",session, {expires: expires});
       cookieStore.set("user", userName);
       cookieStore.set("cart", cart);
-      loginSanityUser(user, cookieStore.get("cart")?.value, userName);
     }
   }
 }
@@ -238,12 +240,7 @@ export async function addToCart(searchParams: any, data: product) {
         quantity: 1,
       });
     }
-    cookies().set({
-      name: "cart",
-      value: JSON.stringify(arr),
-      path: "/",
-      httpOnly: true,
-    });
+    cookies().set("cart",JSON.stringify(arr));
     if (cookies().get("session")) {
       const userName = cookies().get("user")?.value;
       await updateSanityUser(
@@ -262,12 +259,7 @@ export async function addToCart(searchParams: any, data: product) {
         material: searchParams.material,
         quantity: 1,
       });
-      cookies().set({
-        name: "cart",
-        value: JSON.stringify(arr),
-        path: "/",
-        httpOnly: true,
-      });
+      cookies().set("cart",JSON.stringify(arr));
       if (cookies().get("session")) {
         const userName = cookies().get("user")?.value;
         await updateSanityUser(
