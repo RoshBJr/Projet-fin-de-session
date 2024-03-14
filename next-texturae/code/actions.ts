@@ -244,7 +244,7 @@ export async function addToCart(searchParams: any, data: product) {
       name: "cart",
       value: JSON.stringify(arr),
       path: "/",
-      httpOnly: false,
+      httpOnly: true,
     });
     if (cookies().get("session")) {
       const userName = cookies().get("user")?.value;
@@ -268,7 +268,7 @@ export async function addToCart(searchParams: any, data: product) {
         name: "cart",
         value: JSON.stringify(arr),
         path: "/",
-        httpOnly: false,
+        httpOnly: true,
       });
       if (cookies().get("session")) {
         const userName = cookies().get("user")?.value;
