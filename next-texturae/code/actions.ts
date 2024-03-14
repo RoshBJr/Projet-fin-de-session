@@ -72,14 +72,13 @@ export async function login(formData: FormData) {
   if (sanityPass && userName) {
     sanityPass = await decrypt(sanityPass);
     if (sanityPass == user.pass) {
-      revalidatePath('/');
       // Create the session
       const expires = new Date(Date.now() + 60 * 60 * 24 * 1000);
       const session = await encrypt({ user, expires });
       cookieStore.set("session",session, {expires: expires});
       cookieStore.set("user", userName);
       cookieStore.set("cart", cart);
-      loginSanityUser(user, cart, userName);
+      loginSanityUser(user, cookieStore.get("cart")?.value, userName);
     }
   }
 }
@@ -215,7 +214,7 @@ export async function addToCart(searchParams: any, data: product) {
   "use server";
   let arr = [];
   let cart: string | undefined = cookies().get("cart")?.value;
-  if (cart && searchParams.color) {
+  if (cart) {
     let bool = true;
     arr = JSON.parse(cart);
     arr.map((item: cartSpecs) => {
