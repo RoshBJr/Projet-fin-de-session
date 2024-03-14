@@ -19,8 +19,8 @@ export default async function Feed({
       searchQuery
         ? `&& ${
             en
-              ? `name.en match "*${searchQuery}*"`
-              : `name.fr match "*${searchQuery}*"`
+              ? `gender.fr == "Homme"  && (name.en match "*${searchQuery}*" || category.en match "*${searchQuery}*")`
+              : `gender.fr == "Homme"  && (name.fr match "*${searchQuery}*" || category.fr match "*${searchQuery}*")`
           }`
         : ""
     } ] {

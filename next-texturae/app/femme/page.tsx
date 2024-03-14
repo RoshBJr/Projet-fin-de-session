@@ -5,6 +5,7 @@ import ProductCard from "../components/server/ProductCard";
 import DropDown from "../components/server/DropDown";
 import FilterDropdown from "../components/icons/FilterDropdown";
 import { cookies } from "next/headers";
+import { AnimatePresence } from "framer-motion";
 
 export default async function Feed({
   searchParams,
@@ -19,8 +20,8 @@ export default async function Feed({
       searchQuery
         ? `&& ${
             en
-              ? `name.en match "*${searchQuery}*"`
-              : `name.fr match "*${searchQuery}*"`
+              ? `gender.fr == "Femme"  && (name.en match "*${searchQuery}*" || category.en match "*${searchQuery}*")`
+              : `gender.fr == "Femme"  && (name.fr match "*${searchQuery}*" || category.fr match "*${searchQuery}*")`
           }`
         : ""
     } ] {
@@ -50,45 +51,47 @@ export default async function Feed({
 
   return (
     <section className="overflow-x-hidden pt-[120px] bg-primary flex flex-col flex-grow">
-      {data.length !== 0 ? (
-        <>
-          <div className="flex justify-between items-center">
-            <FilterDropdown
-              tri={searchParams.tri}
-              search={searchParams.search}
-              theQuery={arrFilter}
-            />
-            <DropDown search={searchParams.search} theQuery={arrFilter} />
-          </div>
-          <div className="p-5 grid min-[320px]:grid-cols-1 min-[500px]:grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-            {data.map((product: product) => {
-              if (arrFilter.length == 1) {
-                return (
-                  <ProductCard
-                    key={product._id}
-                    product={product}
-                    theQuery={arrFilter}
-                  />
-                );
-              } else if (arrFilter.includes(product.category.fr)) {
-                return (
-                  <ProductCard
-                    key={product._id}
-                    product={product}
-                    theQuery={arrFilter}
-                  />
-                );
-              }
-            })}
-          </div>
-        </>
-      ) : (
-        <>
-          <div className="flex justify-center items-center flex-grow font-font-titre text-neutral" >
-            <h2 className="text-3xl" >{en ? "Silence is Bliss" : "Le silence est un Bonheur"}</h2>
-          </div>
-        </>
-      )}
+        {data.length !== 0 ? (
+          <>
+            <div className="flex justify-between items-center">
+              <FilterDropdown
+                tri={searchParams.tri}
+                search={searchParams.search}
+                theQuery={arrFilter}
+              />
+              <DropDown search={searchParams.search} theQuery={arrFilter} />
+            </div>
+            <div className="p-5 grid min-[320px]:grid-cols-1 min-[500px]:grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+              {data.map((product: product) => {
+                if (arrFilter.length == 1) {
+                  return (
+                    <ProductCard
+                      key={product._id}
+                      product={product}
+                      theQuery={arrFilter}
+                    />
+                  );
+                } else if (arrFilter.includes(product.category.fr)) {
+                  return (
+                    <ProductCard
+                      key={product._id}
+                      product={product}
+                      theQuery={arrFilter}
+                    />
+                  );
+                }
+              })}
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="flex justify-center items-center flex-grow font-font-titre text-neutral">
+              <h2 className="text-3xl">
+                {en ? "Silence is Bliss" : "Le silence est un Bonheur"}
+              </h2>
+            </div>
+          </>
+        )}
     </section>
   );
 }

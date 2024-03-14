@@ -4,6 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { client } from "./sanityClient";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { product } from "./types";
 
 const secretKey = "secret";
 const key = new TextEncoder().encode(secretKey);
@@ -202,4 +203,8 @@ export async function updateSanityUser(
   } catch (error: any) {
     console.error(`Error importing item :`, error.message);
   }
+}
+
+export async function setSingleProductCookie(product:product) {
+  cookies().set("produit", JSON.stringify(product));
 }

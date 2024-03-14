@@ -1,30 +1,13 @@
 import ListElArr from "@/app/components/server/singleProduit/ListElArr";
 import ListElObj from "@/app/components/server/singleProduit/listElObj";
 import { decryptForSanity, updateSanityUser } from "@/code/actions";
-import { client } from "@/code/sanityClient";
 import { cartSpecs, product } from "@/code/types";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
+
 const getData = async () => {
   const data = cookies().get('produit')?.value
   if(data) return JSON.parse(data);
-  // const data: [product] = await client.fetch(`*[_id == "${id}"] {
-  //   _id,
-  //   name,
-  //   category,
-  //   colors,
-  //   description,
-  //   price,
-  //   gender,
-  //   slug_en,
-  //   slug_fr,
-  //   sizes,
-  //   defaultImg,
-  //   materials,
-  //   patterns,
-  //   image[]{ "imgUrl": asset->url }
-  // }`);
-  // return cookies().set("single", JSON.stringify(data));
 }
 
 export default async function single({

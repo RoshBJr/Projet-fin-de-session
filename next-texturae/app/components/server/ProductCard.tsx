@@ -4,6 +4,7 @@ import Image from "next/image";
 import Arrow from "../icons/Arrow";
 import Heart from "../icons/Heart";
 import { redirect } from "next/navigation";
+import { setSingleProductCookie } from "@/code/actions";
 
 interface Props {
   product: product;
@@ -12,10 +13,12 @@ interface Props {
 
 function ProductCard({ product, theQuery }: Props) {
   const lang = cookies().get("lang")?.value ? "en" : "fr";
-
+  
   return (
     <>
-      <div className="flex flex-col relative border-2 border-thistle rounded-[8px] overflow-hidden text-neutral">
+      <div
+        className="flex flex-col relative border-2 border-thistle rounded-[8px] overflow-hidden text-neutral"
+      >
         <Heart
           customCss="absolute top-0 right-0 mr-4 mt-4 stroke-davys-gray
             hover:fill-davys-gray duration-200 cursor-pointer active:scale-105"
@@ -43,15 +46,16 @@ function ProductCard({ product, theQuery }: Props) {
             <span className="font-font-titre text-2xl text-neutral">
               ${product.price}
             </span>
-            <form action={async () => {
-              'use server';
-              await cookies().set('produit', JSON.stringify(product));
-              redirect(`/produit/${product.slug_fr.current}?id=${product._id}&color=0&size=0&material=0&pattern=0`);
-
-            }}>
+            <form
+              action={async () => {
+                "use server";
+                setSingleProductCookie(product)
+                redirect(`/produit/${product.slug_fr.current}?id=${product._id}&color=0&size=0&material=0&pattern=0`);
+              }}
+            >
               <button
                 type="submit"
-                className="text-neutral hover:text-base-100 _btn-carousel hover:bg-accent duration-200 active:scale-105 flex gap-1 items-center justify-center rounded-[8px] py-2 px-2 border border-davys-gray bg-thistle"
+                className="text-neutral hover:text-base-100 _btn-carousel hover:bg-neutral duration-200 active:scale-105 flex gap-1 items-center justify-center rounded-[8px] py-2 px-2 border border-davys-gray bg-thistle"
               >
                 <span className="font-font-titre text-lg">
                   {lang == "en" ? "See more" : "Voir plus"}
@@ -64,11 +68,6 @@ function ProductCard({ product, theQuery }: Props) {
       </div>
     </>
   );
-
-  async function cookieSingle(product:any) {
-    'use server';
-    cookies().set('produit', JSON.stringify(product));
-  }
 }
 
 export default ProductCard;
