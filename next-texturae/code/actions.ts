@@ -114,6 +114,7 @@ export async function login(formData: FormData) {
       } else {
         createSanityUser(user, "");
         if (userName) cookieStore.set("user", userName);
+        
       }
     }
   }
