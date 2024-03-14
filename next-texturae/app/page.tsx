@@ -1,5 +1,4 @@
 import Hero from "./components/server/Hero";
-import { cookies } from "next/headers";
 
 export default async function Home() {
   return (
