@@ -107,7 +107,7 @@ export default function SingleProduitPanier({item, lang, cookieCart, idArr}:Prop
                 className="flex justify-center items-center"
                 action={async () => {
                   "use server";
-                  quantMinus(item._id);
+                  await quantMinus(item._id);
                 }}
               >
                 <button
@@ -127,7 +127,7 @@ export default function SingleProduitPanier({item, lang, cookieCart, idArr}:Prop
                 className="flex justify-center items-center"
                 action={async () => {
                   "use server";
-                  quantPlus(item._id);
+                  await quantPlus(item._id);
                 }}
               >
                 <button

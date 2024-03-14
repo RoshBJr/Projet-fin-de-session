@@ -1,7 +1,8 @@
 import { cookies } from "next/headers";
 import { cartSpecs } from "./types";
-import { decrypt, decryptForSanity, updateSanityUser } from "./actions";
+import { decryptForSanity, updateSanityUser } from "./actions";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 export async function quantMinus(id: string) {
   const cart = cookies().get("cart")?.value;
@@ -20,7 +21,8 @@ export async function quantMinus(id: string) {
       }
     }
   }
-  revalidatePath('/');
+  revalidatePath('/panier');
+  return redirect('/panier')
 }
 export async function quantPlus(id: string) {
   const userName = cookies().get('user')?.value;
@@ -37,5 +39,6 @@ export async function quantPlus(id: string) {
       await updateSanityUser(await decryptForSanity(cookies().get("session")?.value), JSON.stringify(newCart), userName);
     }
   }
-  revalidatePath('/');
+  revalidatePath('/panier');
+  return redirect('/panier');
 }
