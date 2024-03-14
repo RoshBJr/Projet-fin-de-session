@@ -209,6 +209,7 @@ export async function updateSanityUser(
 }
 
 export async function setSingleProductCookie(product: product) {
+  
   cookies().set("produit", JSON.stringify(product));
 }
 
