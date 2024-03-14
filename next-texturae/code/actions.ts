@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { client } from "./sanityClient";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { product } from "./types";
+import { cartSpecs, product } from "./types";
 
 const secretKey = "secret";
 const key = new TextEncoder().encode(secretKey);
@@ -207,4 +207,56 @@ export async function updateSanityUser(
 
 export async function setSingleProductCookie(product:product) {
   cookies().set("produit", JSON.stringify(product));
+}
+
+export async function addToCart(searchParams:any, data:product) {
+  'use server';
+  let arr = [];
+  let cart: string | undefined = cookies().get("cart")?.value;
+  const userName = cookies().get('user')?.value;
+  if (cart && searchParams.color) {
+    let bool = true;
+    arr = JSON.parse(cart);
+    arr.map((item: cartSpecs) => {
+      if (item.id == data._id) {
+        bool = false;
+        item.id = data._id;
+        item.quantity += 1;
+        item.color = searchParams.color;
+        item.size = searchParams.size;
+        item.pattern = searchParams.pattern;
+        item.material = searchParams.material;
+      }
+    });
+    if (bool) {
+      arr.push({
+        id: data._id,
+        color: searchParams.color,
+        size: searchParams.size,
+        pattern: searchParams.pattern,
+        material: searchParams.material,
+        quantity: 1,
+      });
+    }
+    cookies().set({name: "cart", value: JSON.stringify(arr), path: '/', httpOnly: true});
+    if (cookies().get("session")) {
+      await updateSanityUser(await decryptForSanity(cookies().get("session")?.value), JSON.stringify(arr), userName);
+    }
+  } else {
+    if(searchParams.color) {
+      arr.push({
+        id: data._id,
+        color: searchParams.color,
+        size: searchParams.size,
+        pattern: searchParams.pattern,
+        material: searchParams.material,
+        quantity: 1,
+      });
+      cookies().set({name: "cart", value: JSON.stringify(arr), path: '/', httpOnly:true});
+      if (cookies().get("session")) {
+        await updateSanityUser(await decryptForSanity(cookies().get("session")?.value), JSON.stringify(arr), userName);
+      }
+    }
+  }
+  revalidatePath('/');
 }

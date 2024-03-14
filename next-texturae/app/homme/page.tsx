@@ -5,6 +5,7 @@ import ProductCard from "../components/server/ProductCard";
 import DropDown from "../components/server/DropDown";
 import FilterDropdown from "../components/icons/FilterDropdown";
 import { cookies } from "next/headers";
+import { hommeQ } from "@/code/SanityQueries";
 
 export default async function Feed({
   searchParams,
@@ -14,33 +15,7 @@ export default async function Feed({
   const en = cookies().get("lang")?.value;
   const searchQuery = searchParams.search;
   const sorting = searchParams.tri.split("-");
-  const data: any = await client.fetch(
-    `*[gender.fr == "Homme" ${
-      searchQuery
-        ? `&& ${
-            en
-              ? `gender.fr == "Homme"  && (name.en match "*${searchQuery}*" || category.en match "*${searchQuery}*")`
-              : `gender.fr == "Homme"  && (name.fr match "*${searchQuery}*" || category.fr match "*${searchQuery}*")`
-          }`
-        : ""
-    } ] {
-      _id,
-      name,
-      category,
-      colors,
-      description,
-      gender,
-      slug_en,
-      slug_fr,
-      price,
-      defaultImg,
-      materials,
-      patterns,
-      sizes,
-      image[]{ "imgUrl": asset->url }
-    } | order(${
-      sorting[0] !== "name" ? "price" : en ? "lower(name.en)" : "lower(name.fr)"
-    } ${sorting[1]})`,
+  const data: any = await client.fetch(hommeQ(searchQuery,en,sorting),
     undefined,
     { cache: "force-cache" }
   );

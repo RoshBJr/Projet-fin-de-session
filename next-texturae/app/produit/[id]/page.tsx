@@ -1,6 +1,6 @@
 import ListElArr from "@/app/components/server/singleProduit/ListElArr";
 import ListElObj from "@/app/components/server/singleProduit/listElObj";
-import { decryptForSanity, updateSanityUser } from "@/code/actions";
+import { addToCart, decryptForSanity, updateSanityUser } from "@/code/actions";
 import { cartSpecs, product } from "@/code/types";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
@@ -79,11 +79,11 @@ export default async function single({
           selectValue={searchParams.pattern}
           postQuery={`&id=${searchParams.id}&color=${searchParams.color}&material=${searchParams.material}&size=${searchParams.size}`}
         />
-        {/* <ListElObj data={data.styles.fr} title="Styles"/> */}
-        {/* <ListElObj data={data.fits.fr} title="Formes"/> */}
-        {/* <ListElObj data={data.collars.fr} title="Cols"/> */}
       </div>
-      <form className="min-[320px]:px-8 xl:px-0 min-[320px]:mb-16 xl-my-0" action={addToCart}>
+      <form className="min-[320px]:px-8 xl:px-0 min-[320px]:mb-16 xl-my-0" action={async () => {
+        'use server';
+        await addToCart(searchParams,data);
+      }}>
         <button
           type="submit"
           className=" cursor-pointer xl:fixed xl:bottom-0 xl:right-0 xl:mr-12 xl:mb-11 border-davys-gray border-2 py-4 px-3 rounded-[8px] bg-thistle font-font-titre text-xl text-base-100 duration-200 hover:bg-neutral active:scale-105 min-[320px]:w-full xl:w-auto"
@@ -95,56 +95,4 @@ export default async function single({
   ) : (
     ""
   );
-
-  async function addToCart() {
-    'use server';
-    let arr = [];
-    let cart: string | undefined = cookies().get("cart")?.value;
-    const userName = cookies().get('user')?.value;
-    if (cart && searchParams.color) {
-      let bool = true;
-      arr = JSON.parse(cart);
-      arr.map((item: cartSpecs) => {
-        if (item.id == data._id) {
-          bool = false;
-          item.id = data._id;
-          item.quantity += 1;
-          item.color = searchParams.color;
-          item.size = searchParams.size;
-          item.pattern = searchParams.pattern;
-          item.material = searchParams.material;
-        }
-      });
-      if (bool) {
-        arr.push({
-          id: data._id,
-          color: searchParams.color,
-          size: searchParams.size,
-          pattern: searchParams.pattern,
-          material: searchParams.material,
-          quantity: 1,
-        });
-      }
-      cookies().set({name: "cart", value: JSON.stringify(arr), path: '/', httpOnly: true});
-      if (cookies().get("session")) {
-        await updateSanityUser(await decryptForSanity(cookies().get("session")?.value), JSON.stringify(arr), userName);
-      }
-    } else {
-      if(searchParams.color) {
-        arr.push({
-          id: data._id,
-          color: searchParams.color,
-          size: searchParams.size,
-          pattern: searchParams.pattern,
-          material: searchParams.material,
-          quantity: 1,
-        });
-        cookies().set({name: "cart", value: JSON.stringify(arr), path: '/', httpOnly:true});
-        if (cookies().get("session")) {
-          await updateSanityUser(await decryptForSanity(cookies().get("session")?.value), JSON.stringify(arr), userName);
-        }
-      }
-    }
-    revalidatePath('/');
-  }
 }

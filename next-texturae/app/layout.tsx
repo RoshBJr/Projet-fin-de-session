@@ -4,6 +4,7 @@ import Header from "./components/server/header/Header";
 import Footer from "./components/server/footer/Footer";
 import { Happy_Monkey, Rubik } from "next/font/google";
 import { Suspense } from "react";
+import Loading from "./Feed/loading";
 
 const font_hm = Happy_Monkey({
   weight: "400",
@@ -33,9 +34,9 @@ export default function RootLayout({
       data-theme="mylighttheme"
       className={`${font_hm.variable} ${font_rubik.variable}`}
     >
-      <body className="relative flex flex-col min-h-screen">
+      <body className="relative flex flex-col min-h-screen flex-grow">
         <Header />
-        <Suspense fallback={<div>Loading...</div>} >{children}</Suspense>
+        <Suspense fallback={<Loading/>} >{children}</Suspense>
         <Footer />
       </body>
     </html>
