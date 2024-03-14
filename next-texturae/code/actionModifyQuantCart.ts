@@ -4,8 +4,7 @@ import { decrypt, decryptForSanity, updateSanityUser } from "./actions";
 import { revalidatePath } from "next/cache";
 
 export async function quantMinus(id: string) {
-  revalidatePath('/');
-  let cart = cookies().get("cart")?.value;
+  const cart = cookies().get("cart")?.value;
   const userName = cookies().get('user')?.value;
   if (cart) {
     let newCart = JSON.parse(cart);
@@ -21,11 +20,11 @@ export async function quantMinus(id: string) {
       }
     }
   }
+  revalidatePath('/');
 }
 export async function quantPlus(id: string) {
-  revalidatePath('/');
   const userName = cookies().get('user')?.value;
-  let cart = cookies().get("cart")?.value;
+  const cart = cookies().get("cart")?.value;
   if (cart) {
     let newCart = JSON.parse(cart);
     newCart.map((item: cartSpecs) => {
@@ -38,4 +37,5 @@ export async function quantPlus(id: string) {
       await updateSanityUser(await decryptForSanity(cookies().get("session")?.value), JSON.stringify(newCart), userName);
     }
   }
+  revalidatePath('/');
 }

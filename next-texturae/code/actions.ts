@@ -209,7 +209,6 @@ export async function updateSanityUser(
 }
 
 export async function setSingleProductCookie(product: product) {
-  
   cookies().set("produit", JSON.stringify(product));
 }
 
@@ -241,7 +240,12 @@ export async function addToCart(searchParams: any, data: product) {
         quantity: 1,
       });
     }
-    cookies().set("cart",JSON.stringify(arr));
+    cookies().set({
+      name: "cart",
+      value: JSON.stringify(arr),
+      path: "/",
+      httpOnly: false,
+    });
     if (cookies().get("session")) {
       const userName = cookies().get("user")?.value;
       await updateSanityUser(
@@ -260,7 +264,12 @@ export async function addToCart(searchParams: any, data: product) {
         material: searchParams.material,
         quantity: 1,
       });
-      cookies().set("cart",JSON.stringify(arr));
+      cookies().set({
+        name: "cart",
+        value: JSON.stringify(arr),
+        path: "/",
+        httpOnly: false,
+      });
       if (cookies().get("session")) {
         const userName = cookies().get("user")?.value;
         await updateSanityUser(
