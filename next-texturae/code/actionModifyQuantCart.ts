@@ -1,8 +1,6 @@
 import { cookies } from "next/headers";
 import { cartSpecs } from "./types";
 import { decryptForSanity, updateSanityUser } from "./actions";
-import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 
 export async function quantMinus(id: string) {
   const cart = cookies().get('cart')?.value;
