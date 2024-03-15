@@ -14,6 +14,8 @@ export async function quantMinus(id: string) {
     });
       if (cookies().get("session")) {
         await updateSanityUser(await decryptForSanity(cookies().get("session")?.value), JSON.stringify(newCart), userName);
+      } else {
+        cookies().set("cart", JSON.stringify(newCart));
       }
   }
 }
@@ -29,6 +31,8 @@ export async function quantPlus(id: string) {
     });
     if (cookies().get("session")) {
       await updateSanityUser(await decryptForSanity(cookies().get("session")?.value), JSON.stringify(newCart), userName);
+    } else {
+      cookies().set("cart", JSON.stringify(newCart));
     }
   }
 }

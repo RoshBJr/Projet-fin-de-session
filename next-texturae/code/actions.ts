@@ -131,7 +131,6 @@ export async function signIn(formData: FormData) {
   // Save the session in a cookie
   cookieStore.set("session", session, { expires, httpOnly: true });
   await createSanityUser(user, "[]");
-  if (user.username) cookieStore.set("user", user.username);
 }
 
 async function createSanityUser(
@@ -142,21 +141,29 @@ async function createSanityUser(
   },
   cart: string | undefined
 ) {
-  const doc: any = {
-    _type: "users",
-    _id: `${user.email?.split("@")[0]}`,
-    email: user.email,
+  await setDoc(doc(bd, collUtilisateurs, `${user.email}`), {
     cart: cart,
-    pass: await encrypt({ user }),
     username: user.username,
-  };
+    email: user.email,
+    pass: user.pass
+  })
+  if(cart) cookies().set("cart", cart);
+  if(user.username) cookies().set("user", user.username);
+  // const doc: any = {
+  //   _type: "users",
+  //   _id: `${user.email?.split("@")[0]}`,
+  //   email: user.email,
+  //   cart: cart,
+  //   pass: await encrypt({ user }),
+  //   username: user.username,
+  // };
 
-  try {
-    console.log(`Item imported successfully`);
-    await client.createOrReplace(doc);
-  } catch (error: any) {
-    console.error(`Error importing item :`, error.message);
-  }
+  // try {
+  //   console.log(`Item imported successfully`);
+  //   await client.createOrReplace(doc);
+  // } catch (error: any) {
+  //   console.error(`Error importing item :`, error.message);
+  // }
 }
 
 async function loginSanityUser(
@@ -171,13 +178,17 @@ async function loginSanityUser(
   if(userData.data().cart) {
     await setDoc(doc(bd, collUtilisateurs, `${user.email}`), {
       cart: userData.data().cart,
-      username: userName
+      username: userName,
+      pass: user.pass,
+      email: user.email
     })
     cookies().set("cart", userData.data().cart);
   } else {
     await setDoc(doc(bd, collUtilisateurs, `${user.email}`), {
       cart: cart,
-      username: userName
+      username: userName,
+      pass: user.pass,
+      email: user.email
     })
     if(cart) cookies().set("cart", cart);
   }
@@ -215,7 +226,9 @@ export async function updateSanityUser(
 ) {
   await setDoc(doc(bd, collUtilisateurs, `${user.email}`), {
     cart: cart,
-    username: username
+    username: username,
+    pass: user.pass,
+    email: user.email
   })
   const userData:any = await getDoc(doc(bd,collUtilisateurs, `${user.email}`));
   cookies().set("cart", userData.data().cart);
@@ -250,6 +263,11 @@ export async function addToCart(searchParams: any, data: product) {
   let arr = [];
   let cart: string | undefined = cookies().get("cart")?.value;
   const userName = cookies().get("user")?.value;
+
+  if(!cookies().get("session")) {
+
+  }
+
   if (cart && searchParams.color) {
     let bool = true;
     arr = JSON.parse(cart);
@@ -280,6 +298,8 @@ export async function addToCart(searchParams: any, data: product) {
         JSON.stringify(arr),
         userName
       );
+    } else {
+      cookies().set("cart", JSON.stringify(arr));
     }
   } else {
     if (searchParams.color) {
@@ -297,6 +317,8 @@ export async function addToCart(searchParams: any, data: product) {
           JSON.stringify(arr),
           userName
         );
+      } else {
+        cookies().set("cart", JSON.stringify(arr));
       }
     }
   }
