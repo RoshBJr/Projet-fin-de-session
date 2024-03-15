@@ -15,7 +15,5 @@ export async function deleteProduct(itemId: string) {
       if (cookies().get("session")) {
         await updateSanityUser(await decryptForSanity(cookies().get("session")?.value), JSON.stringify(newCart), userName);
       }
-      cookies().set('cart', JSON.stringify(newCart));
   }
-  revalidatePath('/panier');
 }

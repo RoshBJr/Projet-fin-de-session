@@ -18,6 +18,7 @@ export default async function Page() {
             action={async () => {
               "use server";
               await logout();
+              redirect('/login');
             }}
           >
             <button className="border border-davys-gray px-2 py-2 rounded-[8px] bg-thistle font-font-titre text-alice-blue lg:text-2xl xl:hover:bg-davys-gray duration-200 active:scale-x-105 active:bg-davys-gray min-[320px]:text-lg md:text-xl" type="submit">{lang ? "Logout": "Se Déconnecter"}</button>
@@ -30,6 +31,7 @@ export default async function Page() {
             action={async (formData) => {
               "use server";
               await login(formData);
+              redirect('/login');
             }}
           >
             <h2 className="min-[320px]:text-2xl inline-flex justify-center md:text-3xl mb-2" >{lang ? "Connection" : "Connexion"}</h2>

@@ -1,6 +1,7 @@
 import { deleteProduct } from '@/code/actionDeleteFromCart';
 import { quantMinus, quantPlus } from '@/code/actionModifyQuantCart';
 import { product } from '@/code/types';
+import { redirect } from 'next/navigation';
 
 interface Props {
     item:product; 
@@ -19,6 +20,7 @@ export default function SingleProduitPanier({item, lang, cookieCart, idArr}:Prop
             action={async () => {
               "use server";
               await deleteProduct(item._id);
+              redirect('/panier');
             }}
           >
             <button
@@ -108,6 +110,7 @@ export default function SingleProduitPanier({item, lang, cookieCart, idArr}:Prop
                 action={async () => {
                   "use server";
                   await quantMinus(item._id);
+                  redirect('/panier');
                 }}
               >
                 <button
@@ -128,6 +131,7 @@ export default function SingleProduitPanier({item, lang, cookieCart, idArr}:Prop
                 action={async () => {
                   "use server";
                   await quantPlus(item._id);
+                  redirect('/panier');
                 }}
               >
                 <button

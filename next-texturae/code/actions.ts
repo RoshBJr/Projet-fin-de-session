@@ -77,8 +77,7 @@ export async function login(formData: FormData) {
       const session = await encrypt({ user, expires });
       cookieStore.set("session",session, {expires: expires});
       if(userName) cookieStore.set("user", userName);
-      cookieStore.set("cart", cart);
-      loginSanityUser(user, cart, userName);
+      await loginSanityUser(user, cart, userName);
     }
   }
   revalidatePath('/login');
@@ -88,11 +87,8 @@ export async function login(formData: FormData) {
 export async function logout() {
   // Destroy the session
   cookies().set("session", "", { expires: new Date(0) });
-  cookies().set("cart", "[]", { expires: new Date(0) });
-  cookies().set("user", "", { expires: new Date(0) });
   cookies().set("cart", "[]");
-  revalidatePath('/login');
-  redirect('/login');
+  cookies().set("user", "", { expires: new Date(0) });
 }
 
 export async function getSession() {
@@ -131,7 +127,7 @@ export async function signIn(formData: FormData) {
   const session = await encrypt({ user, expires });
   // Save the session in a cookie
   cookieStore.set("session", session, { expires, httpOnly: true });
-  createSanityUser(user, "[]");
+  await createSanityUser(user, "[]");
   if (user.username) cookieStore.set("user", user.username);
 }
 
@@ -159,6 +155,7 @@ async function createSanityUser(
     console.error(`Error importing item :`, error.message);
   }
 }
+
 async function loginSanityUser(
   user: {
     email: string | undefined;
@@ -178,10 +175,13 @@ async function loginSanityUser(
 
   try {
     console.log(`Item imported successfully`);
-    await client.createOrReplace(doc);
+    await client.createOrReplace(doc).then(() => {
+      if(cart) cookies().set('cart', cart);
+    });
   } catch (error: any) {
     console.error(`Error importing item :`, error.message);
   }
+  
 }
 
 export async function updateSanityUser(
@@ -200,7 +200,11 @@ export async function updateSanityUser(
 
   try {
     console.log(`Item imported successfully`);
-    await client.createOrReplace(doc);
+    
+    await client.createOrReplace(doc).then(()=> {
+      if(cart) cookies().set('cart', cart);
+    }
+    );
   } catch (error: any) {
     console.error(`Error importing item :`, error.message);
   }
@@ -244,7 +248,7 @@ export async function addToCart(searchParams: any, data: product) {
       name: "cart",
       value: JSON.stringify(arr),
       path: "/",
-      httpOnly: true,
+      httpOnly: false,
     });
     if (cookies().get("session")) {
       await updateSanityUser(
@@ -267,7 +271,7 @@ export async function addToCart(searchParams: any, data: product) {
         name: "cart",
         value: JSON.stringify(arr),
         path: "/",
-        httpOnly: true,
+        httpOnly: false,
       });
       if (cookies().get("session")) {
         await updateSanityUser(

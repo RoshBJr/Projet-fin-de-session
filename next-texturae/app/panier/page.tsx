@@ -7,7 +7,7 @@ import React from "react";
 import SingleProduitPanier from "../components/server/SingleProduitPanier";
 
 async function Panier() {
-  const cookieCart: string | undefined = cookies().get("cart")?.value;
+  const cookieCart: string | undefined = cookies().get('cart')?.value;
   const lang = cookies().get("lang")?.value ? "en" : "fr";
   let idArr: string[] = [];
   let price: number = 0;
