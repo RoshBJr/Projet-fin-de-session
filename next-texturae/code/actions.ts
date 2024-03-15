@@ -1,13 +1,9 @@
-import { SignJWT, decodeJwt, jwtDecrypt, jwtVerify } from "jose";
+import { SignJWT, decodeJwt} from "jose";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
-import { client } from "./sanityClient";
-import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 import { cartSpecs, product } from "./types";
-import { collection, doc, getDoc, setDoc } from "firebase/firestore";
+import {  doc, getDoc, setDoc } from "firebase/firestore";
 import { bd, collUtilisateurs } from "./init";
-import { get } from "http";
 
 const secretKey = "secret";
 const key = new TextEncoder().encode(secretKey);
@@ -24,7 +20,7 @@ export async function decrypt(input: string | undefined): Promise<any> {
   if (input) {
     const payload: any = decodeJwt(input);
 
-    return payload.user.pass;
+    return payload.pass;
   }
   return;
 }
@@ -34,57 +30,21 @@ export async function decryptForSanity(
   if (input) {
     const payload = decodeJwt(input);
 
-    return payload.user;
+    return payload.userVal;
   }
   return;
 }
 
 export async function login(formData: FormData) {
   let sanityPass = null;
-  let cart: any = null;
+  let cart: any = cookies().get("cart")?.value;
   let userName = null;
   // Verify credentials && get the user
-  const cookieStore = cookies();
   const user = {
     email: formData.get("email")?.toString(),
     pass: formData.get("password")?.toString(),
   };
-  const userSanity = await client.fetch(`
-      *[_type == "users"] {
-        pass,
-        email,
-        cart,
-        username
-      }
-    `, undefined, {cache: "no-store"});
-  if (userSanity) {
-
-    if (user) {
-      userSanity.map((singU: any) => {
-        if (singU.email == user.email) {
-          return (
-            (sanityPass = singU.pass),
-            (cart = singU.cart),
-            (userName = singU.username)
-          );
-        }
-      });
-    }
-  }
-
-  if (sanityPass) {
-    sanityPass = await decrypt(sanityPass);
-    if (sanityPass == user.pass) {
-      // Create the session
-      const expires = new Date(Date.now() + 60 * 60 * 24 * 1000);
-      const session = await encrypt({ user, expires });
-      cookieStore.set("session",session, {expires: expires});
-      if(userName) cookieStore.set("user", userName);
-      await loginSanityUser(user, cart, userName);
-    }
-  }
-  revalidatePath('/login');
-  redirect('/login');
+  await loginSanityUser(user, cart, userName);
 }
 
 export async function logout() {
@@ -96,8 +56,8 @@ export async function logout() {
 
 export async function getSession() {
   const session = cookies().get("session")?.value;
-  if (!session) return null;
-  return await decrypt(session);
+  if (!session) return false;
+  return true;
 }
 
 export async function updateSession(request: NextRequest) {
@@ -145,25 +105,10 @@ async function createSanityUser(
     cart: cart,
     username: user.username,
     email: user.email,
-    pass: user.pass
-  })
-  if(cart) cookies().set("cart", cart);
-  if(user.username) cookies().set("user", user.username);
-  // const doc: any = {
-  //   _type: "users",
-  //   _id: `${user.email?.split("@")[0]}`,
-  //   email: user.email,
-  //   cart: cart,
-  //   pass: await encrypt({ user }),
-  //   username: user.username,
-  // };
-
-  // try {
-  //   console.log(`Item imported successfully`);
-  //   await client.createOrReplace(doc);
-  // } catch (error: any) {
-  //   console.error(`Error importing item :`, error.message);
-  // }
+    pass: user.pass,
+  });
+  if (cart) cookies().set("cart", cart);
+  if (user.username) cookies().set("user", user.username);
 }
 
 async function loginSanityUser(
@@ -172,51 +117,61 @@ async function loginSanityUser(
     pass: string | undefined;
   },
   cart: string | undefined,
-  userName:string|null
+  userName: string | null
 ) {
-  const userData:any = await getDoc(doc(bd,collUtilisateurs, `${user.email}`));
-  if(userData.data().cart) {
-    await setDoc(doc(bd, collUtilisateurs, `${user.email}`), {
-      cart: userData.data().cart,
-      username: userName,
-      pass: user.pass,
-      email: user.email
-    })
-    cookies().set("cart", userData.data().cart);
-  } else {
-    await setDoc(doc(bd, collUtilisateurs, `${user.email}`), {
-      cart: cart,
-      username: userName,
-      pass: user.pass,
-      email: user.email
-    })
-    if(cart) cookies().set("cart", cart);
-  }
-  // console.log(userData.data().cart);
-  
-  // await setDoc(refUser,
-  //   [{
-  //     nomUtil: user.email,
-  //     cart: cart
-  //   }][0]);
-  // const doc: any = {
-  //   _type: "users",
-  //   _id: `${user.email?.split("@")[0]}`,
-  //   email: user.email,
-  //   cart: cart,
-  //   pass: await encrypt({ user }),
-  //   username: userName,
-  // };
+  const userData: any = await getDoc(
+    doc(bd, collUtilisateurs, `${user.email}`)
+  );
+  if (
+    userData.data().email == user.email &&
+    userData.data().pass == user.pass
+  ) {
+    cookies().set("user", userData.data().username);
+    const expires = new Date(Date.now() + 60 * 60 * 24 * 1000);
+    const userVal = {
+      email: userData.data().email,
+      pass: userData.data().pass
+    }
+    const session = await encrypt({ userVal, expires });
+    cookies().set("session", session, { expires: expires });
 
-  // try {
-  //   console.log(`Item imported successfully`);
-  //   await client.createOrReplace(doc).then(() => {
-  //     if(cart) cookies().set('cart', cart);
-  //   });
-  // } catch (error: any) {
-  //   console.error(`Error importing item :`, error.message);
-  // }
-  
+    if (userData.data().cart && userData.data().cart != "[]") {
+      let newCart: any = [];
+      let cookieCart = cookies().get("cart")?.value;
+      if (cookieCart && cookieCart != "[]") {
+        newCart = JSON.parse(cookieCart);
+        let idArr: string[] = [];
+        newCart.map((item: any, i: number) => {
+          idArr[i] = item.id;
+        });
+        JSON.parse(userData.data().cart).map((item: any) => {
+          if (idArr.includes(item.id)) {
+            newCart[idArr.indexOf(item.id)].quantity += item.quantity;
+          } else {
+            newCart.push(item);
+          }
+        });
+        newCart = JSON.stringify(newCart);
+      } else {
+        newCart = userData.data().cart;
+      }
+      await setDoc(doc(bd, collUtilisateurs, `${user.email}`), {
+        cart: newCart,
+        username: userData.data().username,
+        pass: user.pass,
+        email: user.email,
+      });
+      cookies().set("cart", newCart);
+    } else {
+      await setDoc(doc(bd, collUtilisateurs, `${user.email}`), {
+        cart: userData.data().cart,
+        username: userData.data().username,
+        pass: user.pass,
+        email: user.email,
+      });
+      cookies().set("cart", userData.data().cart);
+    }
+  }
 }
 
 export async function updateSanityUser(
@@ -228,30 +183,12 @@ export async function updateSanityUser(
     cart: cart,
     username: username,
     pass: user.pass,
-    email: user.email
-  })
-  const userData:any = await getDoc(doc(bd,collUtilisateurs, `${user.email}`));
+    email: user.email,
+  });
+  const userData: any = await getDoc(
+    doc(bd, collUtilisateurs, `${user.email}`)
+  );
   cookies().set("cart", userData.data().cart);
-  
-  // const doc: any = {
-  //   _type: "users",
-  //   _id: `${user.email?.split("@")[0]}`,
-  //   email: user.email,
-  //   cart: cart,
-  //   pass: await encrypt({ user }),
-  //   username: username,
-  // };
-
-  // try {
-  //   console.log(`Item imported successfully`);
-    
-  //   await client.createOrReplace(doc).then(()=> {
-  //     if(cart) cookies().set('cart', cart);
-  //   }
-  //   );
-  // } catch (error: any) {
-  //   console.error(`Error importing item :`, error.message);
-  // }
 }
 
 export async function setSingleProductCookie(product: product) {
@@ -264,8 +201,7 @@ export async function addToCart(searchParams: any, data: product) {
   let cart: string | undefined = cookies().get("cart")?.value;
   const userName = cookies().get("user")?.value;
 
-  if(!cookies().get("session")) {
-
+  if (!cookies().get("session")) {
   }
 
   if (cart && searchParams.color) {
