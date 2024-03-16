@@ -1,8 +1,6 @@
 import { cookies } from "next/headers";
 import { cartSpecs } from "./types";
-import { decryptForSanity, updateSanityUser } from "./actions";
-import { revalidatePath } from "next/cache";
-
+import { decryptForSanity, updateUser } from "./actions";
 
 export async function deleteProduct(itemId: string) {
   const cart = cookies().get("cart")?.value;
@@ -13,7 +11,7 @@ export async function deleteProduct(itemId: string) {
     );
 
       if (cookies().get("session")) {
-        await updateSanityUser(await decryptForSanity(cookies().get("session")?.value), JSON.stringify(newCart), userName);
+        await updateUser(await decryptForSanity(cookies().get("session")?.value), JSON.stringify(newCart), userName);
       }
   }
 }

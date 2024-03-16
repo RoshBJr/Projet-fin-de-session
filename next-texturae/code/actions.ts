@@ -1,8 +1,8 @@
-import { SignJWT, decodeJwt} from "jose";
+import { SignJWT, decodeJwt } from "jose";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 import { cartSpecs, product } from "./types";
-import {  doc, getDoc, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import { bd, collUtilisateurs } from "./init";
 
 const secretKey = "secret";
@@ -36,7 +36,6 @@ export async function decryptForSanity(
 }
 
 export async function login(formData: FormData) {
-  let sanityPass = null;
   let cart: any = cookies().get("cart")?.value;
   let userName = null;
   // Verify credentials && get the user
@@ -44,7 +43,7 @@ export async function login(formData: FormData) {
     email: formData.get("email")?.toString(),
     pass: formData.get("password")?.toString(),
   };
-  await loginSanityUser(user, cart, userName);
+  await loginUser(user);
 }
 
 export async function logout() {
@@ -111,14 +110,10 @@ async function createSanityUser(
   if (user.username) cookies().set("user", user.username);
 }
 
-async function loginSanityUser(
-  user: {
-    email: string | undefined;
-    pass: string | undefined;
-  },
-  cart: string | undefined,
-  userName: string | null
-) {
+async function loginUser(user: {
+  email: string | undefined;
+  pass: string | undefined;
+}) {
   const userData: any = await getDoc(
     doc(bd, collUtilisateurs, `${user.email}`)
   );
@@ -130,8 +125,8 @@ async function loginSanityUser(
     const expires = new Date(Date.now() + 60 * 60 * 24 * 1000);
     const userVal = {
       email: userData.data().email,
-      pass: userData.data().pass
-    }
+      pass: userData.data().pass,
+    };
     const session = await encrypt({ userVal, expires });
     cookies().set("session", session, { expires: expires });
 
@@ -163,18 +158,19 @@ async function loginSanityUser(
       });
       cookies().set("cart", newCart);
     } else {
+      const theCart = cookies().get("cart")?.value;
       await setDoc(doc(bd, collUtilisateurs, `${user.email}`), {
-        cart: userData.data().cart,
+        cart: theCart,
         username: userData.data().username,
         pass: user.pass,
         email: user.email,
       });
-      cookies().set("cart", userData.data().cart);
+      if (theCart) cookies().set("cart", theCart);
     }
   }
 }
 
-export async function updateSanityUser(
+export async function updateUser(
   user: { email: string | undefined; pass: string | undefined },
   cart: string | undefined,
   username: string | undefined
@@ -229,7 +225,7 @@ export async function addToCart(searchParams: any, data: product) {
       });
     }
     if (cookies().get("session")) {
-      await updateSanityUser(
+      await updateUser(
         await decryptForSanity(cookies().get("session")?.value),
         JSON.stringify(arr),
         userName
@@ -248,7 +244,7 @@ export async function addToCart(searchParams: any, data: product) {
         quantity: 1,
       });
       if (cookies().get("session")) {
-        await updateSanityUser(
+        await updateUser(
           await decryptForSanity(cookies().get("session")?.value),
           JSON.stringify(arr),
           userName
