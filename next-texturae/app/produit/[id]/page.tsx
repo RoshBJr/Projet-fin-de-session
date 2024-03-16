@@ -1,8 +1,7 @@
 import ListElArr from "@/app/components/server/singleProduit/ListElArr";
 import ListElObj from "@/app/components/server/singleProduit/listElObj";
-import { addToCart, decryptForSanity, updateSanityUser } from "@/code/actions";
-import { cartSpecs, product } from "@/code/types";
-import { revalidatePath } from "next/cache";
+import { addToCart} from "@/code/actions";
+import { product } from "@/code/types";
 import { cookies } from "next/headers";
 
 const getData = async () => {

@@ -13,7 +13,7 @@ interface Props {
 
 function ProductCard({ product, theQuery }: Props) {
   const lang = cookies().get("lang")?.value ? "en" : "fr";
-  
+
   return (
     <>
       <div

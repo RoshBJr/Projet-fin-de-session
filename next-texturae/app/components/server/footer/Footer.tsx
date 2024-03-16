@@ -10,23 +10,23 @@ const Footer = () => {
   return (
     <footer className="min-h-[200px] bg-paynes-gray text-alice-blue flex flex-col font-font-titre h-auto">
       <div className="min-[320px]:flex-col flex 2xl:flex-row flex-grow border-b-2  border-alice-blue">
-        <Link
-          href="/"
+        <div
+          
           className="_footer-logo lg:text-9xl md:text-8xl min-[320px]:pl-3 2xl:w-3/5 min-[320px]:w-full min-[320px]:text-7xl 2xl:border-r-2 inline-flex 2xl:justify-center min-[320px]:justify-start min-[320px]:items-center 2xl:items-center text-9xl min-[320px]:border-b-2 min-[320px]:py-3 2xl:border-b-0"
         >
-          Texturae
-        </Link>
+          <Link href="/">Texturae</Link>
+        </div>
         <div className="flex flex-col gap-2 justify-end pl-3 py-3 lg:text-2xl text-xl">
-          <Link className="w-fit" href="/">
+          <Link className="w-fit relative overflow-hidden" href="/">
             {lang == "en" ? "Home" : "Accueil"}
           </Link>
-          <Link className="w-fit" href="/Feed?&tri=name-asc">
+          <Link className="w-fit relative overflow-hidden" href="/Feed?&tri=name-asc">
             {lang == "en" ? "All collections" : "Toutes les collections"}
           </Link>
-          <Link className="w-fit" href="/homme?&tri=name-asc">
+          <Link className="w-fit relative overflow-hidden" href="/homme?&tri=name-asc">
             {lang == "en" ? "Man" : "Homme"}
           </Link>
-          <Link className="w-fit" href="/femme?&tri=name-asc">
+          <Link className="w-fit relative overflow-hidden" href="/femme?&tri=name-asc">
             {lang == "en" ? "Woman" : "Femme"}
           </Link>
         </div>

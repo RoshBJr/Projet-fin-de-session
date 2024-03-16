@@ -42,6 +42,7 @@ export default async function Page() {
                   className="bg-alice-blue focus:text-alice-blue focus:bg-davys-gray pl-2 border border-thistle rounded-sm  min-[320px]:w-full h-10 text-davys-gray"
                   type="email"
                   name="email"
+                  required
                 />
               </div>
               <div>
@@ -50,6 +51,7 @@ export default async function Page() {
                   className="bg-alice-blue focus:text-alice-blue focus:bg-davys-gray min-[320px]:w-full pl-2 border border-thistle rounded-sm  h-10 text-davys-gray"
                   type="password"
                   name="password"
+                  required
                 />
               </div>
             </div>
