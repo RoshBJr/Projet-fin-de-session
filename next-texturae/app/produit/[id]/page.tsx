@@ -4,6 +4,10 @@ import { addToCart} from "@/code/actions";
 import { product } from "@/code/types";
 import { cookies } from "next/headers";
 
+/**
+ * composant de la page produit unique
+ */
+
 const getData = async () => {
   const data = cookies().get('produit')?.value
   if(data) return JSON.parse(data);

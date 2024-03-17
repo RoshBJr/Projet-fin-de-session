@@ -3,6 +3,10 @@ import { quantMinus, quantPlus } from '@/code/actionModifyQuantCart';
 import { product } from '@/code/types';
 import { redirect } from 'next/navigation';
 
+/** 
+ * composant d'un produit dans le panier
+*/
+
 interface Props {
     item:product; 
     lang:"en" | "fr";

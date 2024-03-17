@@ -1,6 +1,10 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
+/**
+ * composant lien menu de navigation
+ */
+
 interface Props {
     slug:string;
     menuTitre:string;

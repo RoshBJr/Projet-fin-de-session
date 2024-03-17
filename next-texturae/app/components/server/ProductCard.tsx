@@ -6,6 +6,10 @@ import Heart from "../icons/Heart";
 import { redirect } from "next/navigation";
 import { setSingleProductCookie } from "@/code/actions";
 
+/** 
+ * composant carte d'un produit de collection
+*/
+
 interface Props {
   product: product;
   theQuery: string[];

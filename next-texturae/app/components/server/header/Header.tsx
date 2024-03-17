@@ -6,6 +6,10 @@ import AccountIcon from "../../icons/AccountIcon";
 import CartIcon from "../../icons/CartIcon";
 import LangManager from "../../client/LangManager";
 
+/**
+ * composant entête
+ */
+
 const Header = () => {
   return (
     <>

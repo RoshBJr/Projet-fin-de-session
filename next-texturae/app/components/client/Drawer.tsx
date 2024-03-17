@@ -1,11 +1,13 @@
 "use client";
-import { cookies } from "next/headers";
 import MenuLink from "./MenuLink";
 import { useEffect, useState } from "react";
 import BurgerIcon from "../icons/BurgerIcon";
 import AccountIcon from "../icons/AccountIcon";
-import LangManager from "./LangManager";
 import InputThemeController from "../icons/InputThemeControllerIcon";
+
+/** 
+ * composant menu de navigation
+*/
 
 function Drawer() {
   const [en, setEn] = useState<boolean>(false);

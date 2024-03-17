@@ -6,6 +6,10 @@ import FilterDropdown from "../components/icons/FilterDropdown";
 import { cookies } from "next/headers";
 import { feedQ } from "@/code/SanityQueries";
 
+/**
+ * composant de la page tous les produits
+ */
+
 export default async function Feed({
   searchParams,
 }: {

@@ -1,5 +1,10 @@
 import type { Config } from "tailwindcss";
 
+/**
+ * création des variables de couleurs
+ * ajout de la librairie daisyui
+ * création des thèmes personalisés, clair et sombre
+ */
 
 const config: Config = {
   important: true,

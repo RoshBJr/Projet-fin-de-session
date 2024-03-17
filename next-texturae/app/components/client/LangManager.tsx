@@ -1,23 +1,30 @@
 import { cookies } from "next/headers";
 import { revalidatePath } from "next/cache";
 async function LangManager() {
-  const lang = cookies().get('lang')?.value;
+  const lang = cookies().get("lang")?.value;
+
+  /**
+   * composant pour changer la langue
+   */
 
   async function setLang() {
-    'use server'
+    "use server";
     const cookieStore = cookies();
-    if(cookieStore.get('lang')) {
-      cookieStore.delete('lang');
+    if (cookieStore.get("lang")) {
+      cookieStore.delete("lang");
     } else {
-      cookieStore.set('lang', "en");
+      cookieStore.set("lang", "en");
     }
-    revalidatePath('/');
+    revalidatePath("/");
   }
 
   return (
     <form action={setLang} className="">
-      <button type="submit" className="min-[320px]:w-[30px] min-[320px]:h-[30px] btn btn-ghost btn-circle align-text-top">
-        {lang ? "FR": "EN"}
+      <button
+        type="submit"
+        className="min-[320px]:w-[30px] min-[320px]:h-[30px] btn btn-ghost btn-circle align-text-top"
+      >
+        {lang ? "FR" : "EN"}
       </button>
     </form>
   );

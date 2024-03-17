@@ -2,6 +2,10 @@ import { product } from "@/code/types";
 import Link from "next/link";
 import React from "react";
 
+/**
+ * composant permettant de selectionner une caractérisque pour un produit dans la page produit unique
+ */
+
 interface Props {
   data:[string];
   searchKey:string;

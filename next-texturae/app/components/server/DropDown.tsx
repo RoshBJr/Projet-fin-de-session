@@ -1,6 +1,10 @@
 import { cookies } from "next/headers";
 import Link from "next/link";
 
+/**
+ * composant de la barre pour trier les produits
+ */
+
 async function DropDown({theQuery, search}:{theQuery:string[], search:string}) {
   const en = cookies().get("lang")?.value;
 

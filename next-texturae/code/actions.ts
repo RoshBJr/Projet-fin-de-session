@@ -8,6 +8,11 @@ import { bd, collUtilisateurs } from "./init";
 const secretKey = "secret";
 const key = new TextEncoder().encode(secretKey);
 
+
+/** 
+ * fonction pour encrypter le mot de passe et courriel lors d'une connexion
+*/
+
 export async function encrypt(payload: any) {
   return await new SignJWT(payload)
     .setProtectedHeader({ alg: "HS256" })
@@ -15,6 +20,10 @@ export async function encrypt(payload: any) {
     .setExpirationTime("10 sec from now")
     .sign(key);
 }
+
+/**
+ * fonction permettant de decrypter le mot de passe et courriel d'un utilisateur afin communiquer avec la base donnée
+ */
 
 export async function decrypt(input: string | undefined): Promise<any> {
   if (input) {
@@ -35,6 +44,10 @@ export async function decryptForSanity(
   return;
 }
 
+/** 
+ * fonction permettant de se connecter et accèder a un panier lié à un compte
+*/
+
 export async function login(formData: FormData) {
   let cart: any = cookies().get("cart")?.value;
   let userName = null;
@@ -45,6 +58,10 @@ export async function login(formData: FormData) {
   };
   await loginUser(user);
 }
+
+/** 
+ * fonction permettant de terminer une session de connexion
+*/
 
 export async function logout() {
   // Destroy the session
@@ -58,6 +75,10 @@ export async function getSession() {
   if (!session) return false;
   return true;
 }
+
+/**
+ * fonction permettant de mettre à jour le cookie de session afin de ne pas terminer la session en rafraichissement de page
+ */
 
 export async function updateSession(request: NextRequest) {
   const session = request.cookies.get("session")?.value;
@@ -76,6 +97,10 @@ export async function updateSession(request: NextRequest) {
   return res;
 }
 
+/** 
+ * fonction permettant de créer un compte pour le site
+*/
+
 export async function signIn(formData: FormData) {
   // Verify credentials && get the user
   const cookieStore = cookies();
@@ -91,6 +116,10 @@ export async function signIn(formData: FormData) {
   cookieStore.set("session", session, { expires, httpOnly: true });
   await createSanityUser(user, "[]");
 }
+
+/** 
+ * fonction permettant d'ajouter les informations d'un nouveau compte dans la base de donnée
+*/
 
 async function createSanityUser(
   user: {
@@ -109,6 +138,10 @@ async function createSanityUser(
   if (cart) cookies().set("cart", cart);
   if (user.username) cookies().set("user", user.username);
 }
+
+/** 
+ * fonction permettant de comparer les informations entrée en paramètre et ceux dans la base de donnée
+*/
 
 async function loginUser(user: {
   email: string | undefined;
@@ -170,6 +203,10 @@ async function loginUser(user: {
   }
 }
 
+/** 
+ * fonction permettant de mettre à jour le panier d'un utilisateur dans la base de donnée
+*/
+
 export async function updateUser(
   user: { email: string | undefined; pass: string | undefined },
   cart: string | undefined,
@@ -187,9 +224,17 @@ export async function updateUser(
   cookies().set("cart", userData.data().cart);
 }
 
+/** 
+ * fonction permettant de garder en cookie l'information d'un produit pour l'afficher dans le single page produit
+*/
+
 export async function setSingleProductCookie(product: product) {
   cookies().set("produit", JSON.stringify(product));
 }
+
+/** 
+ * fonction pour ajouter un produit dans le panier
+*/
 
 export async function addToCart(searchParams: any, data: product) {
   "use server";

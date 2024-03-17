@@ -6,6 +6,10 @@ import Link from "next/link";
 import React from "react";
 import SingleProduitPanier from "../components/server/SingleProduitPanier";
 
+/**
+ * composant de la page panier
+ */
+
 async function Panier() {
   const cookieCart: string | undefined = cookies().get('cart')?.value;
   const lang = cookies().get("lang")?.value ? "en" : "fr";

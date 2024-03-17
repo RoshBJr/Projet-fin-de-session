@@ -3,6 +3,10 @@ import { getSession, login, logout } from "@/code/actions";
 import Link from "next/link";
 import { cookies } from "next/headers";
 
+/** 
+ * composant de la page se connecter
+*/
+
 export default async function Page() {
   const session = await getSession();
   const lang = cookies().get("lang")?.value;

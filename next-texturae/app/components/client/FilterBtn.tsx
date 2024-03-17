@@ -2,6 +2,10 @@
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
+/** 
+ * composant barre pour filtrer les produits
+*/
+
 interface Props {
   tri: string | undefined;
   langData: any;

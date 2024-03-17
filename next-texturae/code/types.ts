@@ -1,3 +1,6 @@
+/** 
+ * type spécifique pour un produit venant du CMS
+*/
 export type product = {
     _id: string;
     category: { en:string, fr:string };
@@ -18,6 +21,9 @@ export type product = {
     slug_fr:{current:string};
 }
 
+/**
+ * type spécifique pour les éléments du panier
+ */
 export type cartSpecs  = {
     id:string;
     quantity:number;

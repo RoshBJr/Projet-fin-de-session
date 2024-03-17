@@ -5,8 +5,11 @@ import ProductCard from "../components/server/ProductCard";
 import DropDown from "../components/server/DropDown";
 import FilterDropdown from "../components/icons/FilterDropdown";
 import { cookies } from "next/headers";
-import { AnimatePresence } from "framer-motion";
 import { femmeQ } from "@/code/SanityQueries";
+
+/** 
+ * composant de la page collection pour femme
+*/
 
 export default async function Feed({
   searchParams,

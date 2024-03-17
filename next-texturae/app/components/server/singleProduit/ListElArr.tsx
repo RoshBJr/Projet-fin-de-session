@@ -1,5 +1,9 @@
 import Link from "next/link";
 
+/** 
+ * composant permettant de selectionner une taille pour un produit dans la page produit unique
+*/
+
 interface Props {
   data: [string | number];
   searchKey:string;

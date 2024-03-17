@@ -2,6 +2,10 @@ import { cookies } from "next/headers";
 import { cartSpecs } from "./types";
 import { decryptForSanity, updateUser } from "./actions";
 
+/**
+ * fonction permettant de supprimer un produit du panier
+ */
+
 export async function deleteProduct(itemId: string) {
   const cart = cookies().get("cart")?.value;
   const userName = cookies().get('user')?.value;

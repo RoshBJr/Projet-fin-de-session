@@ -1,5 +1,9 @@
 import React from "react";
 
+/** 
+ * composant à afficher lorsque le composant page unique n'est pas près à l'affichage
+*/
+
 function loading() {
   return (
     <section className="_single bg-primary flex justify-start gap-28 w-full mt-[80px] overflow-hidden max-h-[calc(100vh-80px)]">

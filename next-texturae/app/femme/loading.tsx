@@ -1,5 +1,9 @@
 import React from "react";
 
+/** 
+ * composant à afficher lorsque le composant collection femme n'est pas prêt pour l'affichage
+*/
+
 function loading() {
   return (
     <section className="flex-grow overflow-x-hidden pt-[120px] bg-primary flex flex-col">

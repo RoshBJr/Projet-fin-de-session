@@ -6,6 +6,11 @@ import { Happy_Monkey, Rubik } from "next/font/google";
 import { Suspense } from "react";
 import Loading from "./Feed/loading";
 
+/** 
+ * intégration des deux différentes police d'écriture
+ * Initialisation de la racine du document HTML
+*/
+
 const font_hm = Happy_Monkey({
   weight: "400",
   subsets: ["latin"],

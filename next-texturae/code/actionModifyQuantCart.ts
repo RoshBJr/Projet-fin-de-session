@@ -2,6 +2,10 @@ import { cookies } from "next/headers";
 import { cartSpecs } from "./types";
 import { decryptForSanity, updateUser } from "./actions";
 
+/**
+ * fonction permettant de réduire la quantité d'un produit dans le panier
+ */
+
 export async function quantMinus(id: string) {
   const cart = cookies().get('cart')?.value;
   const userName = cookies().get('user')?.value;
@@ -19,6 +23,11 @@ export async function quantMinus(id: string) {
       }
   }
 }
+
+/** 
+ * fonction permettant d'augmenter la quantité d'un produit dans le panier
+*/
+
 export async function quantPlus(id: string) {
   const userName = cookies().get('user')?.value;
   const cart = cookies().get('cart')?.value;

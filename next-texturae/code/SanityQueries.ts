@@ -1,3 +1,7 @@
+/** 
+ * les différentes requêtes vers le CMS pour afficher les produits dans l'application web
+*/
+
 export function feedQ(
   searchQuery: string,
   en: string | undefined,

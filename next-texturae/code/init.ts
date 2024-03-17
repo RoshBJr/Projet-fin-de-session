@@ -2,6 +2,10 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import firebaseConfig from "./fb-config";
 
+/** 
+ * actions pour initialiser la base de donnée firestore
+*/
+
 // Initialiser l'appli Firebase
 const app = initializeApp(firebaseConfig);
 

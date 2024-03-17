@@ -4,6 +4,10 @@ import TikTokIcon from "../../icons/TikTokIcon";
 import FacebookIcon from "../../icons/FacebookIcon";
 import { cookies } from "next/headers";
 
+/**
+ * composant pied de page
+ */
+
 const Footer = () => {
   const lang:string = cookies().get("lang")?.value ? "en" : "fr";
 

@@ -2,6 +2,10 @@ import Link from "next/link";
 import React from "react";
 import Arrow from "../icons/Arrow";
 
+/** 
+ * composant Contenu dynamique du Carrousel
+*/
+
 interface Props {
   en: boolean;
   nomSing: string;

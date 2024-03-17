@@ -7,6 +7,10 @@ import FilterDropdown from "../components/icons/FilterDropdown";
 import { cookies } from "next/headers";
 import { hommeQ } from "@/code/SanityQueries";
 
+/**
+ * composant de la page collection homme
+ */
+
 export default async function Feed({
   searchParams,
 }: {

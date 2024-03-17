@@ -1,5 +1,9 @@
 import React from "react";
 
+/** 
+ * composant à afficher lorsque le composant tous les produits n'est pas prêt à l'affichage
+*/
+
 function Loading() {
   return (
     <section className="flex-grow overflow-x-hidden pt-[120px] bg-primary flex flex-col">

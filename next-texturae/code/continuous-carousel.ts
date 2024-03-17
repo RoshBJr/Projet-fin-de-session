@@ -1,3 +1,8 @@
+
+/** 
+ * Classe objet avec les fonctionalités pour le carrousel
+*/
+
 export default class carousel {
   carouselCtn: any;
   postIndex: number;

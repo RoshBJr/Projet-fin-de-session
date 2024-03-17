@@ -5,6 +5,10 @@ import { useEffect, useState } from "react";
 import Arrow from "../icons/Arrow";
 import CarouselContent from "./CarouselContent";
 
+/**
+ * composant Carrousel
+ */
+
 function Carousel() {
   const [en, setEn] = useState<boolean>(false);
   
